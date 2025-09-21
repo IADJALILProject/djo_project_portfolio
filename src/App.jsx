@@ -29,11 +29,11 @@ const DATA = {
   cvUrl: "/CV_2025-09-18_Djalil_Salah-bey.pdf",
   avatar: "/avatar.jpg",
   blurb:
-    "Ingénieur Data/Analytics : ingestion, modélisation analytique, orchestration et exposition BI/ML avec un fort souci de fiabilité et de maintenabilité.",
+    "J’assemble ingestion → modèles dbt → orchestration Airflow → exposition BI/ML. Solutions testées, documentées et observables.",
 };
 
 /* ─────────────────────────────────────────────────────────────
-   Logos & images (fallback)
+   Images / Logos (fallback local + brand icons)
    ───────────────────────────────────────────────────────────── */
 
 function BrandLogo({ brand }) {
@@ -97,7 +97,7 @@ function ImgWithFallback({ src, alt }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Data — Projets / Filtres / Compétences
+   Data — Projects / Filters / Skills
    ───────────────────────────────────────────────────────────── */
 
 const BRAND_THEME = {
@@ -171,81 +171,82 @@ function ProjectPoster({ brand, tags, image }) {
   );
 }
 
-/* ── Projets (version prudente / neutre) ── */
+/* ── Projets (neutres et “safe” : démo/maquette, sans métriques) ── */
+
 const PROJECTS = [
   {
     id: 0,
     brand: "ClickHouse",
     image: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Clickhouse.png",
-    title: "Heatmaps batterie — ClickHouse + dbt",
-    task: "Data Engineer",
-    pitch: "Entrepôt analytique ClickHouse alimenté par Airflow, conçu pour des requêtes interactives à faible latence.",
+    title: "Entrepôt analytique — ClickHouse + dbt",
+    task: "Data Engineering (démo)",
+    pitch: "Projet personnel : entrepôt analytique avec modèle en étoile maintenu par dbt et orchestré par Airflow.",
     highlights: [
-      "Modélisation en étoile avec dbt (tests, docs, snapshots).",
-      "Qualité & observabilité (Great Expectations, Prometheus/Grafana).",
-      "Optimisations ORDER BY et vues matérialisées.",
+      "Modélisation dbt (tests & documentation).",
+      "Observabilité (Great Expectations, Prometheus/Grafana).",
+      "Conteneurisation & IaC de base.",
     ],
-    tags: ["ClickHouse", "dbt", "Airflow", "Great Expectations", "Grafana", "Python"],
+    tags: ["ClickHouse", "dbt", "Airflow", "Grafana", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }],
   },
   {
     id: 1,
     brand: "dbt",
     image: "https://upload.wikimedia.org/wikipedia/commons/7/79/Star-schema.png",
-    title: "Entrepôt ventes — dbt & Airflow",
-    task: "Data Engineer / BI",
-    pitch: "Chaîne de transformations dbt (staging → marts) orchestrée avec Airflow.",
+    title: "Modèle ventes — dbt & Airflow",
+    task: "Data/BI (démo)",
+    pitch: "Chaîne dbt de bout en bout (staging → marts) avec orchestration Airflow.",
     highlights: [
-      "Snapshots SCD et tests automatiques (dbt + GE).",
-      "DAGs reproductibles (dépendances, calendriers, backfills).",
-      "Documentation & lineage pour faciliter les revues.",
+      "Snapshots SCD & tests automatiques.",
+      "DAGs reproductibles et backfills.",
+      "Lineage & docs pour revue facile.",
     ],
-    tags: ["dbt", "Airflow", "Great Expectations", "SQL", "Docker", "Python"],
+    tags: ["dbt", "Airflow", "Great Expectations", "SQL", "Docker"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }],
   },
   {
     id: 2,
     brand: "Talend",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
-    title: "ETL industriel — Talend",
-    task: "ETL / Data Engineer (Java Talend)",
-    pitch: "Ingestion multi-sources robuste vers ODS/Reporting, pilotée par paramètres.",
+    title: "ETL Talend — ODS/Reporting",
+    task: "ETL (maquette)",
+    pitch: "Maquette Talend : ingestion multi-sources et alimentation d’un ODS/Reporting.",
     highlights: [
       "tMap/routines, contextes dev/recette/prod.",
-      "Audit, logging et reprise sur incident.",
-      "Orchestration k8s/Airflow, supervision Grafana.",
+      "Audit/logging et gestion d’incidents.",
+      "Exécution conteneurisée.",
     ],
-    tags: ["Talend", "Java", "PostgreSQL", "Airflow", "Grafana", "Kubernetes"],
+    tags: ["Talend", "Java", "PostgreSQL", "Airflow", "Terraform"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }],
   },
   {
     id: 3,
     brand: "Spark",
     image: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg",
-    title: "Batch & streaming — Spark/Kafka/Delta",
-    task: "Big Data Engineer",
-    pitch: "Traitements PySpark batch et streaming avec intégration Kafka/Delta Lake.",
+    title: "Batch & streaming — Spark/Kafka",
+    task: "Big Data (démo)",
+    pitch: "Proof-of-concept PySpark (batch & streaming) avec Kafka et Delta Lake.",
     highlights: [
-      "Structured Streaming avec gestion des offsets.",
-      "Delta MERGE/OPTIMIZE et partitionnement temporel.",
-      "Orchestration Airflow + tests pytest.",
+      "Structured Streaming + Kafka.",
+      "Delta Lake (MERGE/OPTIMIZE).",
+      "Orchestration avec Airflow.",
     ],
-    tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "pytest", "Docker"],
+    tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }],
   },
   {
     id: 4,
     brand: "Cloud",
     image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png",
-    title: "Pipeline BI cloud — bronze/silver/gold",
-    task: "Data Engineer / Cloud",
-    pitch: "De l’ingestion aux KPI consommables (b/s/g) avec contrôles qualité et alerting.",
+    title: "Pipeline BI — bronze/silver/gold",
+    task: "Cloud (démo)",
+    pitch: "Pipeline cloud illustrant b/s/g et exposition d’indicateurs BI.",
     highlights: [
-      "Transformations dbt, tests GE et règles de fraîcheur.",
-      "Dashboards de supervision Grafana.",
-      "Provisionnement IaC (Terraform).",
+      "Transformations dbt + tests.",
+      "Alerting fraîcheur/latence (Grafana).",
+      "IaC de base (Terraform).",
     ],
-    tags: ["Cloud", "dbt", "Great Expectations", "Terraform", "SQL", "Python"],
+    tags: ["Cloud", "dbt", "Airflow", "Terraform", "SQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
   },
   {
@@ -253,74 +254,75 @@ const PROJECTS = [
     brand: "Flask",
     image: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg",
     title: "Microservice data/ML — Flask",
-    task: "MLOps / Data Science",
-    pitch: "API REST conteneurisée avec endpoints métiers et observabilité basique.",
+    task: "MLOps (démo)",
+    pitch: "API REST conteneurisée avec endpoints de base et instrumentation.",
     highlights: [
-      "Endpoints /predict, /metrics et health checks.",
-      "Tests pytest et pipeline CI.",
-      "Déploiement k8s, métriques Prometheus.",
+      "Endpoints /predict & /metrics.",
+      "Tests pytest + CI GitHub Actions.",
+      "Déploiement k8s (maquette).",
     ],
-    tags: ["Flask", "Docker", "Kubernetes", "Prometheus", "pytest", "Python"],
+    tags: ["Flask", "pytest", "Docker", "Kubernetes", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/flask_docker_app" }],
   },
   {
     id: 6,
     brand: "Talend",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
-    title: "Module ETL — Talend (JAR)",
-    task: "ETL / Data Engineer (Java Talend)",
-    pitch: "Exécutable autonome, configuration externe et logs structurés.",
+    title: "Module ETL — exécutable JAR",
+    task: "ETL (maquette)",
+    pitch: "Module ETL packagé en JAR avec configuration externe.",
     highlights: [
-      "Packaging JAR, log4j2, mappings XML.",
-      "Exécution via Airflow sur k8s, secrets gérés.",
-      "Monitoring centralisé (Prom/Graf).",
+      "Packaging JAR & log4j2.",
+      "Orchestration Airflow/k8s.",
+      "Monitoring centralisé (démo).",
     ],
-    tags: ["Talend", "Java", "Airflow", "Kubernetes", "Prometheus", "Grafana"],
+    tags: ["Talend", "Java", "Airflow", "Kubernetes", "Grafana"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend_2" }],
   },
   {
     id: 7,
     brand: "n8n",
     image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/N8n-logo.png",
-    title: "Agent n8n — Orchestration & RAG",
-    task: "NLP Automation & Real-Time APIs",
-    pitch: "Workflows d’automatisation (ingestion, embeddings, recherche sémantique).",
+    title: "Workflows n8n — RAG & APIs",
+    task: "Automation (démo)",
+    pitch: "Workflows d’automatisation pour ingestion et recherche sémantique.",
     highlights: [
-      "Intégrations Kafka/webhooks.",
-      "Stockage PostgreSQL + objet, versionnement schémas.",
-      "Déploiement k8s, supervision Grafana.",
+      "Intégrations webhooks/Kafka.",
+      "PostgreSQL + stockage objet.",
+      "Déploiement k8s (maquette).",
     ],
-    tags: ["n8n", "Kafka", "PostgreSQL", "Kubernetes", "Docker", "Python"],
+    tags: ["n8n", "Kafka", "PostgreSQL", "Docker", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Agent_n8n" }],
   },
   {
     id: 8,
     brand: "Fraud",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/World_map_blank_without_borders.svg/1024px-World_map_blank_without_borders.svg.png",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/World_map_blank_without_borders.svg/1024px-World_map_blank_without_borders.svg.png",
     title: "Détection de fraude — API Flask",
-    task: "Data Scientist / Data Engineer",
-    pitch: "Modèle d’exemple exposé via /predict et visualisation carto.",
+    task: "Data/ML (démo)",
+    pitch: "Maquette : modèle exposé via /predict + visualisation géographique.",
     highlights: [
-      "EDA & features, évaluation standard.",
-      "Dockerisation et instrumentation de base.",
-      "Prêt pour CI/CD et monitoring.",
+      "EDA & features de base.",
+      "Dockerisation & instrumentation.",
+      "Prêt pour pipeline CI/CD (démo).",
     ],
-    tags: ["Python", "Flask", "Docker", "SQL", "Pandas", "BI"],
+    tags: ["Python", "Flask", "Docker", "SQL", "BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
   },
   {
     id: 9,
     brand: "Keras",
     image: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg",
-    title: "AI Labs — Texte & image",
-    task: "AI Engineer / MLOps",
-    pitch: "Deux maquettes pédagogiques (NLP + CNN) packagées et testées.",
+    title: "AI Labs — texte & image",
+    task: "AI/MLOps (démo)",
+    pitch: "Deux maquettes pédagogiques (classification texte et CNN).",
     highlights: [
-      "Classification texte TF-IDF (CLI/GUI).",
-      "CNN Keras sur CIFAR-10.",
-      "Packaging & tests pytest.",
+      "NLP TF-IDF (CLI/GUI).",
+      "CNN Keras (CIFAR-10).",
+      "Tests pytest & packaging.",
     ],
-    tags: ["Python", "Docker", "Keras", "scikit-learn", "CIFAR-10", "CLI"],
+    tags: ["Python", "Docker", "Keras", "sklearn"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/ai-labs-text-and-image" }],
   },
 ];
@@ -397,7 +399,7 @@ const SKILLS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   Helpers UI
+   Small UI helpers
    ───────────────────────────────────────────────────────────── */
 
 function Section({ id, title, icon, children }) {
@@ -468,6 +470,7 @@ function Header() {
             href={DATA.cvUrl}
             download
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-black text-white hover:bg-zinc-800 transition"
+            aria-label="Télécharger le CV"
           >
             <Download className="h-4 w-4" /> CV
           </a>
@@ -481,7 +484,7 @@ function TopBanner() {
   return (
     <div className="w-full border-b bg-amber-50/80 text-amber-900">
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-2 text-sm flex flex-wrap items-center justify-between gap-3">
-        <div>🟡 À l’écoute d’opportunités — Ingénieur en science des données.</div>
+        <div>🟡 À l’écoute d’opportunités — Ingénieur en science des données. Curieux, rigoureux, orienté impact.</div>
         <div className="flex gap-2">
           <a href={DATA.email} className="inline-flex items-center gap-1.5 rounded-full border border-amber-900 px-3 py-1 hover:bg-amber-900 hover:text-white transition"><Mail className="h-4 w-4" /> Email</a>
           <a href={DATA.phone} className="inline-flex items-center gap-1.5 rounded-full border border-amber-900 px-3 py-1 hover:bg-amber-900 hover:text-white transition"><Phone className="h-4 w-4" /> Appeler</a>
@@ -506,20 +509,45 @@ function Hero() {
             <div className="text-sm inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-4">
               <Rocket className="h-4 w-4" /> Disponible pour CDI / Mission
             </div>
-            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">{DATA.title}</h1>
+            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1] [text-wrap:balance]">
+              {DATA.title}
+            </h1>
             <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300">{DATA.blurb}</p>
+
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition"><Mail className="h-4 w-4" /> Me contacter</a>
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+                <Mail className="h-4 w-4" /> Me contacter
+              </a>
               <a
                 href={DATA.cvUrl}
                 download
                 className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
+                aria-label="Télécharger le CV"
               >
                 <Download className="h-4 w-4" /> Télécharger le CV
               </a>
+              <a
+                href={DATA.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+                aria-label="Ouvrir GitHub"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+              <a
+                href={DATA.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+                aria-label="Ouvrir LinkedIn"
+              >
+                <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
             </div>
+
             <div className="mt-6 flex flex-wrap">
-              {["ClickHouse","dbt","Python","SQL","Streamlit","Power BI","Azure","Airflow","Docker","Git CI/CD"].map((b) => (<Badge key={b}>{b}</Badge>))}
+              {["dbt","Airflow","ClickHouse","Python","SQL","Docker","Azure","Grafana"].map((b) => (<Badge key={b}>{b}</Badge>))}
             </div>
           </div>
           <div className="flex md:justify-end">
@@ -542,9 +570,8 @@ function Projects() {
   const filtered = useMemo(() => {
     return PROJECTS.filter((p) => {
       const matchFilter = selected === "All" || p.tags.includes(selected);
-      const matchQuery =
-        q.trim() === "" ||
-        (p.title + " " + p.pitch + " " + (p.highlights || []).join(" ") + " " + p.tags.join(" ")).toLowerCase().includes(q.toLowerCase());
+      const haystack = (p.title + " " + p.pitch + " " + (p.highlights || []).join(" ") + " " + p.tags.join(" ")).toLowerCase();
+      const matchQuery = q.trim() === "" || haystack.includes(q.toLowerCase());
       return matchFilter && matchQuery;
     });
   }, [selected, q]);
@@ -614,7 +641,13 @@ function Projects() {
 
               <div className="flex flex-wrap items-center gap-3 text-sm">
                 {p.link?.map((l, i) => (
-                  <a key={i} href={l.url} className="inline-flex items-center gap-1 hover:underline">
+                  <a
+                    key={i}
+                    href={l.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1 hover:underline"
+                  >
                     {l.name === "GitHub" ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />} {l.name}
                   </a>
                 ))}
@@ -689,8 +722,8 @@ const RESPONSIBILITIES = [
   {
     title: "Architecture & Modélisation",
     items: [
-      "Cadrage data (MDS/Lakehouse, batch/stream).",
-      "Modèles en étoile (Kimball), Data Vault.",
+      "Cadrage archi (MDS/Lakehouse, batch/stream).",
+      "Modèles en étoile (Kimball), Data Vault, 3NF → Star.",
       "Contrats de données & schémas (JSONSchema/dbt).",
       "Partitionnement/cluster (ORDER BY, Z-Order).",
     ],
@@ -699,8 +732,8 @@ const RESPONSIBILITIES = [
     title: "Ingestion & Connectivité",
     items: [
       "Connecteurs API/JDBC, S3/ADLS, webhooks.",
-      "Batch & temps réel (Kafka), incrémental/CDC.",
-      "Idempotence, retries, gestion des secrets.",
+      "Batch & temps réel (Kafka), CDC/incrémental.",
+      "Idempotence, retries, backoff, gestion des secrets.",
       "Normalisation & chiffrement à l'entrée.",
     ],
   },
@@ -709,25 +742,25 @@ const RESPONSIBILITIES = [
     items: [
       "Staging/cleansing, tests & docs dbt.",
       "Snapshots SCD, modèles incrémentaux.",
-      "Optimisations SQL, Delta MERGE/OPTIMIZE.",
+      "Optimisations SQL (fenêtres/CTE), Delta MERGE/OPTIMIZE.",
       "Marts métier & métriques réutilisables.",
     ],
   },
   {
     title: "Orchestration & Scheduling",
     items: [
-      "DAGs Airflow (sensors, SLAs, pools).",
-      "Déploiement k8s/CronJobs, ressources.",
-      "Calendriers & backfills contrôlés.",
-      "Operators custom & secrets backends.",
+      "DAGs Airflow (sensors, SLAs, pools, XCom).",
+      "Déploiement sur k8s/CronJobs, dépendances/ressources.",
+      "Calendriers, priorités & backfills contrôlés.",
+      "Hooks/Operators custom & secrets backends.",
     ],
   },
   {
     title: "Qualité & Gouvernance",
     items: [
-      "Great Expectations (suites, checkpoints).",
+      "Great Expectations (suites, checkpoints, coverage).",
       "Data lineage (OpenLineage/DataHub).",
-      "SLAs/SLOs, glossaire & stewardship.",
+      "Data contracts, SLAs/SLOs, stewardship & glossaire.",
       "Gestion des définitions KPI.",
     ],
   },
@@ -735,9 +768,9 @@ const RESPONSIBILITIES = [
     title: "Observabilité & Monitoring",
     items: [
       "Métriques Prometheus, dashboards Grafana.",
-      "Logs structurés & corrélation.",
-      "Alerting (lag, échecs DAG, qualité).",
-      "Runbooks & remédiation basique.",
+      "Logs structurés, traceids, corrélation d'incidents.",
+      "Alerting (lag, échecs DAG, dérives qualité).",
+      "Runbooks & auto-remédiation de base.",
     ],
   },
   {
@@ -745,8 +778,8 @@ const RESPONSIBILITIES = [
     items: [
       "Benchmarks froid/chaud, p95/p99.",
       "ClickHouse : ORDER BY, vues matérialisées, TTL.",
-      "Dimensionnement & pruning.",
-      "Optimisation stockage/compute Cloud.",
+      "Dimensionnement clusters, cache & pruning.",
+      "Optimisation stockage/compute & coûts Cloud.",
     ],
   },
   {
@@ -754,7 +787,7 @@ const RESPONSIBILITIES = [
     items: [
       "RBAC, rôles & secrets (Vault/KeyVault).",
       "Chiffrement at-rest/in-transit, masquage PII.",
-      "RGPD/retention policies, purges.",
+      "RGPD/retention policies, purges & anonymisation.",
       "Revue d'accès & journaux d'audit.",
     ],
   },
@@ -764,25 +797,34 @@ const RESPONSIBILITIES = [
       "Images Docker multi-stages, SBOM.",
       "CI GitHub Actions (lint, tests, dbt build).",
       "IaC Terraform (réseaux, DB, monitoring).",
-      "Versioning & releases.",
+      "Versioning, releases & canary.",
     ],
   },
   {
     title: "Cloud & Infra",
     items: [
       "Azure (ADLS/Blob, Databricks), AWS (S3).",
-      "Kubernetes, ingress & autoscaling.",
-      "Stockage objet, quotas.",
-      "Suivi coûts & étiquetage.",
+      "Kubernetes, CronJobs, ingress & autoscaling.",
+      "Stockage objet, file systems, quotas.",
+      "Gestion coûts & étiquetage ressources.",
     ],
   },
   {
     title: "Data Products & Serving",
     items: [
-      "APIs Flask/Express, endpoints /predict.",
+      "APIs Flask/Express, endpoints /predict & /metrics.",
       "Apps Streamlit & intégrations BI.",
-      "Caching, pagination, versionnement.",
-      "Contrats de consommation & SLAs.",
+      "Caching, pagination, versionnement schémas.",
+      "SLAs d'exposition & contrats de consommation.",
+    ],
+  },
+  {
+    title: "Support, Run & Documentation",
+    items: [
+      "Astreinte légère, post-mortems.",
+      "Playbooks, READMEs, ADRs, dbt docs/lineage.",
+      "Formations internes & mentoring.",
+      "Suivi backlog & priorisation métiers.",
     ],
   },
 ];
@@ -807,7 +849,7 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Experience (version neutre, sans chiffres sensibles)
+   Experience
    ───────────────────────────────────────────────────────────── */
 
 function Experience() {
@@ -817,48 +859,51 @@ function Experience() {
         role: "Data Engineer — R&D",
         company: "PowerUp Technology",
         brand: "Cloud",
-        period: "2025 · Paris",
+        period: "Avr. 2025 → Aujourd'hui · Paris",
         details: [
-          "Migration analytique vers ClickHouse avec modèle en étoile dbt.",
-          "Chaîne Azure Blob → dbt → Airflow, observabilité (Prometheus/Grafana).",
-          "Exécution Docker & IaC Terraform.",
-          "Mise en place de SLAs et data contracts, alerting proactif.",
-          "DAGs Airflow et documentation du lineage.",
-          "Optimisations via vues matérialisées et TTL.",
+          "Migration analytique ClickHouse (étoile dbt) alimentant des heatmaps produit.",
+          "Chaîne Azure Blob → dbt (tests & docs) → Airflow, observabilité Prometheus + Grafana.",
+          "Exécution Docker & IaC Terraform, benchmarks automatisés.",
+          "SLAs et data contracts ; alerting proactif (qualité/lag).",
+          "DAGs Airflow (sensors, pools, SLA), backfills contrôlés, hooks custom.",
+          "Tests (dbt + GE), documentation & lineage pour sécuriser les évolutions.",
+          "Optimisations via vues matérialisées, TTL et pruning de partitions.",
         ],
       },
       {
         role: "Data Engineer (alternance)",
         company: "Koacher · SportTech",
         brand: "Cloud",
-        period: "2022–2024 · Lyon",
+        period: "Sept. 2022 → Août 2024 · Lyon",
         details: [
           "Modélisation domaine et entrepôt PostgreSQL exposé via APIs.",
-          "Pipelines ETL Python + APIs Node/Express, tests et résilience.",
-          "Métriques produit/marketing, conteneurisation Docker et CI.",
-          "Schémas en étoile et vues analytiques.",
-          "Contrôles de qualité et logs structurés.",
-          "Optimisations SQL pour reporting et facturation.",
+          "Pipelines ETL Python + APIs Node/Express pour front React & dashboards internes.",
+          "Métriques produit/marketing, Docker et CI GitHub Actions.",
+          "Schémas en étoile & vues analytiques.",
+          "Contrôles de qualité, logs structurés.",
+          "Optimisation SQL pour reporting & facturation.",
+          "Documentation usages data et formation SQL.",
         ],
       },
       {
         role: "Data Analyst (stage)",
         company: "HSBC",
         brand: "Cloud",
-        period: "2021 · Alger",
+        period: "Fév. 2021 → Mai 2021 · Alger",
         details: [
           "Analyses exploratoires, reporting et automatisations SQL/Excel.",
-          "Harmonisation des extractions et contrôles de qualité.",
+          "Standardisation des extractions et contrôles de qualité.",
+          "Scripts paramétrables pour demandes ad-hoc.",
         ],
       },
       {
         role: "Data Analyst (stage)",
         company: "BNP Paribas",
         brand: "Cloud",
-        period: "2020 · Alger",
+        period: "Mars 2020 → Juin 2020 · Alger",
         details: [
-          "Qualité de données, requêtes SQL et standardisation d’extractions.",
-          "Amélioration de la traçabilité et des référentiels.",
+          "Qualité de données, requêtes SQL et extractions standardisées.",
+          "Amélioration de la traçabilité et harmonisation des référentiels.",
         ],
       },
     ],
@@ -944,10 +989,10 @@ function Contact() {
             <a href={DATA.phone} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
               <Phone className="h-4 w-4" /> +33 6 11 27 91 53
             </a>
-            <a href={DATA.github} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+            <a href={DATA.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
               <Github className="h-4 w-4" /> GitHub
             </a>
-            <a href={DATA.linkedin} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
               <Linkedin className="h-4 w-4" /> LinkedIn
             </a>
             <a
@@ -977,9 +1022,10 @@ export default function Portfolio() {
       <Header />
       <TopBanner />
       <Hero />
-      {/* About & Résumé supprimés */}
+      {/* About supprimé */}
       <Projects />
       <Skills />
+      {/* Résumé supprimé */}
       <Responsibilities />
       <Experience />
       <Education />
