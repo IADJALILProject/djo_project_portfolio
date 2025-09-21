@@ -16,7 +16,6 @@ import {
 
 /* ─────────────────────────────────────────────────────────────
    Portfolio — Djalil Salah-Bey (Data / Analytics Engineer)
-   Single-file React + Tailwind + Framer Motion + react-icons
    ───────────────────────────────────────────────────────────── */
 
 const DATA = {
@@ -28,9 +27,9 @@ const DATA = {
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
   cvUrl: "/CV_2025-09-18_Djalil_Salah-bey.pdf",
-  avatar: "/avatar.jpg", // ← place ce fichier dans /public
+  avatar: "/avatar.jpg",
   blurb:
-    "Ingénieur en science des données (Data/Analytics). Je conçois et opère des pipelines de bout en bout — ingestion, modèles analytiques, exposition BI/ML — avec un haut niveau de fiabilité, de performance et de gouvernance. Habitué à travailler avec les équipes produit & métiers, je rends les indicateurs actionnables et mesurables.",
+    "Ingénieur en science des données (Data/Analytics). Je conçois et opère des pipelines de bout en bout — ingestion, modèles analytiques, exposition BI/ML — avec un haut niveau de fiabilité, de performance et de gouvernance.",
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -221,10 +220,10 @@ const PROJECTS = [
     id: 4,
     brand: "Cloud",
     image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png",
-    title: "Pipeline BI cloud — b/s/g",
+    title: "Pipeline BI cloud — bronze / silver / gold",
     task: "Data Engineer / Cloud",
     description:
-      "Ingestion → bronze/silver/gold → KPIs. Orchestration (Airflow/ADF/DBX), dbt, tests GE, alerting, Prom/Graf, Terraform.",
+      "Ingestion → bronze/silver/gold → KPI. Orchestration (Airflow/ADF/DBX), dbt, tests GE, alerting, Prom/Graf, Terraform.",
     tags: ["Cloud", "Airflow", "dbt", "Great Expectations", "Terraform", "Grafana", "Prometheus", "SQL", "Python", "BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
   },
@@ -263,7 +262,7 @@ const PROJECTS = [
   },
   {
     id: 8,
-    brand: "Fraud",
+    brand: "Fraude",
     image:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/World_map_blank_without_borders.svg/1024px-World_map_blank_without_borders.svg.png",
     title: "Détection de fraude — API Flask",
@@ -406,7 +405,7 @@ function Avatar({ src, name, className = "" }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Header / Hero / About
+   Header / Hero
    ───────────────────────────────────────────────────────────── */
 
 function Header() {
@@ -415,16 +414,19 @@ function Header() {
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="font-semibold tracking-tight">{DATA.name}</div>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a href="#about" className="hover:opacity-70">À propos</a>
+          {/* supprimé: À propos / Résumé */}
           <a href="#projects" className="hover:opacity-70">Projets</a>
           <a href="#skills" className="hover:opacity-70">Compétences</a>
-          <a href="#summary" className="hover:opacity-70">Résumé</a>
           <a href="#responsibilities" className="hover:opacity-70">Missions & Réalisations</a>
           <a href="#experience" className="hover:opacity-70">Expériences</a>
           <a href="#education" className="hover:opacity-70">Formation</a>
           <a href="#contact" className="hover:opacity-70">Contact</a>
-          <a href={DATA.cvUrl} download className="inline-flex items-center gap-2 border rounded-full px-4 py-1.5 hover:bg-black hover:text-white transition">
-            <Download className="h-4 w-4" /> CV
+          <a
+            href={DATA.cvUrl}
+            download
+            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-black text-white hover:bg-black/90 transition"
+          >
+            <Download className="h-4 w-4" /> Télécharger le CV
           </a>
         </nav>
       </div>
@@ -464,8 +466,16 @@ function Hero() {
             <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">{DATA.title}</h1>
             <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300">{DATA.blurb}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition"><Mail className="h-4 w-4" /> Me contacter</a>
-              <a href={DATA.cvUrl} download className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition"><Download className="h-4 w-4" /> Télécharger le CV</a>
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+                <Mail className="h-4 w-4" /> Me contacter
+              </a>
+              <a
+                href={DATA.cvUrl}
+                download
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-black/90 transition"
+              >
+                <Download className="h-4 w-4" /> Télécharger le CV
+              </a>
             </div>
             <div className="mt-6 flex flex-wrap">
               {["ClickHouse","dbt","Python","SQL","Streamlit","Power BI","Azure","Airflow","Docker","Git CI/CD"].map((b) => (<Badge key={b}>{b}</Badge>))}
@@ -477,31 +487,6 @@ function Hero() {
         </motion.div>
       </section>
     </div>
-  );
-}
-
-function About() {
-  return (
-    <Section id="about" title="À propos" icon={<Database className="h-6 w-6" />}>
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card>
-          <p className="text-sm leading-6">
-            Je conçois des modèles analytiques robustes (étoile/Kimball), des pipelines ELT/ETL testés (dbt + CI) et des apps data (Streamlit / web)
-            pour donner des métriques fiables aux équipes produit & métiers.
-          </p>
-        </Card>
-        <Card>
-          <p className="text-sm leading-6">
-            Focus performance & coût : ClickHouse, partitionnement/ORDER BY, agrégations incrémentales, vues matérialisées, et benchmarks systématiques.
-          </p>
-        </Card>
-        <Card>
-          <p className="text-sm leading-6">
-            Habitué Azure & Docker : ingestion (Blob/SAS), modélisation (dbt), exposition (APIs/apps/BI), observabilité (Prometheus/Grafana).
-          </p>
-        </Card>
-      </div>
-    </Section>
   );
 }
 
@@ -646,26 +631,8 @@ function Skills() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Summary + Responsibilities
+   Responsibilities
    ───────────────────────────────────────────────────────────── */
-
-function SeniorSummary() {
-  return (
-    <Section id="summary" title="Résumé" icon={<Rocket className="h-6 w-6" />}>
-      <Card>
-        <p className="text-sm leading-6">
-          Ingénieur en science des données orienté produit. Je conçois des plateformes data fiables et maintenables
-          (MDS/Lakehouse) et j’assure la livraison de données prêtes à l’usage pour les équipes métier et produit.
-        </p>
-        <p className="text-sm text-zinc-600 dark:text-zinc-300 mt-2">
-          Compétences clés : modélisation analytique (Kimball avec dbt), orchestration & automatisation (Airflow),
-          performance & coût (ClickHouse/Spark), observabilité & qualité (Prometheus/Grafana, tests dbt/GE).
-          Habitué à documenter, définir des SLAs et piloter par indicateurs.
-        </p>
-      </Card>
-    </Section>
-  );
-}
 
 const RESPONSIBILITIES = [
   {
@@ -944,7 +911,11 @@ function Contact() {
             <a href={DATA.linkedin} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
               <Linkedin className="h-4 w-4" /> LinkedIn
             </a>
-            <a href={DATA.cvUrl} download className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+            <a
+              href={DATA.cvUrl}
+              download
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-black/90 transition"
+            >
               <Download className="h-4 w-4" /> Télécharger le CV
             </a>
           </div>
@@ -967,10 +938,10 @@ export default function Portfolio() {
       <Header />
       <TopBanner />
       <Hero />
-      <About />
+      {/* supprimé: <About /> */}
       <Projects />
       <Skills />
-      <SeniorSummary />
+      {/* supprimé: <SeniorSummary /> */}
       <Responsibilities />
       <Experience />
       <Education />
