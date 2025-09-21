@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import {
   Mail, Github, Linkedin, Download, ExternalLink, Briefcase, Database,
-  Rocket, Filter, Phone
+  Rocket, Filter, Phone, Moon, Sun, ArrowLeft, ArrowRight
 } from "lucide-react";
 import {
   FaPython, FaDatabase, FaCogs, FaNetworkWired, FaCloud, FaServer, FaDocker, FaAws
@@ -30,12 +30,14 @@ const DATA = {
   avatar: "/avatar.jpg",
 };
 
-/* ─────────────────────────────────────────────────────────────
-   Styles boutons réutilisables
-   ───────────────────────────────────────────────────────────── */
+const SECTION_ORDER = ["projects", "skills", "responsibilities", "experience", "education", "contact"];
 
-const BTN = "inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-black";
-const BTN_CHIP = "inline-flex items-center rounded-full px-3 py-1 text-sm bg-black text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-black";
+/* ─────────────────────────────────────────────────────────────
+   Styles de bouton unifiés (noir)
+   ───────────────────────────────────────────────────────────── */
+const BTN = "inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition";
+const BTN_SM = "inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-black text-white hover:bg-zinc-800 transition text-sm";
+const BTN_CHIP = "inline-flex items-center rounded-full px-3 py-1 text-sm bg-black text-white transition";
 
 /* ─────────────────────────────────────────────────────────────
    Images / Logos (fallback local + brand icons)
@@ -44,7 +46,7 @@ const BTN_CHIP = "inline-flex items-center rounded-full px-3 py-1 text-sm bg-bla
 function BrandLogo({ brand }) {
   const label = (brand || "Data").toUpperCase();
   return (
-    <svg viewBox="0 0 400 140" className="w-full h-36" role="img" aria-label={label}>
+    <svg viewBox="0 0 400 140" className="w-full h-36">
       <defs>
         <linearGradient id="g" x1="0" x2="1">
           <stop offset="0" stopColor="#e5e7eb" />
@@ -93,13 +95,10 @@ function ImgWithFallback({ src, alt }) {
     <img
       src={src}
       alt={alt}
-      width="640"
-      height="144"
       className="w-full h-36 object-contain"
       onError={() => setOk(false)}
       loading="lazy"
       decoding="async"
-      sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
     />
   );
 }
@@ -352,7 +351,7 @@ const FILTERS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   Skills (MLOps enrichi, AI = jauges complètes)
+   Skills (MLOps enrichi, IA = jauges complètes)
    ───────────────────────────────────────────────────────────── */
 
 const SKILLS = [
@@ -433,12 +432,12 @@ const SKILLS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   Helpers UX
+   Helpers UI
    ───────────────────────────────────────────────────────────── */
 
 function Section({ id, title, icon, children }) {
   return (
-    <section id={id} className="scroll-mt-24 max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-16">
+    <section id={id} className="scroll-mt-20 max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-14">
       <div className="flex items-center gap-3 mb-8">
         {icon}
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">{title}</h2>
@@ -460,6 +459,7 @@ function Card({ children }) {
   );
 }
 
+/* Avatar avec fallback initiales */
 function Avatar({ src, name, className = "" }) {
   const [ok, setOk] = useState(true);
   const initials = useMemo(() => name.split(" ").map(w => w[0]).join(""), [name]);
@@ -469,7 +469,6 @@ function Avatar({ src, name, className = "" }) {
       <img
         src={src}
         alt={name}
-        width="224" height="224"
         className={"w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border shadow-inner " + className}
         onError={() => setOk(false)}
         loading="lazy"
@@ -484,83 +483,74 @@ function Avatar({ src, name, className = "" }) {
   );
 }
 
-/* ScrollSpy pour nav active */
-function useScrollSpy(ids) {
-  const [active, setActive] = useState("");
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 }
-    );
-    ids.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
-  }, [ids]);
-  return active;
-}
-
 /* ─────────────────────────────────────────────────────────────
-   Header / Hero (bannière supprimée)
+   Header + Thème + Scrollspy + Skip link
    ───────────────────────────────────────────────────────────── */
 
-function Header() {
-  const active = useScrollSpy(["projects","skills","responsibilities","experience","education","contact"]);
-  const link = (id, label) => (
-    <a
-      href={`#${id}`}
-      aria-current={active===id ? "page" : undefined}
-      className={"hover:opacity-70 " + (active===id ? "font-semibold underline underline-offset-4" : "")}
-    >
-      {label}
-    </a>
-  );
-
-  return (
-    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-zinc-900/60 border-b">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="font-semibold tracking-tight">{DATA.name}</div>
-        <nav className="hidden md:flex items-center gap-6 text-sm">
-          {link("projects","Projets")}
-          {link("skills","Compétences")}
-          {link("responsibilities","Missions & Réalisations")}
-          {link("experience","Expériences")}
-          {link("education","Formation")}
-          {link("contact","Contact")}
-          <a href={DATA.cvUrl} download className={BTN} aria-label="Télécharger le CV">
-            <Download className="h-4 w-4" /> CV
-          </a>
-        </nav>
-      </div>
-    </header>
-  );
+function useTheme() {
+  const [dark, setDark] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved === "dark";
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [dark]);
+  return { dark, toggle: () => setDark((d) => !d) };
 }
 
-/* Lien d'évitement (accessibilité) */
-function SkipToContent() {
+function Header({ activeId }) {
+  const { dark, toggle } = useTheme();
+
+  const linkCls = (id) =>
+    "hover:opacity-70 " +
+    (activeId === id ? "underline underline-offset-8 decoration-2" : "opacity-90");
+
   return (
-    <a
-      href="#main"
-      className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:bg-black focus:text-white focus:px-3 focus:py-2 rounded"
-    >
-      Aller au contenu
-    </a>
+    <>
+      <a href="#projects" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-black focus:text-white focus:px-3 focus:py-1 focus:rounded">
+        Aller au contenu
+      </a>
+      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-zinc-900/60 border-b">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="font-semibold tracking-tight">{DATA.name}</div>
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#projects" className={linkCls("projects")}>Projets</a>
+            <a href="#skills" className={linkCls("skills")}>Compétences</a>
+            <a href="#responsibilities" className={linkCls("responsibilities")}>Missions & Réalisations</a>
+            <a href="#experience" className={linkCls("experience")}>Expériences</a>
+            <a href="#education" className={linkCls("education")}>Formation</a>
+            <a href="#contact" className={linkCls("contact")}>Contact</a>
+            <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
+              <Download className="h-4 w-4" /> CV
+            </a>
+            <button onClick={toggle} className={BTN_SM} aria-label="Basculer le thème">
+              {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />} Thème
+            </button>
+          </nav>
+        </div>
+      </header>
+    </>
   );
 }
 
 function Hero() {
-  const reduce = useReducedMotion();
   return (
     <div className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zinc-50 to-transparent dark:from-zinc-950" />
-      <section id="main" className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <section className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
         <motion.div
-          initial={reduce ? {} : { opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.6 }}
+          transition={{ duration: 0.6 }}
           className="grid md:grid-cols-2 gap-8 items-center"
         >
           <div>
@@ -600,37 +590,43 @@ function Hero() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Projects
+   Projects (recherche + filtres + synchro URL)
    ───────────────────────────────────────────────────────────── */
 
-function Projects() {
-  const [selected, setSelected] = useState("All");
-  const [q, setQ] = useState("");
-
-  // Init from URL
+function useQuerySync(state, setState) {
+  // state = { q, selected }
   useEffect(() => {
-    const p = new URLSearchParams(window.location.search);
-    if (p.get("tag")) setSelected(p.get("tag"));
-    if (p.get("q")) setQ(p.get("q"));
+    const url = new URL(window.location.href);
+    const q = url.searchParams.get("q") || "";
+    const f = url.searchParams.get("f") || "All";
+    setState((s) => ({ ...s, q, selected: f }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Sync to URL
   useEffect(() => {
-    const p = new URLSearchParams();
-    if (selected !== "All") p.set("tag", selected);
-    if (q) p.set("q", q);
-    const qs = p.toString();
-    window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
-  }, [selected, q]);
+    const url = new URL(window.location.href);
+    if (state.q) url.searchParams.set("q", state.q);
+    else url.searchParams.delete("q");
+    if (state.selected && state.selected !== "All") url.searchParams.set("f", state.selected);
+    else url.searchParams.delete("f");
+    window.history.replaceState({}, "", url);
+  }, [state.q, state.selected]);
+}
+
+function Projects() {
+  const [state, setState] = useState({ selected: "All", q: "" });
+  useQuerySync(state, setState);
 
   const filtered = useMemo(() => {
     return PROJECTS.filter((p) => {
-      const matchFilter = selected === "All" || p.tags.includes(selected);
+      const matchFilter = state.selected === "All" || p.tags.includes(state.selected);
       const haystack = (p.title + " " + p.pitch + " " + (p.highlights || []).join(" ") + " " + p.tags.join(" ")).toLowerCase();
-      const matchQuery = q.trim() === "" || haystack.includes(q.toLowerCase());
+      const matchQuery = state.q.trim() === "" || haystack.includes(state.q.toLowerCase());
       return matchFilter && matchQuery;
     });
-  }, [selected, q]);
+  }, [state]);
+
+  const reset = () => setState({ selected: "All", q: "" });
 
   return (
     <Section id="projects" title="Projets sélectionnés" icon={<Briefcase className="h-6 w-6" />}>
@@ -638,33 +634,28 @@ function Projects() {
         <div className="flex-1">
           <div className="relative">
             <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
+              value={state.q}
+              onChange={(e) => setState((s) => ({ ...s, q: e.target.value }))}
               placeholder="Rechercher un projet (mots-clés, techno…)"
-              className="w-full rounded-xl border px-4 py-2 pr-10"
-              aria-label="Recherche de projets"
+              className="w-full rounded-xl border px-4 py-2 pr-24"
             />
-            <Filter className="absolute right-3 top-2.5 h-5 w-5 opacity-60" />
+            <div className="absolute right-2 top-1.5 flex gap-2">
+              <button className={BTN_SM} onClick={reset} title="Réinitialiser">Réinitialiser</button>
+              <Filter className="h-7 w-7 mt-0.5 opacity-60" />
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button onClick={() => { setSelected("All"); setQ(""); }} className={BTN}>
-            Réinitialiser
-          </button>
+        <div className="overflow-x-auto no-scrollbar whitespace-nowrap">
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              onClick={() => setState((s) => ({ ...s, selected: f }))}
+              className={`${BTN_CHIP} mr-2 mb-2 ${state.selected === f ? "ring-2 ring-white/70 dark:ring-zinc-700" : "opacity-90"}`}
+            >
+              {f}
+            </button>
+          ))}
         </div>
-      </div>
-
-      <div className="overflow-x-auto no-scrollbar whitespace-nowrap mb-4">
-        {FILTERS.map((f) => (
-          <button
-            key={f}
-            onClick={() => setSelected(f)}
-            className={`${BTN_CHIP} mr-2 mb-2 ${selected === f ? "opacity-100" : "opacity-75 hover:opacity-100"}`}
-            aria-pressed={selected===f}
-          >
-            {f}
-          </button>
-        ))}
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -703,14 +694,14 @@ function Projects() {
                 ))}
               </div>
 
-              <div className="flex flex-wrap items-center gap-2 text-sm">
+              <div className="flex flex-wrap items-center gap-3 text-sm">
                 {p.link?.map((l, i) => (
                   <a
                     key={i}
                     href={l.url}
                     target="_blank"
                     rel="noreferrer"
-                    className={BTN}
+                    className="inline-flex items-center gap-1 hover:underline"
                   >
                     {l.name === "GitHub" ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />} {l.name}
                   </a>
@@ -728,9 +719,9 @@ function Projects() {
    Skills
    ───────────────────────────────────────────────────────────── */
 
-function SkillBars({ rating }) {
+function SkillStars({ rating }) {
   return (
-    <div className="flex gap-1" aria-hidden="true">
+    <div className="flex gap-1">
       {Array.from({ length: 5 }).map((_, i) => (
         <span
           key={i}
@@ -767,7 +758,7 @@ function Skills() {
                     <span className={"text-lg " + (s.color || "")}>{s.icon}</span>
                     <span className="text-sm">{s.name}</span>
                   </div>
-                  <SkillBars rating={s.rating} />
+                  <SkillStars rating={s.rating} />
                 </div>
               ))}
             </div>
@@ -913,7 +904,7 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Experience (pro, SkyOps freelance ajouté, dates ajustées)
+   Experience (pro, ajout SkyOps freelance, sans “stage”)
    ───────────────────────────────────────────────────────────── */
 
 function Experience() {
@@ -1045,7 +1036,7 @@ function Education() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Contact + FAB mobile
+   Contact
    ───────────────────────────────────────────────────────────── */
 
 function Contact() {
@@ -1060,11 +1051,21 @@ function Contact() {
             </p>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <a href={DATA.email} className={BTN}><Mail className="h-4 w-4" /> Email</a>
-            <a href={DATA.phone} className={BTN}><Phone className="h-4 w-4" /> +33 6 11 27 91 53</a>
-            <a href={DATA.github} target="_blank" rel="noreferrer" className={BTN}><Github className="h-4 w-4" /> GitHub</a>
-            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className={BTN}><Linkedin className="h-4 w-4" /> LinkedIn</a>
-            <a href={DATA.cvUrl} download className={BTN}><Download className="h-4 w-4" /> Télécharger le CV</a>
+            <a href={DATA.email} className={BTN}>
+              <Mail className="h-4 w-4" /> Email
+            </a>
+            <a href={DATA.phone} className={BTN}>
+              <Phone className="h-4 w-4" /> +33 6 11 27 91 53
+            </a>
+            <a href={DATA.github} target="_blank" rel="noreferrer" className={BTN}>
+              <Github className="h-4 w-4" /> GitHub
+            </a>
+            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className={BTN}>
+              <Linkedin className="h-4 w-4" /> LinkedIn
+            </a>
+            <a href={DATA.cvUrl} download className={BTN}>
+              <Download className="h-4 w-4" /> Télécharger le CV
+            </a>
           </div>
         </div>
       </Card>
@@ -1075,13 +1076,57 @@ function Contact() {
   );
 }
 
-/* Bouton flottant mobile */
-function ContactFAB() {
-  return (
-    <a href="#contact" className={`${BTN} md:hidden fixed bottom-4 right-4 shadow-lg`}>
-      <Mail className="h-4 w-4" /> Contact
-    </a>
-  );
+/* ─────────────────────────────────────────────────────────────
+   Scrollspy + Navigation gauche/droite entre sections
+   ───────────────────────────────────────────────────────────── */
+
+function useScrollspy(ids) {
+  const [activeId, setActiveId] = useState(ids[0]);
+  useEffect(() => {
+    const opts = { rootMargin: "-50% 0px -50% 0px", threshold: [0, 1] };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActiveId(entry.target.id);
+      });
+    }, opts);
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [ids]);
+  return activeId;
+}
+
+function useSectionPager() {
+  const [current, setCurrent] = useState(0);
+  const activeId = useScrollspy(SECTION_ORDER);
+  useEffect(() => {
+    const idx = SECTION_ORDER.indexOf(activeId);
+    if (idx >= 0) setCurrent(idx);
+  }, [activeId]);
+
+  const go = (delta) => {
+    const next = Math.min(Math.max(current + delta, 0), SECTION_ORDER.length - 1);
+    const id = SECTION_ORDER[next];
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // navigation au clavier ← →
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.key === "ArrowRight" || e.key === "PageDown") && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault(); go(+1);
+      }
+      if ((e.key === "ArrowLeft" || e.key === "PageUp") && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault(); go(-1);
+      }
+    };
+    window.addEventListener("keydown", onKey, { passive: false });
+    return () => window.removeEventListener("keydown", onKey);
+  }, [current]);
+
+  return { current, go, activeId };
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -1089,10 +1134,11 @@ function ContactFAB() {
    ───────────────────────────────────────────────────────────── */
 
 export default function Portfolio() {
+  const pager = useSectionPager();
+
   return (
     <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-white scroll-smooth">
-      <SkipToContent />
-      <Header />
+      <Header activeId={pager.activeId} />
       <Hero />
       <Projects />
       <Skills />
@@ -1100,7 +1146,21 @@ export default function Portfolio() {
       <Experience />
       <Education />
       <Contact />
-      <ContactFAB />
+
+      {/* Contrôles de navigation gauche/droite */}
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden md:flex gap-3">
+        <button className={BTN_SM} onClick={() => pager.go(-1)}>
+          <ArrowLeft className="h-4 w-4" /> Précédent
+        </button>
+        <button className={BTN_SM} onClick={() => pager.go(+1)}>
+          Suivant <ArrowRight className="h-4 w-4" />
+        </button>
+      </div>
+
+      {/* Bouton contact flottant (mobile) */}
+      <a href="#contact" className="md:hidden fixed bottom-4 right-4 z-40 rounded-full shadow-lg px-4 py-2 bg-black text-white">
+        Contact
+      </a>
     </div>
   );
 }
