@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Mail, Github, Linkedin, Download, ExternalLink, Briefcase, Database,
   Rocket, Filter, Phone
@@ -26,12 +26,16 @@ const DATA = {
   phone: "tel:+33611279153",
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
-  cvUrl: "/CV_2025-09-18_Djalil_Salah-bey.pdf",
+  cvUrl: "/Djalil_Salah-Bey_CV_DataEngineer_FR.pdf",
   avatar: "/avatar.jpg",
-  // blurb masqué (on ne l'affiche plus)
-  blurb:
-    "J’assemble ingestion → modèles dbt → orchestration Airflow → exposition BI/ML. Solutions testées, documentées et observables.",
 };
+
+/* ─────────────────────────────────────────────────────────────
+   Styles boutons réutilisables
+   ───────────────────────────────────────────────────────────── */
+
+const BTN = "inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-black";
+const BTN_CHIP = "inline-flex items-center rounded-full px-3 py-1 text-sm bg-black text-white transition focus:outline-none focus-visible:ring-2 focus-visible:ring-black";
 
 /* ─────────────────────────────────────────────────────────────
    Images / Logos (fallback local + brand icons)
@@ -40,7 +44,7 @@ const DATA = {
 function BrandLogo({ brand }) {
   const label = (brand || "Data").toUpperCase();
   return (
-    <svg viewBox="0 0 400 140" className="w-full h-36">
+    <svg viewBox="0 0 400 140" className="w-full h-36" role="img" aria-label={label}>
       <defs>
         <linearGradient id="g" x1="0" x2="1">
           <stop offset="0" stopColor="#e5e7eb" />
@@ -89,10 +93,13 @@ function ImgWithFallback({ src, alt }) {
     <img
       src={src}
       alt={alt}
+      width="640"
+      height="144"
       className="w-full h-36 object-contain"
       onError={() => setOk(false)}
       loading="lazy"
       decoding="async"
+      sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
     />
   );
 }
@@ -426,12 +433,12 @@ const SKILLS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   Small UI helpers
+   Helpers UX
    ───────────────────────────────────────────────────────────── */
 
 function Section({ id, title, icon, children }) {
   return (
-    <section id={id} className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-14">
+    <section id={id} className="scroll-mt-24 max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-16">
       <div className="flex items-center gap-3 mb-8">
         {icon}
         <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">{title}</h2>
@@ -453,7 +460,6 @@ function Card({ children }) {
   );
 }
 
-/* Avatar avec fallback initiales */
 function Avatar({ src, name, className = "" }) {
   const [ok, setOk] = useState(true);
   const initials = useMemo(() => name.split(" ").map(w => w[0]).join(""), [name]);
@@ -463,6 +469,7 @@ function Avatar({ src, name, className = "" }) {
       <img
         src={src}
         alt={name}
+        width="224" height="224"
         className={"w-40 h-40 md:w-56 md:h-56 rounded-full object-cover border shadow-inner " + className}
         onError={() => setOk(false)}
         loading="lazy"
@@ -477,28 +484,53 @@ function Avatar({ src, name, className = "" }) {
   );
 }
 
+/* ScrollSpy pour nav active */
+function useScrollSpy(ids) {
+  const [active, setActive] = useState("");
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 }
+    );
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, [ids]);
+  return active;
+}
+
 /* ─────────────────────────────────────────────────────────────
-   Header / Hero
+   Header / Hero (bannière supprimée)
    ───────────────────────────────────────────────────────────── */
 
 function Header() {
+  const active = useScrollSpy(["projects","skills","responsibilities","experience","education","contact"]);
+  const link = (id, label) => (
+    <a
+      href={`#${id}`}
+      aria-current={active===id ? "page" : undefined}
+      className={"hover:opacity-70 " + (active===id ? "font-semibold underline underline-offset-4" : "")}
+    >
+      {label}
+    </a>
+  );
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-zinc-900/60 border-b">
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="font-semibold tracking-tight">{DATA.name}</div>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a href="#projects" className="hover:opacity-70">Projets</a>
-          <a href="#skills" className="hover:opacity-70">Compétences</a>
-          <a href="#responsibilities" className="hover:opacity-70">Missions & Réalisations</a>
-          <a href="#experience" className="hover:opacity-70">Expériences</a>
-          <a href="#education" className="hover:opacity-70">Formation</a>
-          <a href="#contact" className="hover:opacity-70">Contact</a>
-          <a
-            href={DATA.cvUrl}
-            download
-            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-black text-white hover:bg-zinc-800 transition"
-            aria-label="Télécharger le CV"
-          >
+          {link("projects","Projets")}
+          {link("skills","Compétences")}
+          {link("responsibilities","Missions & Réalisations")}
+          {link("experience","Expériences")}
+          {link("education","Formation")}
+          {link("contact","Contact")}
+          <a href={DATA.cvUrl} download className={BTN} aria-label="Télécharger le CV">
             <Download className="h-4 w-4" /> CV
           </a>
         </nav>
@@ -507,29 +539,28 @@ function Header() {
   );
 }
 
-function TopBanner() {
+/* Lien d'évitement (accessibilité) */
+function SkipToContent() {
   return (
-    <div className="w-full border-b bg-amber-50/80 text-amber-900">
-      <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-2 text-sm flex flex-wrap items-center justify-between gap-3">
-        <div>🟡 À l’écoute d’opportunités — Ingénieur en science des données.</div>
-        <div className="flex gap-2">
-          <a href={DATA.email} className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 bg-black text-white hover:bg-zinc-800 transition"><Mail className="h-4 w-4" /> Email</a>
-          <a href={DATA.phone} className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 bg-black text-white hover:bg-zinc-800 transition"><Phone className="h-4 w-4" /> Appeler</a>
-        </div>
-      </div>
-    </div>
+    <a
+      href="#main"
+      className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:bg-black focus:text-white focus:px-3 focus:py-2 rounded"
+    >
+      Aller au contenu
+    </a>
   );
 }
 
 function Hero() {
+  const reduce = useReducedMotion();
   return (
     <div className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zinc-50 to-transparent dark:from-zinc-950" />
-      <section className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <section id="main" className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={reduce ? {} : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: reduce ? 0 : 0.6 }}
           className="grid md:grid-cols-2 gap-8 items-center"
         >
           <div>
@@ -539,36 +570,18 @@ function Hero() {
             <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1] [text-wrap:balance]">
               {DATA.title}
             </h1>
-            {/* blurb supprimé */}
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
+              <a href="#contact" className={BTN}>
                 <Mail className="h-4 w-4" /> Me contacter
               </a>
-              <a
-                href={DATA.cvUrl}
-                download
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
-                aria-label="Télécharger le CV"
-              >
+              <a href={DATA.cvUrl} download className={BTN} aria-label="Télécharger le CV">
                 <Download className="h-4 w-4" /> Télécharger le CV
               </a>
-              <a
-                href={DATA.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
-                aria-label="Ouvrir GitHub"
-              >
+              <a href={DATA.github} target="_blank" rel="noreferrer" className={BTN} aria-label="Ouvrir GitHub">
                 <Github className="h-4 w-4" /> GitHub
               </a>
-              <a
-                href={DATA.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
-                aria-label="Ouvrir LinkedIn"
-              >
+              <a href={DATA.linkedin} target="_blank" rel="noreferrer" className={BTN} aria-label="Ouvrir LinkedIn">
                 <Linkedin className="h-4 w-4" /> LinkedIn
               </a>
             </div>
@@ -594,6 +607,22 @@ function Projects() {
   const [selected, setSelected] = useState("All");
   const [q, setQ] = useState("");
 
+  // Init from URL
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (p.get("tag")) setSelected(p.get("tag"));
+    if (p.get("q")) setQ(p.get("q"));
+  }, []);
+
+  // Sync to URL
+  useEffect(() => {
+    const p = new URLSearchParams();
+    if (selected !== "All") p.set("tag", selected);
+    if (q) p.set("q", q);
+    const qs = p.toString();
+    window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
+  }, [selected, q]);
+
   const filtered = useMemo(() => {
     return PROJECTS.filter((p) => {
       const matchFilter = selected === "All" || p.tags.includes(selected);
@@ -613,24 +642,29 @@ function Projects() {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Rechercher un projet (mots-clés, techno…)"
               className="w-full rounded-xl border px-4 py-2 pr-10"
+              aria-label="Recherche de projets"
             />
             <Filter className="absolute right-3 top-2.5 h-5 w-5 opacity-60" />
           </div>
         </div>
-        <div className="overflow-x-auto no-scrollbar whitespace-nowrap">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              onClick={() => setSelected(f)}
-              className={
-                "inline-flex items-center rounded-full border px-3 py-1 text-sm mr-2 mb-2 " +
-                (selected === f ? "bg-black text-white" : "hover:bg-zinc-100 dark:hover:bg-zinc-800")
-              }
-            >
-              {f}
-            </button>
-          ))}
+        <div className="flex items-center gap-2">
+          <button onClick={() => { setSelected("All"); setQ(""); }} className={BTN}>
+            Réinitialiser
+          </button>
         </div>
+      </div>
+
+      <div className="overflow-x-auto no-scrollbar whitespace-nowrap mb-4">
+        {FILTERS.map((f) => (
+          <button
+            key={f}
+            onClick={() => setSelected(f)}
+            className={`${BTN_CHIP} mr-2 mb-2 ${selected === f ? "opacity-100" : "opacity-75 hover:opacity-100"}`}
+            aria-pressed={selected===f}
+          >
+            {f}
+          </button>
+        ))}
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -669,14 +703,14 @@ function Projects() {
                 ))}
               </div>
 
-              <div className="flex flex-wrap items-center gap-3 text-sm">
+              <div className="flex flex-wrap items-center gap-2 text-sm">
                 {p.link?.map((l, i) => (
                   <a
                     key={i}
                     href={l.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 hover:underline"
+                    className={BTN}
                   >
                     {l.name === "GitHub" ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />} {l.name}
                   </a>
@@ -694,9 +728,9 @@ function Projects() {
    Skills
    ───────────────────────────────────────────────────────────── */
 
-function SkillStars({ rating }) {
+function SkillBars({ rating }) {
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1" aria-hidden="true">
       {Array.from({ length: 5 }).map((_, i) => (
         <span
           key={i}
@@ -733,7 +767,7 @@ function Skills() {
                     <span className={"text-lg " + (s.color || "")}>{s.icon}</span>
                     <span className="text-sm">{s.name}</span>
                   </div>
-                  <SkillStars rating={s.rating} />
+                  <SkillBars rating={s.rating} />
                 </div>
               ))}
             </div>
@@ -879,7 +913,7 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Experience (pro, ajout SkyOps freelance, sans “stage”)
+   Experience (pro, SkyOps freelance ajouté, dates ajustées)
    ───────────────────────────────────────────────────────────── */
 
 function Experience() {
@@ -1011,7 +1045,7 @@ function Education() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Contact
+   Contact + FAB mobile
    ───────────────────────────────────────────────────────────── */
 
 function Contact() {
@@ -1026,25 +1060,11 @@ function Contact() {
             </p>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <a href={DATA.email} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
-              <Mail className="h-4 w-4" /> Email
-            </a>
-            <a href={DATA.phone} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
-              <Phone className="h-4 w-4" /> +33 6 11 27 91 53
-            </a>
-            <a href={DATA.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
-              <Github className="h-4 w-4" /> GitHub
-            </a>
-            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
-              <Linkedin className="h-4 w-4" /> LinkedIn
-            </a>
-            <a
-              href={DATA.cvUrl}
-              download
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
-            >
-              <Download className="h-4 w-4" /> Télécharger le CV
-            </a>
+            <a href={DATA.email} className={BTN}><Mail className="h-4 w-4" /> Email</a>
+            <a href={DATA.phone} className={BTN}><Phone className="h-4 w-4" /> +33 6 11 27 91 53</a>
+            <a href={DATA.github} target="_blank" rel="noreferrer" className={BTN}><Github className="h-4 w-4" /> GitHub</a>
+            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className={BTN}><Linkedin className="h-4 w-4" /> LinkedIn</a>
+            <a href={DATA.cvUrl} download className={BTN}><Download className="h-4 w-4" /> Télécharger le CV</a>
           </div>
         </div>
       </Card>
@@ -1055,15 +1075,24 @@ function Contact() {
   );
 }
 
+/* Bouton flottant mobile */
+function ContactFAB() {
+  return (
+    <a href="#contact" className={`${BTN} md:hidden fixed bottom-4 right-4 shadow-lg`}>
+      <Mail className="h-4 w-4" /> Contact
+    </a>
+  );
+}
+
 /* ─────────────────────────────────────────────────────────────
    Root
    ───────────────────────────────────────────────────────────── */
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-white">
+    <div className="min-h-screen bg-white text-zinc-900 dark:bg-zinc-950 dark:text-white scroll-smooth">
+      <SkipToContent />
       <Header />
-      <TopBanner />
       <Hero />
       <Projects />
       <Skills />
@@ -1071,6 +1100,7 @@ export default function Portfolio() {
       <Experience />
       <Education />
       <Contact />
+      <ContactFAB />
     </div>
   );
 }
