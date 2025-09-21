@@ -28,6 +28,9 @@ const DATA = {
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
   cvUrl: "/CV_2025-09-18_Djalil_Salah-bey.pdf",
   avatar: "/avatar.jpg",
+  // blurb masqué (on ne l'affiche plus)
+  blurb:
+    "J’assemble ingestion → modèles dbt → orchestration Airflow → exposition BI/ML. Solutions testées, documentées et observables.",
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -376,14 +379,14 @@ const SKILLS = [
   { name: "Modern Data Stack", icon: <FaCloud />, color: "text-sky-600", category: "Data Modeling & Architectures", rating: 4 },
   { name: "Lakehouse Data Stack (Delta/DBX)", icon: <SiDatabricks />, color: "text-red-500", category: "Data Modeling & Architectures", rating: 4 },
 
-  // AI Engineering — jauges complètes
+  // AI Engineering (jauges complètes)
   { name: "Scikit-learn", icon: <SiScikitlearn />, color: "text-blue-400", category: "AI Engineering", rating: 5 },
   { name: "TensorFlow", icon: <SiTensorflow />, color: "text-yellow-500", category: "AI Engineering", rating: 5 },
   { name: "PyTorch", icon: <SiPytorch />, color: "text-red-500", category: "AI Engineering", rating: 5 },
   { name: "NLP (spaCy/Transformers)", icon: <FaNetworkWired />, color: "text-indigo-600", category: "AI Engineering", rating: 5 },
   { name: "Computer Vision (CNN)", icon: <SiKeras />, color: "text-rose-500", category: "AI Engineering", rating: 5 },
 
-  // MLOps — enrichi
+  // MLOps (enrichi)
   { name: "pytest", icon: <FaCogs />, color: "text-gray-600", category: "MLOps", rating: 5 },
   { name: "Model Serving (FastAPI/Flask)", icon: <FaServer />, color: "text-gray-700", category: "MLOps", rating: 5 },
   { name: "MLflow (tracking & registry)", icon: <FaCogs />, color: "text-amber-600", category: "MLOps", rating: 5 },
@@ -508,10 +511,10 @@ function TopBanner() {
   return (
     <div className="w-full border-b bg-amber-50/80 text-amber-900">
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-2 text-sm flex flex-wrap items-center justify-between gap-3">
-        <div>🟡 À l’écoute d’opportunités — Ingénieur en science des données. Curieux, rigoureux, orienté impact.</div>
+        <div>🟡 À l’écoute d’opportunités — Ingénieur en science des données.</div>
         <div className="flex gap-2">
-          <a href={DATA.email} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-black text-white hover:bg-zinc-800 transition"><Mail className="h-4 w-4" /> Email</a>
-          <a href={DATA.phone} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 bg-black text-white hover:bg-zinc-800 transition"><Phone className="h-4 w-4" /> Appeler</a>
+          <a href={DATA.email} className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 bg-black text-white hover:bg-zinc-800 transition"><Mail className="h-4 w-4" /> Email</a>
+          <a href={DATA.phone} className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 bg-black text-white hover:bg-zinc-800 transition"><Phone className="h-4 w-4" /> Appeler</a>
         </div>
       </div>
     </div>
@@ -536,32 +539,38 @@ function Hero() {
             <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1] [text-wrap:balance]">
               {DATA.title}
             </h1>
+            {/* blurb supprimé */}
 
-            {/* Actions — tous boutons noirs */}
-            <div className="mt-6 flex flex-wrap md:flex-nowrap items-center gap-2 sm:gap-3">
-              <a href="#contact"
-                 className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition whitespace-nowrap">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
                 <Mail className="h-4 w-4" /> Me contacter
               </a>
-
-              <a href={DATA.cvUrl} download
-                 className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition whitespace-nowrap"
-                 aria-label="Télécharger le CV">
+              <a
+                href={DATA.cvUrl}
+                download
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
+                aria-label="Télécharger le CV"
+              >
                 <Download className="h-4 w-4" /> Télécharger le CV
               </a>
-
-              <div className="flex gap-2 sm:gap-3 md:ml-2">
-                <a href={DATA.github} target="_blank" rel="noreferrer"
-                   className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition whitespace-nowrap"
-                   aria-label="Ouvrir GitHub">
-                  <Github className="h-4 w-4" /> GitHub
-                </a>
-                <a href={DATA.linkedin} target="_blank" rel="noreferrer"
-                   className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition whitespace-nowrap"
-                   aria-label="Ouvrir LinkedIn">
-                  <Linkedin className="h-4 w-4" /> LinkedIn
-                </a>
-              </div>
+              <a
+                href={DATA.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
+                aria-label="Ouvrir GitHub"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+              <a
+                href={DATA.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
+                aria-label="Ouvrir LinkedIn"
+              >
+                <Linkedin className="h-4 w-4" /> LinkedIn
+              </a>
             </div>
 
             <div className="mt-6 flex flex-wrap">
@@ -642,7 +651,6 @@ function Projects() {
                 <span className="text-xs opacity-60 whitespace-nowrap">{p.task}</span>
               </div>
 
-              {/* Objectif + contenu */}
               <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-6 mb-3">
                 <span className="font-medium">Objectif — </span>{p.pitch}
               </p>
@@ -655,7 +663,6 @@ function Projects() {
                 </div>
               ) : null}
 
-              {/* Tags (6 max) */}
               <div className="mb-4">
                 {p.tags.slice(0, 6).map((t) => (
                   <Badge key={t}>{t}</Badge>
@@ -872,14 +879,14 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Experience
+   Experience (pro, ajout SkyOps freelance, sans “stage”)
    ───────────────────────────────────────────────────────────── */
 
 function Experience() {
   const rows = useMemo(
     () => [
       {
-        role: "Data Engineer — R&D",
+        role: "Data Engineer",
         company: "PowerUp Technology",
         brand: "Cloud",
         period: "Avr. 2025 → Aujourd'hui · Paris",
@@ -894,7 +901,20 @@ function Experience() {
         ],
       },
       {
-        role: "Data Engineer (alternance)",
+        role: "Data Engineer — Freelance",
+        company: "SkyOps",
+        brand: "Cloud",
+        period: "Nov. 2024 → Mars 2025 · Remote",
+        details: [
+          "Pipelines d’ingestion vers data lake (S3/ADLS) avec validations et reprise sur incident.",
+          "Modèles analytiques dbt (schéma en étoile), tests Great Expectations et documentation.",
+          "Orchestration Airflow (DAGs, calendriers, backfills) et déploiement Docker.",
+          "Métriques & alertes Prometheus/Grafana (fraîcheur, latence, volumétrie).",
+          "Optimisation coûts/performances (partitionnement, TTL, dimensionnement jobs).",
+        ],
+      },
+      {
+        role: "Data Engineer",
         company: "Koacher · SportTech",
         brand: "Cloud",
         period: "Sept. 2022 → Août 2024 · Lyon",
@@ -909,7 +929,7 @@ function Experience() {
         ],
       },
       {
-        role: "Data Analyst (stage)",
+        role: "Data Analyst",
         company: "HSBC",
         brand: "Cloud",
         period: "Fév. 2021 → Mai 2021 · Alger",
@@ -920,7 +940,7 @@ function Experience() {
         ],
       },
       {
-        role: "Data Analyst (stage)",
+        role: "Data Analyst",
         company: "BNP Paribas",
         brand: "Cloud",
         period: "Mars 2020 → Juin 2020 · Alger",
@@ -1006,16 +1026,16 @@ function Contact() {
             </p>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <a href={DATA.email} className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
+            <a href={DATA.email} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
               <Mail className="h-4 w-4" /> Email
             </a>
-            <a href={DATA.phone} className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
+            <a href={DATA.phone} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
               <Phone className="h-4 w-4" /> +33 6 11 27 91 53
             </a>
-            <a href={DATA.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
+            <a href={DATA.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
               <Github className="h-4 w-4" /> GitHub
             </a>
-            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
+            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 bg-black text-white hover:bg-zinc-800 transition">
               <Linkedin className="h-4 w-4" /> LinkedIn
             </a>
             <a
