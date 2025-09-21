@@ -29,7 +29,7 @@ const DATA = {
   cvUrl: "/CV_2025-09-18_Djalil_Salah-bey.pdf",
   avatar: "/avatar.jpg",
   blurb:
-    "Ingénieur en science des données (Data/Analytics). Je conçois et opère des pipelines de bout en bout — ingestion, modèles analytiques, exposition BI/ML — avec un haut niveau de fiabilité, de performance et de gouvernance.",
+    "Ingénieur Data/Analytics : ingestion, modélisation analytique, orchestration et exposition BI/ML — avec un haut niveau de fiabilité, performance et gouvernance.",
 };
 
 /* ─────────────────────────────────────────────────────────────
@@ -171,16 +171,23 @@ function ProjectPoster({ brand, tags, image }) {
   );
 }
 
+/* ── Projets (réécrits : pitch + 3 highlights, tags limités) ── */
+
 const PROJECTS = [
   {
     id: 0,
     brand: "ClickHouse",
     image: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Clickhouse.png",
-    title: "Heatmaps batterie — ClickHouse & dbt",
+    title: "Heatmaps batterie — ClickHouse + dbt",
     task: "Data Engineer",
-    description:
-      "Entrepôt analytique ClickHouse (étoile dbt) + Airflow. Heatmaps REST/CHARGE/DISCHARGE à faible latence. Qualité GE, Prom/Graf, Terraform.",
-    tags: ["ClickHouse", "dbt", "Airflow", "Great Expectations", "Streamlit", "Docker", "Prometheus", "Grafana", "Terraform", "Python", "SQL", "BI"],
+    pitch:
+      "Entrepôt ClickHouse alimenté par Airflow ; latence p95 < 1 s sur 40 M+ lignes.",
+    highlights: [
+      "Modélisation en étoile dbt (tests, docs, snapshots).",
+      "Observabilité fraîcheur/volumétrie (GE, Prometheus, Grafana).",
+      "Optimisations ORDER BY, vues matérialisées, TTL → ~-30 % coût.",
+    ],
+    tags: ["ClickHouse", "dbt", "Airflow", "Grafana", "Prometheus", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }],
   },
   {
@@ -189,9 +196,14 @@ const PROJECTS = [
     image: "https://upload.wikimedia.org/wikipedia/commons/7/79/Star-schema.png",
     title: "Entrepôt ventes — dbt & Airflow",
     task: "Data Engineer / BI",
-    description:
-      "Modèle en étoile (staging→marts), snapshots SCD, tests dbt/GE et orchestration Airflow. Docker + Terraform, docs & lineage.",
-    tags: ["dbt", "Airflow", "Great Expectations", "Docker", "Terraform", "SQL", "BI", "Python"],
+    pitch:
+      "Modèle en étoile de bout en bout avec orchestrations reproductibles.",
+    highlights: [
+      "Chaîne staging → marts, SCD, tests dbt/GE.",
+      "DAGs Airflow (dépendances, calendriers, backfills).",
+      "Documentation & lineage pour les revues.",
+    ],
+    tags: ["dbt", "Airflow", "Great Expectations", "Docker", "Terraform", "SQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }],
   },
   {
@@ -200,9 +212,14 @@ const PROJECTS = [
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
     title: "ETL industriel — Talend",
     task: "ETL / Data Engineer (Java Talend)",
-    description:
-      "Ingestion multi-sources, tMap/routines, ODS/Reporting. Contextes dev/recette/prod, audit/logging. Airflow/k8s, Prom/Graf, Terraform.",
-    tags: ["Talend", "Java", "ETL", "PostgreSQL", "Airflow", "Kubernetes", "Prometheus", "Grafana", "Terraform", "SQL"],
+    pitch:
+      "Ingestion multi-sources robuste (Java) vers ODS/Reporting.",
+    highlights: [
+      "tMap/routines, contextes dev/recette/prod.",
+      "Audit/logging, alerting, reprise sur incident.",
+      "Déploiement k8s/Airflow, supervision Grafana.",
+    ],
+    tags: ["Talend", "Java", "PostgreSQL", "Airflow", "Grafana", "Terraform"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }],
   },
   {
@@ -211,20 +228,30 @@ const PROJECTS = [
     image: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg",
     title: "Batch & streaming — Spark/Kafka/Delta",
     task: "Big Data Engineer",
-    description:
-      "PySpark batch & streaming, Delta Lake (MERGE/OPTIMIZE), Airflow + tests pytest. Docker/k8s, Prom/Graf.",
-    tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "pytest", "Kubernetes", "Docker", "Prometheus", "Grafana", "Python"],
+    pitch:
+      "Traitements PySpark batch & temps réel sur Delta Lake.",
+    highlights: [
+      "Structured Streaming + Kafka, exactly-once.",
+      "Delta MERGE/OPTIMIZE, partitionnement temporel.",
+      "Orchestration Airflow + tests pytest.",
+    ],
+    tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "Python", "Docker"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }],
   },
   {
     id: 4,
     brand: "Cloud",
     image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png",
-    title: "Pipeline BI cloud — bronze / silver / gold",
+    title: "Pipeline BI cloud — bronze/silver/gold",
     task: "Data Engineer / Cloud",
-    description:
-      "Ingestion → bronze/silver/gold → KPI. Orchestration (Airflow/ADF/DBX), dbt, tests GE, alerting, Prom/Graf, Terraform.",
-    tags: ["Cloud", "Airflow", "dbt", "Great Expectations", "Terraform", "Grafana", "Prometheus", "SQL", "Python", "BI"],
+    pitch:
+      "De l’ingestion aux KPI consommables sur Azure/Databricks.",
+    highlights: [
+      "Couches b/s/g, transformations dbt + tests GE.",
+      "Alerting SLAs (fraîcheur/latence), dashboards Grafana.",
+      "Provisionnement IaC (Terraform).",
+    ],
+    tags: ["Cloud", "dbt", "Airflow", "Great Expectations", "Terraform", "SQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
   },
   {
@@ -233,9 +260,14 @@ const PROJECTS = [
     image: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg",
     title: "Microservice data/ML — Flask",
     task: "MLOps / Data Science",
-    description:
-      "API REST Flask conteneurisée, tests pytest & CI/CD. Déploiement k8s, métriques Prom, dashboard Grafana.",
-    tags: ["Flask", "pytest", "Docker", "CI/CD", "Kubernetes", "Prometheus", "Grafana", "Python"],
+    pitch:
+      "API REST conteneurisée, prête pour le run.",
+    highlights: [
+      "Endpoints /predict, /metrics, health checks.",
+      "Tests pytest & CI/CD GitHub Actions.",
+      "Déploiement k8s, métriques Prometheus.",
+    ],
+    tags: ["Flask", "pytest", "Docker", "Kubernetes", "Prometheus", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/flask_docker_app" }],
   },
   {
@@ -244,9 +276,14 @@ const PROJECTS = [
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
     title: "Module ETL — Talend (JAR)",
     task: "ETL / Data Engineer (Java Talend)",
-    description:
-      "Exécutable .jar + scripts, log4j2 & mappings XML. Airflow/k8s, Prom/Graf, Terraform.",
-    tags: ["Talend", "Java", "ETL", "Airflow", "Kubernetes", "Prometheus", "Grafana", "Terraform", "SQL"],
+    pitch:
+      "Exécutable autonome configuré par fichiers (prod-ready).",
+    highlights: [
+      "Packaging JAR, log4j2, mappings XML.",
+      "Orchestration Airflow sur k8s, secrets gérés.",
+      "Monitoring centralisé (Prom/Graf).",
+    ],
+    tags: ["Talend", "Java", "Airflow", "Kubernetes", "Prometheus", "Grafana"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend_2" }],
   },
   {
@@ -255,20 +292,29 @@ const PROJECTS = [
     image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/N8n-logo.png",
     title: "Agent n8n — Orchestration & RAG",
     task: "NLP Automation & Real-Time APIs",
-    description:
-      "Workflows n8n (ingestion, embeddings, recherche sémantique). Kafka/webhooks, Postgres/objet, k8s, Prom/Graf, Terraform.",
-    tags: ["n8n", "Kafka", "PostgreSQL", "Kubernetes", "Docker", "Prometheus", "Grafana", "Terraform", "Python"],
+    pitch:
+      "Workflows d’automatisation (ingestion, embeddings, recherche sémantique).",
+    highlights: [
+      "Intégrations Kafka/webhooks.",
+      "Stockage PostgreSQL + objet, versionnement schémas.",
+      "Déploiement k8s, supervision Grafana.",
+    ],
+    tags: ["n8n", "Kafka", "PostgreSQL", "Kubernetes", "Docker", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Agent_n8n" }],
   },
   {
     id: 8,
-    brand: "Fraude",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/World_map_blank_without_borders.svg/1024px-World_map_blank_without_borders.svg.png",
+    brand: "Fraud",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/World_map_blank_without_borders.svg/1024px-World_map_blank_without_borders.svg.png",
     title: "Détection de fraude — API Flask",
     task: "Data Scientist / Data Engineer",
-    description:
-      "EDA & features, modèle équilibré (ROC-AUC), endpoint /predict et carte /map. Projet prêt à conteneuriser/monitorer.",
+    pitch:
+      "Modèle entraîné exposé via /predict + carte interactive.",
+    highlights: [
+      "EDA, features, calibration (ROC-AUC suivie).",
+      "Dockerisation et instrumentation.",
+      "Prêt pour CI/CD et monitoring.",
+    ],
     tags: ["Python", "Flask", "Docker", "SQL", "BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
   },
@@ -278,9 +324,14 @@ const PROJECTS = [
     image: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg",
     title: "AI Labs — Texte & image",
     task: "AI Engineer / MLOps",
-    description:
-      "1) Classification texte (sklearn + TF-IDF) CLI/GUI ; 2) CNN Keras sur CIFAR-10. Docker + tests (pytest).",
-    tags: ["Python", "Docker"],
+    pitch:
+      "Deux maquettes pédagogiques (NLP + CNN) avec tests et Docker.",
+    highlights: [
+      "Classification texte TF-IDF (CLI/GUI).",
+      "CNN Keras sur CIFAR-10.",
+      "Packaging & tests pytest.",
+    ],
+    tags: ["Python", "Docker", "Keras", "sklearn"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/ai-labs-text-and-image" }],
   },
 ];
@@ -290,6 +341,10 @@ const FILTERS = [
   "Delta Lake","Flask","n8n","Kubernetes","Docker","Terraform","Prometheus",
   "Grafana","Python","SQL","BI","Talend","Java","Cloud"
 ];
+
+/* ─────────────────────────────────────────────────────────────
+   Skills (inchangé)
+   ───────────────────────────────────────────────────────────── */
 
 const SKILLS = [
   // Data Engineering
@@ -405,7 +460,7 @@ function Avatar({ src, name, className = "" }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Header / Hero
+   Header / Hero (About & Résumé supprimés)
    ───────────────────────────────────────────────────────────── */
 
 function Header() {
@@ -414,7 +469,6 @@ function Header() {
       <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="font-semibold tracking-tight">{DATA.name}</div>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          {/* supprimé: À propos / Résumé */}
           <a href="#projects" className="hover:opacity-70">Projets</a>
           <a href="#skills" className="hover:opacity-70">Compétences</a>
           <a href="#responsibilities" className="hover:opacity-70">Missions & Réalisations</a>
@@ -424,9 +478,9 @@ function Header() {
           <a
             href={DATA.cvUrl}
             download
-            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-black text-white hover:bg-black/90 transition"
+            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-black text-white hover:bg-zinc-800 transition"
           >
-            <Download className="h-4 w-4" /> Télécharger le CV
+            <Download className="h-4 w-4" /> CV
           </a>
         </nav>
       </div>
@@ -466,13 +520,11 @@ function Hero() {
             <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">{DATA.title}</h1>
             <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300">{DATA.blurb}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
-                <Mail className="h-4 w-4" /> Me contacter
-              </a>
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition"><Mail className="h-4 w-4" /> Me contacter</a>
               <a
                 href={DATA.cvUrl}
                 download
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-black/90 transition"
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
               >
                 <Download className="h-4 w-4" /> Télécharger le CV
               </a>
@@ -503,7 +555,7 @@ function Projects() {
       const matchFilter = selected === "All" || p.tags.includes(selected);
       const matchQuery =
         q.trim() === "" ||
-        (p.title + " " + p.description + " " + p.tags.join(" ")).toLowerCase().includes(q.toLowerCase());
+        (p.title + " " + p.pitch + " " + (p.highlights || []).join(" ") + " " + p.tags.join(" ")).toLowerCase().includes(q.toLowerCase());
       return matchFilter && matchQuery;
     });
   }, [selected, q]);
@@ -555,12 +607,22 @@ function Projects() {
                 <h3 className="text-lg font-semibold leading-tight">{p.title}</h3>
                 <span className="text-xs opacity-60 whitespace-nowrap">{p.task}</span>
               </div>
-              <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-6 mb-4">{p.description}</p>
+
+              {/* Pitch + highlights */}
+              <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-6 mb-3">{p.pitch}</p>
+              {p.highlights?.length ? (
+                <ul className="list-disc pl-5 text-sm space-y-1 mb-4">
+                  {p.highlights.slice(0, 3).map((h, i) => <li key={i}>{h}</li>)}
+                </ul>
+              ) : null}
+
+              {/* Tags (6 max) */}
               <div className="mb-4">
-                {p.tags.map((t) => (
+                {p.tags.slice(0, 6).map((t) => (
                   <Badge key={t}>{t}</Badge>
                 ))}
               </div>
+
               <div className="flex flex-wrap items-center gap-3 text-sm">
                 {p.link?.map((l, i) => (
                   <a key={i} href={l.url} className="inline-flex items-center gap-1 hover:underline">
@@ -798,7 +860,7 @@ function Experience() {
           "Schémas en étoile (facts séances/paiements, dimensions clients/coachs) & vues analytiques.",
           "Traçabilité et contrôles de qualité (tests unitaires, checks d’anomalies, logs structurés).",
           "Optimisation SQL (indexation, partitionnement temporel) pour reporting & facturation.",
-          "Documentation usages data, formation SQL analytique & lecture des métriques.",
+          "Documentation usages data, formation SQL analytique & lecture des métrriques.",
         ],
       },
       {
@@ -914,7 +976,7 @@ function Contact() {
             <a
               href={DATA.cvUrl}
               download
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-black/90 transition"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
             >
               <Download className="h-4 w-4" /> Télécharger le CV
             </a>
@@ -938,10 +1000,10 @@ export default function Portfolio() {
       <Header />
       <TopBanner />
       <Hero />
-      {/* supprimé: <About /> */}
+      {/* About supprimé */}
       <Projects />
       <Skills />
-      {/* supprimé: <SeniorSummary /> */}
+      {/* Résumé supprimé */}
       <Responsibilities />
       <Experience />
       <Education />
