@@ -889,7 +889,7 @@ function Experience() {
         role: "Data Engineer",
         company: "PowerUp Technology",
         brand: "Cloud",
-        period: "Avr. 2025 → Aujourd'hui · Paris",
+        period: "Avr. 2025 → 7 oct. 2025 · Paris",
         details: [
           "Migration analytique ClickHouse (étoile dbt) alimentant des heatmaps produit.",
           "Chaîne Azure Blob → dbt (tests & docs) → Airflow, observabilité Prometheus + Grafana.",
