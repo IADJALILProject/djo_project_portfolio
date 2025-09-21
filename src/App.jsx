@@ -11,7 +11,7 @@ import {
   SiElasticsearch, SiPostgresql, SiMysql, SiMongodb, SiJenkins, SiPrometheus, SiGrafana,
   SiScikitlearn, SiTensorflow, SiPytorch, SiExpress, SiSocketdotio, SiApacheairflow,
   SiDocker, SiKubernetes, SiApachespark, SiApachekafka, SiFlask, SiTalend,
-  SiDatabricks, SiKeras
+  SiDatabricks, SiKeras, SiFastapi, SiMlflow, SiDvc
 } from "react-icons/si";
 
 /* ─────────────────────────────────────────────────────────────
@@ -156,7 +156,7 @@ function ProjectPoster({ brand, tags, image }) {
         {topTags.map((t, i) => {
           const k = (t || "").toLowerCase();
           const icon = TAG_ICON_MAP[k] || TAG_ICON_MAP[k.split(" ")[0]] || null;
-        return (
+          return (
             <span
               key={i}
               className="inline-flex items-center gap-1 rounded-full bg-white/80 backdrop-blur px-2 py-0.5 text-xs border"
@@ -171,21 +171,20 @@ function ProjectPoster({ brand, tags, image }) {
   );
 }
 
-/* ── Projets (clairs, objectifs explicites, démos crédibles) ── */
+/* ── Projets (titres clairs + objectifs) ── */
 
 const PROJECTS = [
   {
     id: 0,
     brand: "ClickHouse",
     image: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Clickhouse.png",
-    title: "Entrepôt analytique (démo) — ClickHouse + dbt",
-    task: "Data Engineering (démo)",
-    pitch:
-      "Concevoir un entrepôt simple et reproductible pour requêtes rapides, avec modèle en étoile géré par dbt et orchestration Airflow.",
+    title: "Entrepôt analytique ClickHouse (dbt + Airflow)",
+    task: "Data Engineering",
+    pitch: "Modèle en étoile avec dbt et orchestration Airflow. Exposition rapide pour tableaux de bord et APIs.",
     highlights: [
-      "Modélisation dbt (tests & documentation).",
-      "Qualité & observabilité (Great Expectations, Grafana).",
-      "Conteneurisation & IaC de base.",
+      "Modélisation analytique (staging → marts) et tests automatiques.",
+      "Observation fraîcheur/volumétrie (Prometheus/Grafana).",
+      "Optimisations classiques ClickHouse (tri, vues matérialisées).",
     ],
     tags: ["ClickHouse", "dbt", "Airflow", "Grafana", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }],
@@ -194,14 +193,13 @@ const PROJECTS = [
     id: 1,
     brand: "dbt",
     image: "https://upload.wikimedia.org/wikipedia/commons/7/79/Star-schema.png",
-    title: "Modèle ventes (démo) — dbt + Airflow",
-    task: "Data/BI (démo)",
-    pitch:
-      "Structurer un domaine ventes en modèle en étoile, industrialisé avec dbt et planifié par Airflow.",
+    title: "Entrepôt de ventes avec dbt",
+    task: "Data Engineering / BI",
+    pitch: "Chaîne de transformation de bout en bout pour la vente : données propres, versionnées et documentées.",
     highlights: [
-      "Chaîne staging → marts, snapshots SCD, tests automatiques.",
-      "DAGs reproductibles et backfills contrôlés.",
-      "Lineage & docs pour accélérer les revues.",
+      "Staging → marts, snapshots SCD, documentation & lineage.",
+      "DAGs Airflow reproductibles (calendriers, dépendances).",
+      "Contrôles qualité Great Expectations.",
     ],
     tags: ["dbt", "Airflow", "Great Expectations", "SQL", "Docker"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }],
@@ -210,129 +208,106 @@ const PROJECTS = [
     id: 2,
     brand: "Talend",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
-    title: "ETL Talend (démo) — ODS & reporting",
-    task: "ETL (maquette)",
-    pitch:
-      "Ingestion multi-sources et alimentation d’un ODS de reporting, orchestrée et journalisée.",
+    title: "ETL multi-sources avec Talend",
+    task: "ETL / Data Engineering",
+    pitch: "Chaîne d’ingestion paramétrable (Java Talend) vers ODS/Reporting avec journalisation et reprise.",
     highlights: [
-      "tMap/routines, contextes dev/recette/prod.",
-      "Audit/logging et gestion d’incidents.",
-      "Exécution conteneurisée.",
+      "Contextes env. (dev/recette/prod), routines & tMap.",
+      "Suivi d’exécution, alertes et logs.",
+      "Déploiement k8s/Airflow, supervision Grafana.",
     ],
-    tags: ["Talend", "Java", "PostgreSQL", "Airflow", "Terraform"],
+    tags: ["Talend", "Java", "PostgreSQL", "Airflow", "Grafana"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }],
   },
   {
     id: 3,
     brand: "Spark",
     image: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg",
-    title: "Batch & streaming (démo) — Spark + Kafka",
-    task: "Big Data (démo)",
-    pitch:
-      "Illustrer des traitements PySpark batch & temps réel avec Kafka et Delta Lake.",
+    title: "Batch & streaming avec Spark et Kafka",
+    task: "Big Data",
+    pitch: "Traitements PySpark en batch et en flux, stockage Delta et orchestration Airflow.",
     highlights: [
-      "Structured Streaming + Kafka.",
-      "Delta Lake (MERGE/OPTIMIZE).",
-      "Orchestration avec Airflow.",
+      "Structured Streaming avec Kafka.",
+      "Delta Lake (MERGE/OPTIMIZE) et partitions temporelles.",
+      "Tests & déploiement conteneurisé.",
     ],
-    tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "Python"],
+    tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "Docker"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }],
   },
   {
     id: 4,
     brand: "Cloud",
     image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png",
-    title: "Pipeline BI cloud (démo) — bronze/silver/gold",
-    task: "Cloud (démo)",
-    pitch:
-      "Mettre en place un pipeline cloud b/s/g et exposer des indicateurs pour la BI.",
+    title: "Pipeline BI sur Azure/Databricks",
+    task: "Data Engineering / Cloud",
+    pitch: "Ingestion → bronze/silver/gold → indicateurs consommables. Gouvernance et surveillance incluses.",
     highlights: [
-      "Transformations dbt + tests.",
-      "Alerting fraîcheur/latence (Grafana).",
-      "IaC de base (Terraform).",
+      "dbt + tests GE sur les transformations.",
+      "Alerte sur fraîcheur/latence, dashboards Grafana.",
+      "Provisionnement IaC (Terraform).",
     ],
-    tags: ["Cloud", "dbt", "Airflow", "Terraform", "SQL"],
+    tags: ["Azure", "Databricks", "dbt", "Grafana", "Terraform"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
   },
   {
     id: 5,
     brand: "Flask",
     image: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg",
-    title: "Microservice ML (démo) — API Flask",
-    task: "MLOps (démo)",
-    pitch:
-      "Exposer un modèle via une API REST conteneurisée, testée et instrumentée.",
+    title: "API de scoring ML (Flask/FastAPI)",
+    task: "MLOps",
+    pitch: "Service REST de prédiction avec tests, CI/CD et métriques d’exploitation.",
     highlights: [
-      "Endpoints /predict & /metrics, health checks.",
-      "Tests pytest + CI GitHub Actions.",
-      "Déploiement k8s (maquette).",
+      "Endpoints /predict, /health, /metrics.",
+      "Tests pytest, pipeline CI GitHub Actions.",
+      "Déploiement k8s, métriques Prometheus.",
     ],
-    tags: ["Flask", "pytest", "Docker", "Kubernetes", "Python"],
+    tags: ["Flask", "FastAPI", "pytest", "Docker", "Kubernetes"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/flask_docker_app" }],
   },
   {
     id: 6,
-    brand: "Talend",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
-    title: "Module ETL packagé (démo) — JAR Talend",
-    task: "ETL (maquette)",
-    pitch:
-      "Fournir un module ETL autonome (JAR) avec configuration externe et logs.",
-    highlights: [
-      "Packaging JAR & log4j2.",
-      "Orchestration Airflow/k8s.",
-      "Monitoring centralisé (démo).",
-    ],
-    tags: ["Talend", "Java", "Airflow", "Kubernetes", "Grafana"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend_2" }],
-  },
-  {
-    id: 7,
     brand: "n8n",
     image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/N8n-logo.png",
-    title: "Workflows d’automatisation (démo) — n8n",
-    task: "Automation (démo)",
-    pitch:
-      "Automatiser ingestion, enrichissement et recherche sémantique par workflows n8n.",
+    title: "Automatisations avec n8n (ingestion & RAG)",
+    task: "Automation / NLP",
+    pitch: "Workflows d’ingestion et de recherche sémantique. Connecteurs webhooks/Kafka.",
     highlights: [
-      "Intégrations webhooks/Kafka.",
-      "PostgreSQL + stockage objet.",
-      "Déploiement k8s (maquette).",
+      "Ingestion, embeddings et recherche sémantique.",
+      "Stockage PostgreSQL + objet.",
+      "Déploiement k8s, supervision Grafana.",
     ],
-    tags: ["n8n", "Kafka", "PostgreSQL", "Docker", "Python"],
+    tags: ["n8n", "Kafka", "PostgreSQL", "Docker", "Kubernetes"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Agent_n8n" }],
   },
   {
-    id: 8,
+    id: 7,
     brand: "Fraud",
     image:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/World_map_blank_without_borders.svg/1024px-World_map_blank_without_borders.svg.png",
-    title: "Détection de fraude (démo) — API Flask",
-    task: "Data/ML (démo)",
-    pitch:
-      "Entraîner un modèle de base et l’exposer via API, avec visualisation géographique.",
+    title: "Démonstrateur fraude bancaire (API Flask)",
+    task: "Data Science / Engineering",
+    pitch: "Jeu de données synthétique, features, modèle, API /predict et visualisation carto.",
     highlights: [
-      "EDA & features essentielles.",
-      "Dockerisation & instrumentation.",
-      "Prêt pour pipeline CI/CD (démo).",
+      "EDA & features, suivi ROC-AUC en local.",
+      "Dockerisation + instrumentation.",
+      "Prêt pour CI/CD et monitoring.",
     ],
     tags: ["Python", "Flask", "Docker", "SQL", "BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
   },
   {
-    id: 9,
+    id: 8,
     brand: "Keras",
     image: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg",
-    title: "AI Labs (démo) — NLP & vision",
-    task: "AI/MLOps (démo)",
-    pitch:
-      "Deux maquettes pédagogiques : classification de texte et CNN d’image.",
+    title: "AI labs — NLP & vision",
+    task: "AI Engineering",
+    pitch: "Deux mini-projets pédagogiques : classification texte (sklearn) et CNN Keras (CIFAR-10).",
     highlights: [
-      "NLP TF-IDF (CLI/GUI).",
-      "CNN Keras (CIFAR-10).",
-      "Tests pytest & packaging.",
+      "TF-IDF + modèles légers (CLI/GUI).",
+      "CNN Keras sur CIFAR-10.",
+      "Packaging & tests pytest.",
     ],
-    tags: ["Python", "Docker", "Keras", "sklearn"],
+    tags: ["sklearn", "Keras", "Docker", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/ai-labs-text-and-image" }],
   },
 ];
@@ -340,11 +315,11 @@ const PROJECTS = [
 const FILTERS = [
   "All","ClickHouse","dbt","Airflow","Great Expectations","PySpark","Kafka",
   "Delta Lake","Flask","n8n","Kubernetes","Docker","Terraform","Prometheus",
-  "Grafana","Python","SQL","BI","Talend","Java","Cloud"
+  "Grafana","Python","SQL","BI","Talend","Java","Cloud","FastAPI"
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   Skills (MLOps enrichi, AI = jauges complètes comme demandé)
+   Skills
    ───────────────────────────────────────────────────────────── */
 
 const SKILLS = [
@@ -376,22 +351,18 @@ const SKILLS = [
   { name: "Kimball / Star Schema", icon: <FaDatabase />, color: "text-emerald-600", category: "Data Modeling & Architectures", rating: 5 },
   { name: "Data Vault / Dimensional", icon: <FaDatabase />, color: "text-emerald-500", category: "Data Modeling & Architectures", rating: 3 },
   { name: "Modern Data Stack", icon: <FaCloud />, color: "text-sky-600", category: "Data Modeling & Architectures", rating: 4 },
-  { name: "Lakehouse Data Stack (Delta/DBX)", icon: <SiDatabricks />, color: "text-red-500", category: "Data Modeling & Architectures", rating: 4 },
+  { name: "Lakehouse (Delta/DBX)", icon: <SiDatabricks />, color: "text-red-500", category: "Data Modeling & Architectures", rating: 4 },
 
-  // AI Engineering (jauges complètes)
+  // AI Engineering — poussée au max
   { name: "Scikit-learn", icon: <SiScikitlearn />, color: "text-blue-400", category: "AI Engineering", rating: 5 },
   { name: "TensorFlow", icon: <SiTensorflow />, color: "text-yellow-500", category: "AI Engineering", rating: 5 },
   { name: "PyTorch", icon: <SiPytorch />, color: "text-red-500", category: "AI Engineering", rating: 5 },
-  { name: "NLP (spaCy/Transformers)", icon: <FaNetworkWired />, color: "text-indigo-600", category: "AI Engineering", rating: 5 },
-  { name: "Computer Vision (CNN)", icon: <SiKeras />, color: "text-rose-500", category: "AI Engineering", rating: 5 },
 
-  // MLOps (enrichi)
+  // MLOps — renforcé
   { name: "pytest", icon: <FaCogs />, color: "text-gray-600", category: "MLOps", rating: 5 },
-  { name: "Model Serving (FastAPI/Flask)", icon: <FaServer />, color: "text-gray-700", category: "MLOps", rating: 5 },
-  { name: "MLflow (tracking & registry)", icon: <FaCogs />, color: "text-amber-600", category: "MLOps", rating: 5 },
-  { name: "DVC (data versioning)", icon: <FaCogs />, color: "text-fuchsia-600", category: "MLOps", rating: 4 },
-  { name: "Feature Store (Feast)", icon: <FaDatabase />, color: "text-emerald-600", category: "MLOps", rating: 4 },
-  { name: "Monitoring modèles (Evidently)", icon: <FaCogs />, color: "text-purple-600", category: "MLOps", rating: 4 },
+  { name: "Model Serving (Flask/FastAPI)", icon: <SiFastapi />, color: "text-emerald-600", category: "MLOps", rating: 5 },
+  { name: "MLflow (tracking/registry)", icon: <SiMlflow />, color: "text-blue-600", category: "MLOps", rating: 5 },
+  { name: "DVC (data versionning)", icon: <SiDvc />, color: "text-purple-600", category: "MLOps", rating: 4 },
 
   // DevOps
   { name: "Docker", icon: <SiDocker />, color: "text-blue-400", category: "DevOps", rating: 5 },
@@ -496,7 +467,6 @@ function Header() {
             href={DATA.cvUrl}
             download
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 bg-black text-white hover:bg-zinc-800 transition"
-            aria-label="Télécharger le CV"
           >
             <Download className="h-4 w-4" /> CV
           </a>
@@ -535,41 +505,31 @@ function Hero() {
             <div className="text-sm inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-4">
               <Rocket className="h-4 w-4" /> Disponible pour CDI / Mission
             </div>
-            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1] [text-wrap:balance]">
-              {DATA.title}
-            </h1>
+            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">{DATA.title}</h1>
             <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-300">{DATA.blurb}</p>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+            {/* actions sur une ligne en md+ */}
+            <div className="mt-6 flex flex-wrap md:flex-nowrap items-center gap-2 sm:gap-3">
+              <a href="#contact"
+                 className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition whitespace-nowrap">
                 <Mail className="h-4 w-4" /> Me contacter
               </a>
-              <a
-                href={DATA.cvUrl}
-                download
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
-                aria-label="Télécharger le CV"
-              >
+
+              <a href={DATA.cvUrl} download
+                 className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition whitespace-nowrap">
                 <Download className="h-4 w-4" /> Télécharger le CV
               </a>
-              <a
-                href={DATA.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
-                aria-label="Ouvrir GitHub"
-              >
-                <Github className="h-4 w-4" /> GitHub
-              </a>
-              <a
-                href={DATA.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
-                aria-label="Ouvrir LinkedIn"
-              >
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
+
+              <div className="flex gap-2 sm:gap-3 md:ml-2">
+                <a href={DATA.github} target="_blank" rel="noreferrer"
+                   className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition whitespace-nowrap">
+                  <Github className="h-4 w-4" /> GitHub
+                </a>
+                <a href={DATA.linkedin} target="_blank" rel="noreferrer"
+                   className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition whitespace-nowrap">
+                  <Linkedin className="h-4 w-4" /> LinkedIn
+                </a>
+              </div>
             </div>
 
             <div className="mt-6 flex flex-wrap">
@@ -596,8 +556,9 @@ function Projects() {
   const filtered = useMemo(() => {
     return PROJECTS.filter((p) => {
       const matchFilter = selected === "All" || p.tags.includes(selected);
-      const haystack = (p.title + " " + p.pitch + " " + (p.highlights || []).join(" ") + " " + p.tags.join(" ")).toLowerCase();
-      const matchQuery = q.trim() === "" || haystack.includes(q.toLowerCase());
+      const matchQuery =
+        q.trim() === "" ||
+        (p.title + " " + p.pitch + " " + (p.highlights || []).join(" ") + " " + p.tags.join(" ")).toLowerCase().includes(q.toLowerCase());
       return matchFilter && matchQuery;
     });
   }, [selected, q]);
@@ -650,17 +611,12 @@ function Projects() {
                 <span className="text-xs opacity-60 whitespace-nowrap">{p.task}</span>
               </div>
 
-              {/* Objectif + contenu */}
-              <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-6 mb-3">
-                <span className="font-medium">Objectif — </span>{p.pitch}
-              </p>
+              {/* Pitch + objectifs */}
+              <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-6 mb-3">{p.pitch}</p>
               {p.highlights?.length ? (
-                <div className="mb-4">
-                  <div className="text-xs uppercase tracking-wide opacity-70 mb-1">Ce que contient</div>
-                  <ul className="list-disc pl-5 text-sm space-y-1">
-                    {p.highlights.slice(0, 3).map((h, i) => <li key={i}>{h}</li>)}
-                  </ul>
-                </div>
+                <ul className="list-disc pl-5 text-sm space-y-1 mb-4">
+                  {p.highlights.slice(0, 3).map((h, i) => <li key={i}>{h}</li>)}
+                </ul>
               ) : null}
 
               {/* Tags (6 max) */}
@@ -672,13 +628,7 @@ function Projects() {
 
               <div className="flex flex-wrap items-center gap-3 text-sm">
                 {p.link?.map((l, i) => (
-                  <a
-                    key={i}
-                    href={l.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 hover:underline"
-                  >
+                  <a key={i} href={l.url} className="inline-flex items-center gap-1 hover:underline" target="_blank" rel="noreferrer">
                     {l.name === "GitHub" ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />} {l.name}
                   </a>
                 ))}
@@ -756,7 +706,7 @@ const RESPONSIBILITIES = [
       "Cadrage archi (MDS/Lakehouse, batch/stream).",
       "Modèles en étoile (Kimball), Data Vault, 3NF → Star.",
       "Contrats de données & schémas (JSONSchema/dbt).",
-      "Partitionnement/cluster (ORDER BY, Z-Order).",
+      "Partitionnement/cluster et stratégies d’index.",
     ],
   },
   {
@@ -789,9 +739,9 @@ const RESPONSIBILITIES = [
   {
     title: "Qualité & Gouvernance",
     items: [
-      "Great Expectations (suites, checkpoints, coverage).",
+      "Great Expectations (suites, checkpoints).",
       "Data lineage (OpenLineage/DataHub).",
-      "Data contracts, SLAs/SLOs, stewardship & glossaire.",
+      "SLAs/SLOs, stewardship & glossaire.",
       "Gestion des définitions KPI.",
     ],
   },
@@ -808,7 +758,7 @@ const RESPONSIBILITIES = [
     title: "Performance & Coût",
     items: [
       "Benchmarks froid/chaud, p95/p99.",
-      "ClickHouse : ORDER BY, vues matérialisées, TTL.",
+      "ClickHouse : tri, vues matérialisées, TTL.",
       "Dimensionnement clusters, cache & pruning.",
       "Optimisation stockage/compute & coûts Cloud.",
     ],
@@ -835,7 +785,7 @@ const RESPONSIBILITIES = [
     title: "Cloud & Infra",
     items: [
       "Azure (ADLS/Blob, Databricks), AWS (S3).",
-      "Kubernetes, CronJobs, ingress & autoscaling.",
+      "Kubernetes, ingress & autoscaling.",
       "Stockage objet, file systems, quotas.",
       "Gestion coûts & étiquetage ressources.",
     ],
@@ -843,19 +793,10 @@ const RESPONSIBILITIES = [
   {
     title: "Data Products & Serving",
     items: [
-      "APIs Flask/Express, endpoints /predict & /metrics.",
+      "APIs Flask/FastAPI, endpoints /predict & /metrics.",
       "Apps Streamlit & intégrations BI.",
       "Caching, pagination, versionnement schémas.",
       "SLAs d'exposition & contrats de consommation.",
-    ],
-  },
-  {
-    title: "Support, Run & Documentation",
-    items: [
-      "Astreinte légère, post-mortems.",
-      "Playbooks, READMEs, ADRs, dbt docs/lineage.",
-      "Formations internes & mentoring.",
-      "Suivi backlog & priorisation métiers.",
     ],
   },
 ];
@@ -892,13 +833,13 @@ function Experience() {
         brand: "Cloud",
         period: "Avr. 2025 → Aujourd'hui · Paris",
         details: [
-          "Migration analytique ClickHouse (étoile dbt) alimentant des heatmaps produit.",
-          "Chaîne Azure Blob → dbt (tests & docs) → Airflow, observabilité Prometheus + Grafana.",
-          "Exécution Docker & IaC Terraform, benchmarks automatisés.",
-          "SLAs et data contracts ; alerting proactif (qualité/lag).",
-          "DAGs Airflow (sensors, pools, SLA), backfills contrôlés, hooks custom.",
-          "Tests (dbt + GE), documentation & lineage pour sécuriser les évolutions.",
-          "Optimisations via vues matérialisées, TTL et pruning de partitions.",
+          "Migration analytique vers ClickHouse avec modèle en étoile dbt.",
+          "Chaîne Azure Blob → dbt → Airflow ; supervision Prometheus/Grafana.",
+          "Exécution Docker & IaC Terraform ; benchmarks réguliers.",
+          "SLAs & data contracts, alerting proactif.",
+          "DAGs Airflow maintenables (sensors, pools, SLA).",
+          "Tests (dbt + GE), documentation & lineage.",
+          "Optimisations stockage/compute mesurées.",
         ],
       },
       {
@@ -907,13 +848,13 @@ function Experience() {
         brand: "Cloud",
         period: "Sept. 2022 → Août 2024 · Lyon",
         details: [
-          "Modélisation domaine et entrepôt PostgreSQL exposé via APIs.",
-          "Pipelines ETL Python + APIs Node/Express pour front React & dashboards internes.",
-          "Métriques produit/marketing, Docker et CI GitHub Actions.",
-          "Schémas en étoile & vues analytiques.",
-          "Contrôles de qualité, logs structurés.",
-          "Optimisation SQL pour reporting & facturation.",
-          "Documentation usages data et formation SQL.",
+          "Modélisation domaine (utilisateurs, séances, paiements).",
+          "Pipelines ETL Python + APIs Express pour front React & dashboards.",
+          "Métriques produit/marketing, Docker & CI GitHub Actions.",
+          "Vues analytiques et schémas en étoile.",
+          "Contrôles qualité (tests, checks d’anomalies).",
+          "Optimisations SQL pour reporting.",
+          "Documentation & formation SQL analytique.",
         ],
       },
       {
@@ -922,9 +863,9 @@ function Experience() {
         brand: "Cloud",
         period: "Fév. 2021 → Mai 2021 · Alger",
         details: [
-          "Analyses exploratoires, reporting et automatisations SQL/Excel.",
-          "Standardisation des extractions et contrôles de qualité.",
-          "Scripts paramétrables pour demandes ad-hoc.",
+          "Analyses exploratoires et reporting récurrent.",
+          "Automatisations SQL/Excel ; KPIs conformité/risque.",
+          "Standardisation d’extractions et contrôles qualité.",
         ],
       },
       {
@@ -933,8 +874,8 @@ function Experience() {
         brand: "Cloud",
         period: "Mars 2020 → Juin 2020 · Alger",
         details: [
-          "Qualité de données, requêtes SQL et extractions standardisées.",
-          "Amélioration de la traçabilité et harmonisation des référentiels.",
+          "Qualité de données et requêtes SQL ad-hoc.",
+          "Amélioration de la traçabilité et référentiels.",
         ],
       },
     ],
@@ -1005,41 +946,41 @@ function Education() {
 function Contact() {
   return (
     <Section id="contact" title="Contact" icon={<Mail className="h-6 w-6" />}>
-      <Card>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="font-medium mb-1">Travaillons ensemble</div>
-            <p className="text-sm text-zinc-600 dark:text-zinc-300">
-              {DATA.location} — disponible pour postes CDI / missions.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 flex-wrap">
-            <a href={DATA.email} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
-              <Mail className="h-4 w-4" /> Email
-            </a>
-            <a href={DATA.phone} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
-              <Phone className="h-4 w-4" /> +33 6 11 27 91 53
-            </a>
-            <a href={DATA.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
-              <Github className="h-4 w-4" /> GitHub
-            </a>
-            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
-              <Linkedin className="h-4 w-4" /> LinkedIn
-            </a>
-            <a
-              href={DATA.cvUrl}
-              download
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
-            >
-              <Download className="h-4 w-4" /> Télécharger le CV
-            </a>
-          </div>
+    <Card>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div className="font-medium mb-1">Travaillons ensemble</div>
+          <p className="text-sm text-zinc-600 dark:text-zinc-300">
+            {DATA.location} — disponible pour postes CDI / missions.
+          </p>
         </div>
-      </Card>
-      <div className="mt-6 text-xs opacity-60">
-        © {new Date().getFullYear()} {DATA.name}. Portfolio construit avec React & Tailwind.
+        <div className="flex items-center gap-3 flex-wrap">
+          <a href={DATA.email} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+            <Mail className="h-4 w-4" /> Email
+          </a>
+          <a href={DATA.phone} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition">
+            <Phone className="h-4 w-4" /> +33 6 11 27 91 53
+          </a>
+          <a href={DATA.github} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition" target="_blank" rel="noreferrer">
+            <Github className="h-4 w-4" /> GitHub
+          </a>
+          <a href={DATA.linkedin} className="inline-flex items-center gap-2 rounded-full border px-4 py-2 hover:bg-black hover:text-white transition" target="_blank" rel="noreferrer">
+            <Linkedin className="h-4 w-4" /> LinkedIn
+          </a>
+          <a
+            href={DATA.cvUrl}
+            download
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-black text-white hover:bg-zinc-800 transition"
+          >
+            <Download className="h-4 w-4" /> Télécharger le CV
+          </a>
+        </div>
       </div>
-    </Section>
+    </Card>
+    <div className="mt-6 text-xs opacity-60">
+      © {new Date().getFullYear()} {DATA.name}. Portfolio construit avec React & Tailwind.
+    </div>
+  </Section>
   );
 }
 
