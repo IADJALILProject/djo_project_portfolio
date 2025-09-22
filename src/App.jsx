@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Mail, Github, Linkedin, Download, ExternalLink, Briefcase, Database,
-  Rocket, Filter, Phone, Moon, Sun, ArrowLeft, ArrowRight
+  Rocket, Filter, Phone, ArrowLeft, ArrowRight
 } from "lucide-react";
 import {
   FaPython, FaDatabase, FaCogs, FaNetworkWired, FaCloud, FaServer, FaDocker, FaAws
@@ -30,7 +30,7 @@ const DATA = {
   avatar: "/avatar.jpg",
 };
 
-/* ⛏️ Expériences retirée du scrollspy */
+// on retire "experience"
 const SECTION_ORDER = ["projects", "skills", "responsibilities", "education", "contact"];
 
 /* ─────────────────────────────────────────────────────────────
@@ -154,28 +154,7 @@ function Avatar({ src, name, className = "" }) {
   );
 }
 
-function useTheme() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const saved = localStorage.getItem("theme");
-    if (saved) return saved === "dark";
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
-  useEffect(() => {
-    const root = document.documentElement;
-    if (dark) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [dark]);
-  return { dark, toggle: () => setDark((d) => !d) };
-}
-
 function Header({ activeId }) {
-  const { dark, toggle } = useTheme();
   const linkCls = (id) =>
     "hover:opacity-70 " +
     (activeId === id ? "underline underline-offset-8 decoration-2" : "opacity-90");
@@ -191,15 +170,13 @@ function Header({ activeId }) {
             <a href="#projects" className={linkCls("projects")}>Projets</a>
             <a href="#skills" className={linkCls("skills")}>Compétences</a>
             <a href="#responsibilities" className={linkCls("responsibilities")}>Missions & Réalisations</a>
-            {/* lien Expériences retiré */}
+            {/* on retire Experience du menu */}
             <a href="#education" className={linkCls("education")}>Formation</a>
             <a href="#contact" className={linkCls("contact")}>Contact</a>
             <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
               <Download className="h-4 w-4" /> CV
             </a>
-            <button onClick={toggle} className={BTN_SM} aria-label="Basculer le thème">
-              {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />} Thème
-            </button>
+            {/* Bouton Thème supprimé */}
           </nav>
         </div>
       </header>
@@ -531,14 +508,14 @@ function ProjectCard({ p }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Données — Projets (TITRES TRÈS COURTS)
+   Données — Projets (images/logo améliorés)
    ───────────────────────────────────────────────────────────── */
 
 const PROJECTS = [
   {
     id: 0,
     brand: "ClickHouse",
-    image: "/projet.png",
+    image: "/projet.png", // heatmap locale (garde)
     title: "Battery Heatmap",
     task: "Data/Analytics",
     pitch:
@@ -627,7 +604,6 @@ const PROJECTS = [
     tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }],
   },
-  // 4 — Cloud b/s/g
   {
     id: 4,
     brand: "Cloud",
@@ -649,8 +625,6 @@ const PROJECTS = [
     tags: ["Cloud", "dbt", "Airflow", "Terraform", "SQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
   },
-
-  // 5 — Flask API
   {
     id: 5,
     brand: "Flask",
@@ -672,8 +646,6 @@ const PROJECTS = [
     tags: ["Flask", "pytest", "Docker", "Kubernetes", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/flask_docker_app" }],
   },
-
-  // 6 — Talend JAR
   {
     id: 6,
     brand: "Talend",
@@ -695,8 +667,6 @@ const PROJECTS = [
     tags: ["Talend", "Java", "Airflow", "Kubernetes", "Grafana"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend_2" }],
   },
-
-  // 7 — n8n
   {
     id: 7,
     brand: "n8n",
@@ -718,8 +688,6 @@ const PROJECTS = [
     tags: ["n8n", "Kafka", "PostgreSQL", "Docker", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Agent_n8n" }],
   },
-
-  // 8 — Fraude
   {
     id: 8,
     brand: "Fraud",
@@ -741,8 +709,6 @@ const PROJECTS = [
     tags: ["Python", "Flask", "Docker", "SQL", "BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
   },
-
-  // 9 — Keras labs
   {
     id: 9,
     brand: "Keras",
@@ -771,6 +737,7 @@ const FILTERS = [
   "Delta Lake","Flask","n8n","Kubernetes","Docker","Terraform","Prometheus",
   "Grafana","Python","SQL","BI","Talend","Java","Cloud"
 ];
+
 /* ─────────────────────────────────────────────────────────────
    Projects (recherche + filtres + synchro URL)
    ───────────────────────────────────────────────────────────── */
@@ -855,7 +822,6 @@ function Projects() {
     </Section>
   );
 }
-
 /* ─────────────────────────────────────────────────────────────
    Skills
    ───────────────────────────────────────────────────────────── */
@@ -1077,29 +1043,32 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Education (Certifs remplacées par ta liste)
+   Education — deux colonnes (Académique / Personnel)
    ───────────────────────────────────────────────────────────── */
 
 function Education() {
   return (
-    <Section id="education" title="Formation & Certifications" icon={<Database className="h-6 w-6" />}>
+    <Section id="education" title="Formation" icon={<Database className="h-6 w-6" />}>
       <div className="grid md:grid-cols-2 gap-6">
+        {/* Colonne gauche : parcours académique */}
         <Card>
-          <div className="font-medium mb-2">Diplômes</div>
+          <div className="font-medium mb-2">Parcours académique</div>
           <ul className="list-disc pl-5 text-sm space-y-1">
             <li>Licence — Banque & Finance</li>
             <li>Master 1 & 2 — AFI & Système d'information</li>
-            <li>Master 1 & 2 — Data Engineer</li>
+            <li>Ingénieur en science des données</li>
           </ul>
         </Card>
+
+        {/* Colonne droite : parcours personnel */}
         <Card>
-          <div className="font-medium mb-2">Certifications & formations</div>
+          <div className="font-medium mb-2">Parcours personnel</div>
           <ul className="list-disc pl-5 text-sm space-y-1">
             <li>Microsoft Azure AI Fundamentals</li>
             <li>Data Engineering with Big Data ecosystem and cloud integration</li>
             <li>Machine Learning & Deep Learning</li>
             <li>Python pour l'analyse financière & Algorithme de trading</li>
-            <li>Natural Langage Processing</li>
+            <li>Natural Language Processing</li>
             <li>Computer Vision</li>
           </ul>
         </Card>
@@ -1244,7 +1213,7 @@ export default function Portfolio() {
         </div>
       </Section>
       <Responsibilities />
-      {/* Expériences supprimée */}
+      {/* Experience supprimée */}
       <Education />
       <Contact />
 
