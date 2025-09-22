@@ -594,7 +594,7 @@ const PROJECTS = [
   {
     id: 2,
     brand: "Talend",
-    image: "/tableau.png",
+    image: "/talend.jpg",
     title: "Talend ETL Project Sales DataMarts",
     task: "ETL",
     pitch:
@@ -680,7 +680,7 @@ const PROJECTS = [
   {
     id: 6,
     brand: "Talend",
-    image: "/talend.png",
+    image: "/talend2.png",
     title: "Talend ETL Project  Financial DataMarts",
     task: "ETL",
     pitch: "Module ETL autonome (JAR) avec configuration externe et logs centralisés.",
@@ -741,9 +741,9 @@ const PROJECTS = [
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
   },
   {
-    id: 9,
+    id: 8,
     brand: "Keras",
-    image: "/comuter_vision.jpg",
+    image: "/comuter-vision.jpg",
     title: "Computer Vision Project",
     task: "AI/MLOps",
     pitch: "Deux maquettes pédagogiques : NLP TF-IDF et CNN image (CIFAR-10).",
