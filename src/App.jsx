@@ -547,7 +547,7 @@ const PROJECTS = [
     id: 0,
     brand: "ClickHouse",
     image: "/projet.png",
-    title: "Battery Heatmap",
+    title: "Data LakeHouse Heatmaps IoT Batteries Project",
     task: "Data/Analytics",
     pitch:
       "Plateforme end-to-end : ingestion Azure, modèle dbt en étoile, marts ClickHouse, dashboards Streamlit. Focus performance, coûts et fiabilité pour l’analyse de charge batterie.",
@@ -572,8 +572,8 @@ const PROJECTS = [
   {
     id: 1,
     brand: "dbt",
-    image: "https://upload.wikimedia.org/wikipedia/commons/7/79/Star-schema.png",
-    title: "dbt Sales",
+    image: "/sales.png",
+    title: "Data Warehouse Sales Project",
     task: "Data/BI",
     pitch:
       "Domaine ventes en étoile, snapshots SCD et tests — industrialisé via Airflow.",
@@ -594,8 +594,8 @@ const PROJECTS = [
   {
     id: 2,
     brand: "Talend",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
-    title: "Talend ODS",
+    image: "/tableau.png",
+    title: "Talend ETL Project Sales DataMarts",
     task: "ETL",
     pitch:
       "ETL multi-sources alimentant un ODS de reporting avec orchestration et journalisation.",
@@ -616,8 +616,8 @@ const PROJECTS = [
   {
     id: 3,
     brand: "Spark",
-    image: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg",
-    title: "Spark+Kafka",
+    image: "/55.png",
+    title: "Big Data Spark Project",
     task: "Big Data",
     pitch:
       "Traitements PySpark batch & streaming via Kafka et stockage Delta Lake.",
@@ -638,8 +638,8 @@ const PROJECTS = [
   {
     id: 4,
     brand: "Cloud",
-    image: "https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png",
-    title: "Cloud BI",
+    image: "./33.png",
+    title: "Data Engineering Cloud Project",
     task: "Cloud",
     pitch: "Pipeline bronze/silver/gold sur Cloud (ADLS/Databricks) et exposition d’indicateurs BI.",
     highlights: [
@@ -659,8 +659,8 @@ const PROJECTS = [
   {
     id: 5,
     brand: "Flask",
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flask_logo.svg",
-    title: "ML API",
+    image: "/R.png",
+    title: "MLOps Flask Project",
     task: "MLOps",
     pitch: "Microservice ML exposé via API REST conteneurisée, testée et instrumentée.",
     highlights: [
@@ -680,8 +680,8 @@ const PROJECTS = [
   {
     id: 6,
     brand: "Talend",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Talend_logo_2021.svg/1024px-Talend_logo_2021.svg.png",
-    title: "Talend JAR",
+    image: "/55.png",
+    title: "Talend ETL Project  Financial DataMarts",
     task: "ETL",
     pitch: "Module ETL autonome (JAR) avec configuration externe et logs centralisés.",
     highlights: [
@@ -701,8 +701,8 @@ const PROJECTS = [
   {
     id: 7,
     brand: "n8n",
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/3b/N8n-logo.png",
-    title: "n8n Flows",
+    image: "/Chatbot.png",
+    title: "n8n Automation Project",
     task: "Automation",
     pitch: "Automatisation ingestion/enrichissement et intégrations via n8n.",
     highlights: [
@@ -722,7 +722,7 @@ const PROJECTS = [
   {
     id: 8,
     brand: "Fraud",
-    image: "/fraude_bancaire_interactive.png", // placé dans public/
+    image: "/fraude_bancaire_carte_interactive.png", 
     title: "Fraud API",
     task: "Data/ML",
     pitch: "Modèle de détection de fraude exposé via API, avec carte interactive simple.",
@@ -743,8 +743,8 @@ const PROJECTS = [
   {
     id: 9,
     brand: "Keras",
-    image: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Keras_logo.svg",
-    title: "AI Labs",
+    image: "/comuter_vision.png",
+    title: "Computer Vision Project",
     task: "AI/MLOps",
     pitch: "Deux maquettes pédagogiques : NLP TF-IDF et CNN image (CIFAR-10).",
     highlights: [
