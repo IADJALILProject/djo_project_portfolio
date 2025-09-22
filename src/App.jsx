@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Mail, Github, Linkedin, Download, ExternalLink, Briefcase, Database,
-  Rocket, Filter, Phone, ArrowLeft, ArrowRight
+  Rocket, Filter, Phone, ArrowLeft, ArrowRight, X
 } from "lucide-react";
 import {
-  FaPython, FaDatabase, FaCogs, FaNetworkWired, FaCloud, FaServer, FaDocker, FaAws
+  FaPython, FaDatabase, FaCogs, FaNetworkWired, FaCloud, FaServer, FaAws
 } from "react-icons/fa";
 import {
   SiElasticsearch, SiPostgresql, SiMysql, SiMongodb, SiJenkins, SiPrometheus, SiGrafana,
@@ -15,7 +15,7 @@ import {
 } from "react-icons/si";
 
 /* ─────────────────────────────────────────────────────────────
-   Portfolio — Djalil Salah-Bey (Data / Analytics Engineer)
+   Portfolio — Djalil Salah-Bey
    ───────────────────────────────────────────────────────────── */
 
 const DATA = {
@@ -30,7 +30,7 @@ const DATA = {
   avatar: "/avatar.jpg",
 };
 
-// on retire "experience"
+/* Sections (sans Expériences) */
 const SECTION_ORDER = ["projects", "skills", "responsibilities", "education", "contact"];
 
 /* ─────────────────────────────────────────────────────────────
@@ -108,7 +108,7 @@ function ImgWithFallback({ src, alt }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   THEME / layout helpers
+   THEME / layout helpers  (pas de bouton Thème)
    ───────────────────────────────────────────────────────────── */
 
 function Section({ id, title, icon, children }) {
@@ -170,7 +170,6 @@ function Header({ activeId }) {
             <a href="#projects" className={linkCls("projects")}>Projets</a>
             <a href="#skills" className={linkCls("skills")}>Compétences</a>
             <a href="#responsibilities" className={linkCls("responsibilities")}>Missions & Réalisations</a>
-            {/* on retire Experience du menu */}
             <a href="#education" className={linkCls("education")}>Formation</a>
             <a href="#contact" className={linkCls("contact")}>Contact</a>
             <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
@@ -307,7 +306,7 @@ function ProjectPoster({ brand, tags, image }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   KPI + Onglets — réutilisables (repliés par défaut)
+   KPI + Onglets — réutilisables
    ───────────────────────────────────────────────────────────── */
 
 function KPIGrid({ items = [] }) {
@@ -441,28 +440,80 @@ function ArchitectureTabs({ variant = "generic" }) {
   );
 }
 
-/* Petite carte projet compacte + bouton Détails */
-function ProjectCard({ p }) {
-  const [open, setOpen] = useState(false);
+/* ─────────────────────────────────────────────────────────────
+   Carte projet + MODAL plein écran
+   ───────────────────────────────────────────────────────────── */
 
+function ProjectDetail({ p, onClose }) {
+  /* disable scroll backg. */
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm">
+      <div className="absolute inset-0 overflow-y-auto">
+        <div className="mx-auto max-w-5xl bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white rounded-none md:rounded-2xl my-0 md:my-10">
+          {/* header */}
+          <div className="flex items-center justify-between p-4 border-b">
+            <div className="flex items-center gap-3">
+              <span className="text-sm px-2 py-0.5 rounded-full border">{p.task}</span>
+              <h3 className="text-lg md:text-xl font-semibold">{p.title}</h3>
+            </div>
+            <button className={BTN_SM} onClick={onClose}><X className="h-4 w-4" /> Fermer</button>
+          </div>
+
+          {/* poster */}
+          <div className="p-4">
+            <div className="overflow-hidden rounded-xl border bg-white mb-4">
+              <ProjectPoster brand={p.brand || p.tags?.[0]} tags={p.tags} image={p.image} />
+            </div>
+
+            {/* full text */}
+            <p className="text-sm md:text-base leading-7 mb-3">{p.pitch}</p>
+            {p.highlights?.length ? (
+              <ul className="list-disc pl-5 text-sm md:text-base space-y-1 mb-4">
+                {p.highlights.map((h, i) => <li key={i}>{h}</li>)}
+              </ul>
+            ) : null}
+
+            {p.kpis?.length ? <KPIGrid items={p.kpis} /> : null}
+            {p.variant ? <ArchitectureTabs variant={p.variant} /> : null}
+
+            {/* footer */}
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              {p.tags.map((t) => <Badge key={t}>{t}</Badge>)}
+              {p.link?.map((l, i) => (
+                <a key={i} href={l.url} target="_blank" rel="noreferrer" className={BTN_SM}>
+                  {l.name === "GitHub" ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />} {l.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProjectCard({ p, onOpen }) {
   return (
     <Card>
       <div className="mb-4 overflow-hidden rounded-xl border bg-white">
         <ProjectPoster brand={p.brand || p.tags?.[0]} tags={p.tags} image={p.image} />
       </div>
 
-      {/* Titre court + rôle court */}
       <div className="flex items-start justify-between gap-3 mb-1">
         <h3 className="text-base md:text-lg font-semibold leading-tight">{p.title}</h3>
         <span className="text-[11px] md:text-xs opacity-60 whitespace-nowrap">{p.task}</span>
       </div>
 
-      {/* Pitch tronqué */}
       <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-6 mb-2">
         {truncate(p.pitch, 180)}
       </p>
 
-      {/* Bullets (2 max) */}
       {p.highlights?.length ? (
         <div className="mb-3">
           <ul className="list-disc pl-5 text-sm space-y-1">
@@ -471,51 +522,31 @@ function ProjectCard({ p }) {
         </div>
       ) : null}
 
-      {/* Tags limités */}
       <div className="mb-3">
-        {p.tags.slice(0, 4).map((t) => (
-          <Badge key={t}>{t}</Badge>
-        ))}
+        {p.tags.slice(0, 4).map((t) => (<Badge key={t}>{t}</Badge>))}
       </div>
 
-      {/* Actions + Détails */}
       <div className="flex flex-wrap items-center gap-3 text-sm">
         {p.link?.map((l, i) => (
-          <a
-            key={i}
-            href={l.url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 hover:underline"
-          >
+          <a key={i} href={l.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">
             {l.name === "GitHub" ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />} {l.name}
           </a>
         ))}
-        <button onClick={() => setOpen(v => !v)} className={BTN_SM}>
-          {open ? "Masquer" : "Détails"}
-        </button>
+        <button onClick={() => onOpen(p)} className={BTN_SM}>Détails</button>
       </div>
-
-      {/* Zone repliable */}
-      {open && (
-        <>
-          {p.kpis?.length ? <KPIGrid items={p.kpis} /> : null}
-          {p.variant ? <ArchitectureTabs variant={p.variant} /> : null}
-        </>
-      )}
     </Card>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Données — Projets (images/logo améliorés)
+   Données — Projets (images/logos mis à jour)
    ───────────────────────────────────────────────────────────── */
 
 const PROJECTS = [
   {
     id: 0,
     brand: "ClickHouse",
-    image: "/projet.png", // heatmap locale (garde)
+    image: "/projet.png",
     title: "Battery Heatmap",
     task: "Data/Analytics",
     pitch:
@@ -691,10 +722,10 @@ const PROJECTS = [
   {
     id: 8,
     brand: "Fraud",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/World_map_blank_without_borders.svg/1024px-World_map_blank_without_borders.svg.png",
+    image: "/fraude_bancaire_interactive.png", // placé dans public/
     title: "Fraud API",
     task: "Data/ML",
-    pitch: "Modèle de détection de fraude exposé via API, avec carte simplifiée.",
+    pitch: "Modèle de détection de fraude exposé via API, avec carte interactive simple.",
     highlights: [
       "EDA & features de base.",
       "Dockerisation & instrumentation."
@@ -732,6 +763,7 @@ const PROJECTS = [
   },
 ];
 
+/* Filtres visibles dans le carrousel horizontal */
 const FILTERS = [
   "All","ClickHouse","dbt","Airflow","Great Expectations","PySpark","Kafka",
   "Delta Lake","Flask","n8n","Kubernetes","Docker","Terraform","Prometheus",
@@ -739,7 +771,7 @@ const FILTERS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   Projects (recherche + filtres + synchro URL)
+   Projects (recherche + filtres + synchro URL + MODAL)
    ───────────────────────────────────────────────────────────── */
 
 function useQuerySync(state, setState) {
@@ -763,6 +795,7 @@ function useQuerySync(state, setState) {
 
 function Projects() {
   const [state, setState] = useState({ selected: "All", q: "" });
+  const [selectedProject, setSelectedProject] = useState(null);
   useQuerySync(state, setState);
 
   const filtered = useMemo(() => {
@@ -815,13 +848,21 @@ function Projects() {
             viewport={{ once: true }}
             transition={{ duration: 0.35 }}
           >
-            <ProjectCard p={p} />
+            <ProjectCard p={p} onOpen={setSelectedProject} />
           </motion.div>
         ))}
       </div>
+
+      {selectedProject && (
+        <ProjectDetail
+          p={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </Section>
   );
 }
+
 /* ─────────────────────────────────────────────────────────────
    Skills
    ───────────────────────────────────────────────────────────── */
@@ -1031,9 +1072,7 @@ function Responsibilities() {
           <Card key={i}>
             <div className="font-medium mb-2">{r.title}</div>
             <ul className="list-disc pl-5 text-sm space-y-1">
-              {r.items.map((it, idx) => (
-                <li key={idx}>{it}</li>
-              ))}
+              {r.items.map((it, idx) => (<li key={idx}>{it}</li>))}
             </ul>
           </Card>
         ))}
@@ -1043,24 +1082,24 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Education — deux colonnes (Académique / Personnel)
+   Formation (Académique à gauche / Personnel à droite)
    ───────────────────────────────────────────────────────────── */
 
 function Education() {
   return (
     <Section id="education" title="Formation" icon={<Database className="h-6 w-6" />}>
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Colonne gauche : parcours académique */}
+        {/* Gauche : Parcours académique */}
         <Card>
           <div className="font-medium mb-2">Parcours académique</div>
           <ul className="list-disc pl-5 text-sm space-y-1">
             <li>Licence — Banque & Finance</li>
             <li>Master 1 & 2 — AFI & Système d'information</li>
-            <li>Ingénieur en science des données</li>
+            <li>Master 1 & 2 — Ingénieur en science des données</li>
           </ul>
         </Card>
 
-        {/* Colonne droite : parcours personnel */}
+        {/* Droite : Parcours personnel */}
         <Card>
           <div className="font-medium mb-2">Parcours personnel</div>
           <ul className="list-disc pl-5 text-sm space-y-1">
@@ -1119,7 +1158,7 @@ function Contact() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Scrollspy + navigation
+   Scrollspy + navigation (flèches / PageUp-Down)
    ───────────────────────────────────────────────────────────── */
 
 function useScrollspy(ids) {
@@ -1182,18 +1221,17 @@ export default function Portfolio() {
       <Header activeId={pager.activeId} />
       <Hero />
       <Projects />
+
+      {/* Compétences */}
       <Section id="skills" title="Compétences" icon={<Database className="h-6 w-6" />}>
         <div className="grid md:grid-cols-2 gap-6">
           {(() => {
-            const grouped = (() => {
-              const map = new Map();
-              for (const s of SKILLS) {
-                if (!map.has(s.category)) map.set(s.category, []);
-                map.get(s.category).push(s);
-              }
-              return Array.from(map.entries());
-            })();
-            return grouped.map(([cat, skills]) => (
+            const map = new Map();
+            for (const s of SKILLS) {
+              if (!map.has(s.category)) map.set(s.category, []);
+              map.get(s.category).push(s);
+            }
+            return Array.from(map.entries()).map(([cat, skills]) => (
               <Card key={cat}>
                 <div className="mb-3 font-medium">{cat}</div>
                 <div className="space-y-3">
@@ -1212,8 +1250,8 @@ export default function Portfolio() {
           })()}
         </div>
       </Section>
+
       <Responsibilities />
-      {/* Experience supprimée */}
       <Education />
       <Contact />
 
