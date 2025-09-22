@@ -638,10 +638,10 @@ const PROJECTS = [
   {
     id: 4,
     brand: "Cloud",
-    image: "./33.png",
-    title: "Data Engineering Cloud Project",
+    image: "/C.png",
+    title: "Observability Cloud Project",
     task: "Cloud",
-    pitch: "Pipeline bronze/silver/gold sur Cloud (ADLS/Databricks) et exposition d’indicateurs BI.",
+    pitch: "Pipeline bronze/silver/gold sur Cloud (ADLS/Databricks) et observabilité avec grafana.",
     highlights: [
       "Transformations dbt + tests.",
       "Alerting fraîcheur/latence (Grafana)."
@@ -680,7 +680,7 @@ const PROJECTS = [
   {
     id: 6,
     brand: "Talend",
-    image: "/55.png",
+    image: "/talend.png",
     title: "Talend ETL Project  Financial DataMarts",
     task: "ETL",
     pitch: "Module ETL autonome (JAR) avec configuration externe et logs centralisés.",
@@ -743,7 +743,7 @@ const PROJECTS = [
   {
     id: 9,
     brand: "Keras",
-    image: "/comuter_vision.png",
+    image: "/comuter_vision.jpg",
     title: "Computer Vision Project",
     task: "AI/MLOps",
     pitch: "Deux maquettes pédagogiques : NLP TF-IDF et CNN image (CIFAR-10).",
