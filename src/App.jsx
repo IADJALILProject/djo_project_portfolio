@@ -30,7 +30,8 @@ const DATA = {
   avatar: "/avatar.jpg",
 };
 
-const SECTION_ORDER = ["projects", "skills", "responsibilities", "experience", "education", "contact"];
+/* ⛏️ Expériences retirée du scrollspy */
+const SECTION_ORDER = ["projects", "skills", "responsibilities", "education", "contact"];
 
 /* ─────────────────────────────────────────────────────────────
    Styles
@@ -190,7 +191,7 @@ function Header({ activeId }) {
             <a href="#projects" className={linkCls("projects")}>Projets</a>
             <a href="#skills" className={linkCls("skills")}>Compétences</a>
             <a href="#responsibilities" className={linkCls("responsibilities")}>Missions & Réalisations</a>
-            <a href="#experience" className={linkCls("experience")}>Expériences</a>
+            {/* lien Expériences retiré */}
             <a href="#education" className={linkCls("education")}>Formation</a>
             <a href="#contact" className={linkCls("contact")}>Contact</a>
             <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
@@ -626,7 +627,7 @@ const PROJECTS = [
     tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }],
   },
-    // 4 — Cloud b/s/g
+  // 4 — Cloud b/s/g
   {
     id: 4,
     brand: "Cloud",
@@ -770,7 +771,6 @@ const FILTERS = [
   "Delta Lake","Flask","n8n","Kubernetes","Docker","Terraform","Prometheus",
   "Grafana","Python","SQL","BI","Talend","Java","Cloud"
 ];
-
 /* ─────────────────────────────────────────────────────────────
    Projects (recherche + filtres + synchro URL)
    ───────────────────────────────────────────────────────────── */
@@ -1077,121 +1077,7 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Experience
-   ───────────────────────────────────────────────────────────── */
-
-function BrandMarkSmall({ brand }) {
-  const B = (brand || "").toLowerCase();
-  const iconMap = {
-    cloud: <FaCloud className="h-6 w-6" />,
-    clickhouse: <FaDatabase className="h-6 w-6" />,
-    dbt: <FaCogs className="h-6 w-6" />,
-  };
-  return (
-    <div className="shrink-0 w-24 h-10 border rounded-xl overflow-hidden bg-white flex items-center justify-center">
-      {iconMap[B] || <FaServer className="h-6 w-6" />}
-    </div>
-  );
-}
-
-function Experience() {
-  const rows = useMemo(
-    () => [
-      {
-        role: "Data Engineer",
-        company: "PowerUp Technology",
-        brand: "Cloud",
-        period: "Avr. 2025 → 7 oct. 2025 · Paris",
-        details: [
-          "Migration analytique ClickHouse (étoile dbt) pour heatmaps.",
-          "Azure Blob → dbt → Airflow ; observabilité Prometheus/Grafana.",
-          "Docker & Terraform ; benchmarks automatisés.",
-          "SLAs & data contracts ; alerting proactif.",
-          "DAGs Airflow (sensors, pools, SLA), backfills contrôlés.",
-          "Tests (dbt + GE), docs & lineage.",
-          "MV, TTL & pruning pour perf/coûts.",
-        ],
-      },
-      {
-        role: "Data Engineer — Freelance",
-        company: "SkyOps",
-        brand: "Cloud",
-        period: "Nov. 2024 → Mars 2025 · Remote",
-        details: [
-          "Ingestion vers data lake (S3/ADLS) avec validations & reprise.",
-          "Modèles dbt (étoile), tests GE & documentation.",
-          "Airflow (DAGs, calendriers, backfills) & Docker.",
-          "Métriques/alertes Grafana (fraîcheur/latence/volumes).",
-          "Optimisation coûts/performances (partitions/TTL/sizing).",
-        ],
-      },
-      {
-        role: "Data Engineer",
-        company: "Koacher · SportTech",
-        brand: "Cloud",
-        period: "Sept. 2022 → Août 2024 · Lyon",
-        details: [
-          "Entrepôt PostgreSQL exposé via APIs.",
-          "ETL Python + APIs Node/Express pour front React.",
-          "Métriques produit/marketing ; CI GitHub Actions.",
-          "Schémas en étoile & vues analytiques.",
-          "Contrôles de qualité, logs structurés.",
-          "Optimisation SQL pour reporting.",
-        ],
-      },
-      {
-        role: "Data Analyst",
-        company: "HSBC",
-        brand: "Cloud",
-        period: "Fév. 2021 → Mai 2021 · Alger",
-        details: [
-          "Analyses exploratoires, reporting & automatisations SQL/Excel.",
-          "Standardisation des extractions & contrôles qualité.",
-          "Scripts paramétrables pour demandes ad-hoc.",
-        ],
-      },
-      {
-        role: "Data Analyst",
-        company: "BNP Paribas",
-        brand: "Cloud",
-        period: "Mars 2020 → Juin 2020 · Alger",
-        details: [
-          "Qualité de données, requêtes SQL & extractions standardisées.",
-          "Traçabilité & harmonisation des référentiels.",
-        ],
-      },
-    ],
-    []
-  );
-
-  return (
-    <Section id="experience" title="Expériences" icon={<Briefcase className="h-6 w-6" />}>
-      <div className="space-y-6">
-        {rows.map((e, idx) => (
-          <div key={idx} className="relative pl-6">
-            <div className="absolute left-0 top-1.5 size-2 rounded-full bg-zinc-400" />
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-baseline gap-x-3">
-                <h3 className="font-medium">{e.role}</h3>
-                <span className="opacity-70">— {e.company}</span>
-                <span className="text-sm opacity-60">{e.period}</span>
-              </div>
-              <BrandMarkSmall brand={e.brand} />
-            </div>
-            <ul className="mt-2 list-disc pl-5 text-sm space-y-2">
-              {e.details.map((d, i) => (
-                <li key={i}>{d}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Education
+   Education (Certifs remplacées par ta liste)
    ───────────────────────────────────────────────────────────── */
 
 function Education() {
@@ -1209,9 +1095,12 @@ function Education() {
         <Card>
           <div className="font-medium mb-2">Certifications & formations</div>
           <ul className="list-disc pl-5 text-sm space-y-1">
-            <li>Certification Cloud Microsoft Azure</li>
-            <li>Udemy — cours Data/Engineering</li>
-            <li>Kaggle — notebooks & compétitions</li>
+            <li>Microsoft Azure AI Fundamentals</li>
+            <li>Data Engineering with Big Data ecosystem and cloud integration</li>
+            <li>Machine Learning & Deep Learning</li>
+            <li>Python pour l'analyse financière & Algorithme de trading</li>
+            <li>Natural Langage Processing</li>
+            <li>Computer Vision</li>
           </ul>
         </Card>
       </div>
@@ -1355,7 +1244,7 @@ export default function Portfolio() {
         </div>
       </Section>
       <Responsibilities />
-      <Experience />
+      {/* Expériences supprimée */}
       <Education />
       <Contact />
 
