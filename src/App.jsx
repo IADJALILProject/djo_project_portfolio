@@ -679,24 +679,24 @@ const PROJECTS = [
   },
   {
     id: 6,
-    brand: "Talend",
-    image: "/talend2.png",
-    title: "Talend ETL Project  Financial DataMarts",
-    task: "ETL",
-    pitch: "Module ETL autonome (JAR) avec configuration externe et logs centralisés.",
+    brand: "Keras",
+    image: "/comuter-vision.jpg",
+    title: "Computer Vision Project",
+    task: "AI/MLOps",
+    pitch: "Deux maquettes pédagogiques : NLP TF-IDF et CNN image (CIFAR-10).",
     highlights: [
-      "Packaging JAR & log4j2.",
-      "Orchestration Airflow/k8s."
+      "Tests pytest & packaging.",
+      "Scripts CLI + Docker."
     ],
     kpis: [
-      { label: "Packaging", value: "JAR", sub: "multi-env" },
-      { label: "Logs", value: "log4j2", sub: "centralisés" },
-      { label: "Orchestration", value: "Airflow/k8s", sub: "OK" },
-      { label: "Success", value: "> 99%", sub: "démo" },
+      { label: "Accuracy", value: "démo", sub: "NLP/CNN" },
+      { label: "Tests", value: "pytest", sub: "OK" },
+      { label: "Docker", value: "OK", sub: "build" },
+      { label: "Serving", value: "CLI/GUI", sub: "ready" },
     ],
-    variant: "talend",
-    tags: ["Talend", "Java", "Airflow", "Kubernetes", "Grafana"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend_2" }],
+    variant: "keras",
+    tags: ["Python", "Docker", "Keras", "sklearn"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/ai-labs-text-and-image" }],
   },
   {
     id: 7,
@@ -739,27 +739,6 @@ const PROJECTS = [
     variant: "fraud",
     tags: ["Python", "Flask", "Docker", "SQL", "BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
-  },
-  {
-    id: 8,
-    brand: "Keras",
-    image: "/comuter-vision.jpg",
-    title: "Computer Vision Project",
-    task: "AI/MLOps",
-    pitch: "Deux maquettes pédagogiques : NLP TF-IDF et CNN image (CIFAR-10).",
-    highlights: [
-      "Tests pytest & packaging.",
-      "Scripts CLI + Docker."
-    ],
-    kpis: [
-      { label: "Accuracy", value: "démo", sub: "NLP/CNN" },
-      { label: "Tests", value: "pytest", sub: "OK" },
-      { label: "Docker", value: "OK", sub: "build" },
-      { label: "Serving", value: "CLI/GUI", sub: "ready" },
-    ],
-    variant: "keras",
-    tags: ["Python", "Docker", "Keras", "sklearn"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/ai-labs-text-and-image" }],
   },
 ];
 
