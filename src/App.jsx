@@ -595,7 +595,7 @@ const PROJECTS = [
     id: 2,
     brand: "Talend",
     image: "/ta.png",
-    title: "Talend ETL Project Sales DataMarts",
+    title: "Data Integration Datamart Project",
     task: "ETL",
     pitch:
       "ETL multi-sources alimentant un ODS de reporting avec orchestration et journalisation.",
@@ -637,9 +637,9 @@ const PROJECTS = [
   },
   {
     id: 4,
-    brand: "Cloud",
+    brand: "Pipelines Cloud",
     image: "/C.png",
-    title: "Observability Cloud Project",
+    title: "Pipeline Project",
     task: "Cloud",
     pitch: "Pipeline bronze/silver/gold sur Cloud (ADLS/Databricks) et observabilité avec grafana.",
     highlights: [
