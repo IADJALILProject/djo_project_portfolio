@@ -594,7 +594,7 @@ const PROJECTS = [
   {
     id: 2,
     brand: "Talend",
-    image: "/talend.jpg",
+    image: "/ta.jpg",
     title: "Talend ETL Project Sales DataMarts",
     task: "ETL",
     pitch:
@@ -658,10 +658,10 @@ const PROJECTS = [
   },
   {
     id: 5,
-    brand: "Flask",
-    image: "/R.png",
+    brand: "Business Intelligence project",
+    image: "/Sa.png",
     title: "MLOps Flask Project",
-    task: "MLOps",
+    task: "MLOps + BI + Dashboard",
     pitch: "Microservice ML exposé via API REST conteneurisée, testée et instrumentée.",
     highlights: [
       "Endpoints /predict & /metrics.",
@@ -673,8 +673,8 @@ const PROJECTS = [
       { label: "RPS", value: "stable", sub: "profilé" },
       { label: "Deploy", value: "k8s", sub: "maquette" },
     ],
-    variant: "flask",
-    tags: ["Flask", "pytest", "Docker", "Kubernetes", "Python"],
+    variant: "Python, SQL",
+    tags: ["Python", "SQL","pytest", "Docker", "Kubernetes", "Python", "Power BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/flask_docker_app" }],
   },
   {
