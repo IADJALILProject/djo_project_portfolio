@@ -564,7 +564,7 @@ const PROJECTS = [
     ],
     variant: "heatmap",
     tags: [
-      "ClickHouse","dbt","Airflow","Grafana","Python","Streamlit","Azure",
+      "ClickHouse","Snowflake Schema", "OLAP" ,"dbt","Airflow","Grafana","Python","Streamlit","Azure",
       "InfluxDB","MongoDB","Delta Lake","Databricks","Docker","Kubernetes","Power BI"
     ],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }],
@@ -594,7 +594,7 @@ const PROJECTS = [
   {
     id: 2,
     brand: "Talend",
-    image: "/ta.jpg",
+    image: "/ta.png",
     title: "Talend ETL Project Sales DataMarts",
     task: "ETL",
     pitch:
@@ -660,7 +660,7 @@ const PROJECTS = [
     id: 5,
     brand: "Business Intelligence project",
     image: "/Sa.png",
-    title: "MLOps Flask Project",
+    title: "Business Intelligence Project",
     task: "MLOps + BI + Dashboard",
     pitch: "Microservice ML exposé via API REST conteneurisée, testée et instrumentée.",
     highlights: [
@@ -674,7 +674,7 @@ const PROJECTS = [
       { label: "Deploy", value: "k8s", sub: "maquette" },
     ],
     variant: "Python, SQL",
-    tags: ["Python", "SQL","pytest", "Docker", "Kubernetes", "Python", "Power BI"],
+    tags: ["Python", "SQL","PostgreSQL", "DAX", "OLAP", "Star Schema", "pytest", "Docker", "Kubernetes", "Python", "Power BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/flask_docker_app" }],
   },
   {
