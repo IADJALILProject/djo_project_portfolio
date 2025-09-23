@@ -545,7 +545,7 @@ function ProjectCard({ p, onOpen }) {
 const PROJECTS = [
   {
     id: 0,
-    brand: "ClickHouse",
+    brand: "ClickHouse Incrémental",
     image: "/projet.png",
     title: "Data LakeHouse Heatmaps IoT Batteries Project",
     task: "Data/Analytics",
@@ -721,9 +721,9 @@ const PROJECTS = [
   },
   {
     id: 8,
-    brand: "Fraud",
+    brand: "Fraude Bancaire Temps réel",
     image: "/fraude_bancaire_carte_interactive.png", 
-    title: "Fraud API",
+    title: "Fraud Detection Project",
     task: "Data/ML",
     pitch: "Modèle de détection de fraude exposé via API, avec carte interactive simple.",
     highlights: [
