@@ -638,8 +638,8 @@ const PROJECTS = [
   {
     id: 4,
     brand: "Pipelines Cloud",
-    image: "/C.png",
-    title: "Pipeline Project",
+    image: "/Sa.png",
+    title: "Pipeline Banque Project",
     task: "Cloud",
     pitch: "Pipeline bronze/silver/gold sur Cloud (ADLS/Databricks) et observabilité avec grafana.",
     highlights: [
@@ -659,7 +659,7 @@ const PROJECTS = [
   {
     id: 5,
     brand: "Business Intelligence project",
-    image: "/Sa.png",
+    image: "/En.png",
     title: "Business Intelligence Project",
     task: "MLOps + BI + Dashboard",
     pitch: "Microservice ML exposé via API REST conteneurisée, testée et instrumentée.",
