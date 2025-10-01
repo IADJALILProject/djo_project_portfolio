@@ -26,7 +26,7 @@ const DATA = {
   phone: "tel:+33611279153",
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
-  cvUrl: "/cv__djalil__asap.pdf",
+  cvUrl: "/.pdf",
   avatar: "/avatar.jpg",
 };
 
@@ -1061,39 +1061,41 @@ function Responsibilities() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Formation (Académique à gauche / Personnel à droite)
+   Formation (Académique à gauche / Certifications à droite)
    ───────────────────────────────────────────────────────────── */
 
-function Education() {
-  return (
-    <Section id="education" title="Formation" icon={<Database className="h-6 w-6" />}>
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Gauche : Parcours académique */}
-        <Card>
-          <div className="font-medium mb-2">Parcours académique</div>
-          <ul className="list-disc pl-5 text-sm space-y-1">
-            <li>Licence — Banque & Finance</li>
-            <li>Master 1 & 2 — AFI & Système d'information</li>
-            <li>Master 1 & 2 — Ingénieur en science des données</li>
-          </ul>
-        </Card>
-
-        {/* Droite : Parcours personnel */}
-        <Card>
-          <div className="font-medium mb-2">Parcours personnel</div>
-          <ul className="list-disc pl-5 text-sm space-y-1">
-            <li>Microsoft Azure AI Fundamentals</li>
-            <li>Data Engineering with Big Data ecosystem and cloud integration</li>
-            <li>Machine Learning & Deep Learning</li>
-            <li>Python pour l'analyse financière & Algorithme de trading</li>
-            <li>Natural Language Processing</li>
-            <li>Computer Vision</li>
-          </ul>
-        </Card>
-      </div>
-    </Section>
-  );
-}
+   function Education() {
+    return (
+      <Section id="education" title="Formation" icon={<Database className="h-6 w-6" />}>
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Gauche : Parcours académique */}
+          <Card>
+            <div className="font-medium mb-2">Formation académique</div>
+            <ul className="list-disc pl-5 text-sm space-y-1">
+              <li>Master 1 & 2 — Ingénierie en Science des Données (IA SCHOOL)</li>
+              <li>Licence 3 — Ingénierie en Science des Données (IA SCHOOL)</li>
+              <li>Master 1 — Système d'information & Management financier (MFSI), IAE Lille</li>
+              <li>Licence — Banque & Finance (Université de Lille 2)</li>
+            </ul>
+          </Card>
+  
+          {/* Droite : Certifications & Formations complémentaires */}
+          <Card>
+            <div className="font-medium mb-2">Certifications & Formations complémentaires</div>
+            <ul className="list-disc pl-5 text-sm space-y-1">
+              <li>Microsoft Azure AI Fundamentals (certification officielle)</li>
+              <li>Data Engineering with Big Data Ecosystem & Cloud Integration (Coursera)</li>
+              <li>Machine Learning & Deep Learning (DeepLearning.AI / Coursera)</li>
+              <li>Python pour l’analyse financière & algorithmes de trading (Udemy)</li>
+              <li>Natural Language Processing (Coursera)</li>
+              <li>Computer Vision (FastAI)</li>
+            </ul>
+          </Card>
+        </div>
+      </Section>
+    );
+  }
+  
 
 /* ─────────────────────────────────────────────────────────────
    Contact
