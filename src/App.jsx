@@ -22,11 +22,11 @@ const DATA = {
   name: "Djalil Salah-Bey",
   title: "Ingénieur en science des données",
   location: "Marseille · Paris · Lille",
-  email: "mailto:ad.salahbey@gmail.com",
+  email: "mailto:salahbeydjalil@gmail.com",
   phone: "tel:+33611279153",
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
-  cvUrl: "/Djalil_CV_Portfolio.pdf",
+  cvUrl: "/CV_22.pdf",
   avatar: "/avatar.jpg",
 };
 
