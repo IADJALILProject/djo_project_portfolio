@@ -170,6 +170,7 @@ function Header({ activeId }) {
             <a href="#projects" className={linkCls("projects")}>Projets</a>
             <a href="#skills" className={linkCls("skills")}>Compétences</a>
             <a href="#responsibilities" className={linkCls("responsibilities")}>Missions & Réalisations</a>
+            <a href="#education" className={linkCls("education")}>Formation</a>
             <a href="#contact" className={linkCls("contact")}>Contact</a>
             <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
               <Download className="h-4 w-4" /> CV
@@ -1037,6 +1038,27 @@ function Responsibilities() {
     </Section>
   );
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Formation (Académique à gauche / Certifications à droite)
+   ───────────────────────────────────────────────────────────── */
+
+   function Education() {
+    return (
+      <Section id="education" title="Formation" icon={<Database className="h-6 w-6" />}>
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Gauche : Parcours académique */}
+          <Card>
+            <div className="font-medium mb-2">Formation académique</div>
+            <ul className="list-disc pl-5 text-sm space-y-1">
+              <li>IA School — Master Expert Data & Ingénierie de l’Intelligence Artificielle</li>
+            </ul>
+          </Card>
+        </div>
+      </Section>
+    );
+  }
+  
 
 /* ─────────────────────────────────────────────────────────────
    Contact
