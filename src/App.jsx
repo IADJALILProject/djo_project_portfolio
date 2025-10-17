@@ -547,7 +547,7 @@ const PROJECTS = [
     id: 0,
     brand: "ClickHouse Incrémental",
     image: "/projet.png",
-    title: "Data LakeHouse Heatmaps IoT Batteries Project",
+    title: "Battery Load Analytics Platform",
     task: "Data/Analytics",
     pitch:
       "Plateforme end-to-end : ingestion Azure, modèle dbt en étoile, marts ClickHouse, dashboards Streamlit. Focus performance, coûts et fiabilité pour l’analyse de charge batterie.",
@@ -573,7 +573,7 @@ const PROJECTS = [
     id: 1,
     brand: "dbt",
     image: "/sales.png",
-    title: "Data Warehouse Sales Project",
+    title: "Business Intelligence Project -Sales",
     task: "Data/BI",
     pitch:
       "Domaine ventes en étoile, snapshots SCD et tests — industrialisé via Airflow.",
@@ -595,7 +595,7 @@ const PROJECTS = [
     id: 2,
     brand: "Talend",
     image: "/ta.png",
-    title: "Data Integration Datamart Project",
+    title: "Datamart Project -Sales & Finance",
     task: "ETL",
     pitch:
       "ETL multi-sources alimentant un ODS de reporting avec orchestration et journalisation.",
@@ -639,7 +639,7 @@ const PROJECTS = [
     id: 4,
     brand: "Pipelines Cloud",
     image: "/Sa.png",
-    title: "Pipeline Banque Project",
+    title: "Business Intelligence Project -Banque",
     task: "Cloud",
     pitch: "Pipeline bronze/silver/gold sur Cloud (ADLS/Databricks) et observabilité avec grafana.",
     highlights: [
@@ -657,31 +657,10 @@ const PROJECTS = [
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
   },
   {
-    id: 5,
-    brand: "Business Intelligence project",
-    image: "/En.png",
-    title: "Business Intelligence Project",
-    task: "MLOps + BI + Dashboard",
-    pitch: "Microservice ML exposé via API REST conteneurisée, testée et instrumentée.",
-    highlights: [
-      "Endpoints /predict & /metrics.",
-      "CI GitHub Actions + tests."
-    ],
-    kpis: [
-      { label: "Health", value: "OK", sub: "readiness/liveness" },
-      { label: "CI", value: "Actions", sub: "tests & build" },
-      { label: "RPS", value: "stable", sub: "profilé" },
-      { label: "Deploy", value: "k8s", sub: "maquette" },
-    ],
-    variant: "Python, SQL",
-    tags: ["Python", "SQL","PostgreSQL", "DAX", "OLAP", "Star Schema", "pytest", "Docker", "Kubernetes", "Python", "Power BI"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/flask_docker_app" }],
-  },
-  {
     id: 6,
     brand: "Keras",
     image: "/comuter-vision.jpg",
-    title: "Computer Vision Project",
+    title: "Computer Vision Machine Learning",
     task: "AI/MLOps",
     pitch: "Deux maquettes pédagogiques : NLP TF-IDF et CNN image (CIFAR-10).",
     highlights: [
@@ -702,7 +681,7 @@ const PROJECTS = [
     id: 7,
     brand: "n8n",
     image: "/Chatbot.png",
-    title: "n8n Automation Project",
+    title: "Chatbot Machine Learning",
     task: "Automation",
     pitch: "Automatisation ingestion/enrichissement et intégrations via n8n.",
     highlights: [
@@ -723,7 +702,7 @@ const PROJECTS = [
     id: 8,
     brand: "Fraude Bancaire Temps réel",
     image: "/fraude_bancaire_carte_interactive.png", 
-    title: "Fraud Detection Project",
+    title: "Banque Machine Learning",
     task: "Data/ML",
     pitch: "Modèle de détection de fraude exposé via API, avec carte interactive simple.",
     highlights: [
