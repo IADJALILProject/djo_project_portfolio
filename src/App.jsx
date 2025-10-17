@@ -170,7 +170,6 @@ function Header({ activeId }) {
             <a href="#projects" className={linkCls("projects")}>Projets</a>
             <a href="#skills" className={linkCls("skills")}>Compétences</a>
             <a href="#responsibilities" className={linkCls("responsibilities")}>Missions & Réalisations</a>
-            <a href="#education" className={linkCls("education")}>Formation</a>
             <a href="#contact" className={linkCls("contact")}>Contact</a>
             <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
               <Download className="h-4 w-4" /> CV
@@ -1038,39 +1037,6 @@ function Responsibilities() {
     </Section>
   );
 }
-
-/* ─────────────────────────────────────────────────────────────
-   Formation (Académique à gauche / Certifications à droite)
-   ───────────────────────────────────────────────────────────── */
-
-   function Education() {
-    return (
-      <Section id="education" title="Formation" icon={<Database className="h-6 w-6" />}>
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Gauche : Parcours académique */}
-          <Card>
-            <div className="font-medium mb-2">Formation académique</div>
-            <ul className="list-disc pl-5 text-sm space-y-1">
-              <li>Master 1 & 2 — Ingénierie en Science des Données (IA SCHOOL)</li>
-              <li>Licence 3 — Ingénierie en Science des Données (IA SCHOOL)</li>
-              <li>Licence 1,2,3 — Banque & Finance (Université de Lille 2)</li>
-            </ul>
-          </Card>
-  
-          {/* Droite : Certifications & Formations complémentaires */}
-          <Card>
-            <div className="font-medium mb-2">Certifications & Formations complémentaires</div>
-            <ul className="list-disc pl-5 text-sm space-y-1">
-              <li>Microsoft Azure AI Fundamentals (certification officielle)</li>
-              <li>Data Engineering with Big Data Ecosystem & Cloud Integration (Coursera)</li>
-              <li>Python pour l’analyse financière & algorithmes de trading (Udemy)</li>
-            </ul>
-          </Card>
-        </div>
-      </Section>
-    );
-  }
-  
 
 /* ─────────────────────────────────────────────────────────────
    Contact
