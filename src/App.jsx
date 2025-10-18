@@ -540,31 +540,29 @@ function ProjectCard({ p, onOpen }) {
 /* ─────────────────────────────────────────────────────────────
    Données — Projets (images/logos mis à jour)
    ───────────────────────────────────────────────────────────── */
-
 const PROJECTS = [
   {
     id: 0,
-    brand: "ClickHouse Incrémental",
+    brand: "ClickHouse",
     image: "/projet.png",
-    title: "Battery Load Analytics Platform",
-    task: "Data/Analytics",
+    title: "Battery Heatmap Lakehouse",
+    task: "Data Platform",
     pitch:
-      "Plateforme end-to-end : ingestion Azure, modèle dbt en étoile, marts ClickHouse, dashboards Streamlit. Focus performance, coûts et fiabilité pour l’analyse de charge batterie.",
+      "Plateforme Databricks & ClickHouse pour la supervision et la prédiction des performances de batteries (BESS). Pipelines d’ingestion Azure, modélisation Bronze → Silver → Gold et dashboards Streamlit.",
     highlights: [
-      "Bronze/Silver/Gold avec dbt (tests/docs/SCD).",
-      "MV + ORDER BY → requêtes < 500 ms (p95).",
-      "Observabilité Prometheus + Grafana."
+      "Ingestion incrémentale depuis Azure Blob (PySpark + Airflow).",
+      "Modèle dbt en étoile (dim_bin, dim_axis, fact_charge).",
+      "Requêtes < 500 ms via ClickHouse MergeTree et MV."
     ],
     kpis: [
-      { label: "Query time", value: "119 ms", sub: "asset · 1 nœud · 2492 j" },
-      { label: "Max bin", value: "3.82%", sub: "time_spent%" },
-      { label: "dbt incrémental", value: "×3", sub: "vs full refresh" },
-      { label: "Cible p95", value: "< 500 ms", sub: "40M+ lignes" },
+      { label: "Latence p95", value: "< 500 ms", sub: "40M+ lignes" },
+      { label: "Gain dbt incrémental", value: "×3", sub: "vs full refresh" },
+      { label: "Taux de réussite", value: "> 99%", sub: "jobs Airflow" },
+      { label: "Visibilité", value: "Grafana + Power BI", sub: "monitoring" },
     ],
     variant: "heatmap",
     tags: [
-      "ClickHouse","Snowflake Schema", "OLAP" ,"dbt","Airflow","Grafana","Python","Streamlit","Azure",
-      "InfluxDB","MongoDB","Delta Lake","Databricks","Docker","Kubernetes","Power BI"
+      "ClickHouse","dbt","Airflow","Databricks","Azure","Kafka","Streamlit","Python","Grafana","Docker"
     ],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }],
   },
@@ -572,41 +570,41 @@ const PROJECTS = [
     id: 1,
     brand: "dbt",
     image: "/sales.png",
-    title: "Business Intelligence Project -Sales",
-    task: "Data/BI",
+    title: "Sales Analytics Warehouse",
+    task: "Data Modeling",
     pitch:
-      "Domaine ventes en étoile, snapshots SCD et tests — industrialisé via Airflow.",
+      "Entrepôt analytique modélisé en étoile pour le suivi des ventes, produits et clients, avec gestion des SCD et documentation automatisée via dbt.",
     highlights: [
-      "Chaîne staging→marts + tests automatiques.",
-      "Backfills contrôlés & docs/lineage."
+      "Chaîne staging → marts avec tests automatiques.",
+      "Backfills contrôlés et lineage complet via Airflow."
     ],
     kpis: [
       { label: "Build", value: "< 8 min", sub: "dataset démo" },
       { label: "Tests dbt", value: "> 95%", sub: "succès" },
       { label: "Freshness", value: "< 1 h", sub: "contrainte démo" },
-      { label: "Backfill", value: "safe", sub: "via DAG" },
+      { label: "Docs", value: "auto", sub: "dbt docs serve" },
     ],
     variant: "dbt",
-    tags: ["dbt", "Airflow", "Great Expectations", "SQL", "Docker"],
+    tags: ["dbt", "Airflow", "Great Expectations", "PostgreSQL", "SQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }],
   },
   {
     id: 2,
     brand: "Talend",
     image: "/ta.png",
-    title: "Datamart Project -Sales & Finance",
+    title: "Finance Datamart Pipeline",
     task: "ETL",
     pitch:
-      "ETL multi-sources alimentant un ODS de reporting avec orchestration et journalisation.",
+      "Chaîne d’intégration multi-sources automatisée sous Talend, alimentant un ODS et un datamart finance pour le reporting.",
     highlights: [
-      "tMap/routines, contexts dev/recette/prod.",
-      "Audit & gestion d’incidents."
+      "tMap, routines personnalisées et logs centralisés.",
+      "Orchestration Airflow et journalisation des incidents."
     ],
     kpis: [
       { label: "Succès jobs", value: "> 99%", sub: "démo" },
       { label: "Durée", value: "< 10 min", sub: "pipeline type" },
       { label: "Envs", value: "dev/recette/prod", sub: "contexts" },
-      { label: "Logs", value: "centralisés", sub: "audit" },
+      { label: "Audit", value: "complet", sub: "incidents" },
     ],
     variant: "talend",
     tags: ["Talend", "Java", "PostgreSQL", "Airflow", "Terraform"],
@@ -616,18 +614,18 @@ const PROJECTS = [
     id: 3,
     brand: "Spark",
     image: "/55.png",
-    title: "Big Data Spark Project",
+    title: "Real-Time Spark Streaming",
     task: "Big Data",
     pitch:
-      "Traitements PySpark batch & streaming via Kafka et stockage Delta Lake.",
+      "Pipeline PySpark batch et streaming via Kafka, avec stockage Delta Lake et optimisation Z-Order pour la performance analytique.",
     highlights: [
-      "Structured Streaming + Kafka.",
-      "Delta MERGE/OPTIMIZE."
+      "Structured Streaming + Kafka (micro-batch < 2s).",
+      "Delta MERGE/OPTIMIZE + monitoring Airflow."
     ],
     kpis: [
       { label: "Latence", value: "< 2 s", sub: "micro-batch" },
-      { label: "Throughput", value: "stable", sub: "backpressure" },
-      { label: "Optimize", value: "ON", sub: "Z-Order / OPTIMIZE" },
+      { label: "Throughput", value: "stable", sub: "stream" },
+      { label: "ZORDER", value: "activé", sub: "optimize" },
       { label: "Ops", value: "Airflow", sub: "backfills" },
     ],
     variant: "spark",
@@ -636,35 +634,37 @@ const PROJECTS = [
   },
   {
     id: 4,
-    brand: "Pipelines Cloud",
+    brand: "Azure Databricks",
     image: "/Sa.png",
-    title: "Business Intelligence Project -Banque",
-    task: "Cloud",
-    pitch: "Pipeline bronze/silver/gold sur Cloud (ADLS/Databricks) et observabilité avec grafana.",
+    title: "Cloud Lakehouse Monitoring",
+    task: "Cloud Platform",
+    pitch:
+      "Pipeline bronze/silver/gold sur Azure Databricks, avec supervision de la fraîcheur et de la latence des données via Grafana.",
     highlights: [
-      "Transformations dbt + tests.",
-      "Alerting fraîcheur/latence (Grafana)."
+      "Ingestion ADLS + dbt + Airflow orchestration.",
+      "Alerting automatisé sur freshness & latence (Grafana)."
     ],
     kpis: [
       { label: "Freshness", value: "< 1 h", sub: "démo" },
       { label: "Success", value: "> 99%", sub: "tasks" },
-      { label: "Obs", value: "Grafana", sub: "latence/volumétrie" },
-      { label: "IaC", value: "Terraform", sub: "réseau/monit." },
+      { label: "Monitoring", value: "Grafana", sub: "latence/volumétrie" },
+      { label: "IaC", value: "Terraform", sub: "infra cloud" },
     ],
     variant: "cloud",
-    tags: ["Cloud", "dbt", "Airflow", "Terraform", "SQL"],
+    tags: ["Databricks", "Azure", "dbt", "Airflow", "Grafana"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
   },
   {
-    id: 6,
+    id: 5,
     brand: "Keras",
     image: "/comuter-vision.jpg",
-    title: "Computer Vision Machine Learning",
+    title: "ML Packaging & Model Serving",
     task: "AI/MLOps",
-    pitch: "Deux maquettes pédagogiques : NLP TF-IDF et CNN image (CIFAR-10).",
+    pitch:
+      "Packaging et déploiement de modèles NLP et Computer Vision. Pipeline CI/CD avec tests Pytest et conteneurisation Docker.",
     highlights: [
-      "Tests pytest & packaging.",
-      "Scripts CLI + Docker."
+      "NLP TF-IDF et CNN CIFAR-10.",
+      "Pipeline pytest + Docker CLI/GUI."
     ],
     kpis: [
       { label: "Accuracy", value: "démo", sub: "NLP/CNN" },
@@ -677,36 +677,38 @@ const PROJECTS = [
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/ai-labs-text-and-image" }],
   },
   {
-    id: 7,
+    id: 6,
     brand: "n8n",
     image: "/Chatbot.png",
-    title: "Chatbot Machine Learning",
+    title: "Data Automation Workflow",
     task: "Automation",
-    pitch: "Automatisation ingestion/enrichissement et intégrations via n8n.",
+    pitch:
+      "Automatisation d’ingestion et enrichissement de données via workflows n8n et connecteurs Kafka/PostgreSQL.",
     highlights: [
-      "Webhooks/Kafka.",
-      "PostgreSQL + objet."
+      "Workflows n8n (Kafka, API, objets).",
+      "PostgreSQL + gestion des erreurs et logs."
     ],
     kpis: [
       { label: "Jobs/jour", value: "démo", sub: "scénarios" },
       { label: "Retry", value: "backoff", sub: "géré" },
-      { label: "Integrations", value: "webhooks/Kafka", sub: "OK" },
-      { label: "Store", value: "PG + objet", sub: "OK" },
+      { label: "Integrations", value: "API/Kafka", sub: "OK" },
+      { label: "Store", value: "PostgreSQL", sub: "OK" },
     ],
     variant: "n8n",
     tags: ["n8n", "Kafka", "PostgreSQL", "Docker", "Python"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Agent_n8n" }],
   },
   {
-    id: 8,
-    brand: "Fraude Bancaire Temps réel",
-    image: "/fraude_bancaire_carte_interactive.png", 
-    title: "Banque Machine Learning",
+    id: 7,
+    brand: "Flask",
+    image: "/fraude_bancaire_carte_interactive.png",
+    title: "Fraud Detection API",
     task: "Data/ML",
-    pitch: "Modèle de détection de fraude exposé via API, avec carte interactive simple.",
+    pitch:
+      "API Flask pour la détection de fraude en temps réel avec visualisation interactive. Déploiement conteneurisé et métriques exposées.",
     highlights: [
-      "EDA & features de base.",
-      "Dockerisation & instrumentation."
+      "EDA et feature engineering sur transactions bancaires.",
+      "CI/CD Docker + instrumentation API REST."
     ],
     kpis: [
       { label: "AUC", value: "démo", sub: "notebook" },
@@ -719,6 +721,7 @@ const PROJECTS = [
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
   },
 ];
+
 
 /* Filtres visibles dans le carrousel horizontal */
 const FILTERS = [
