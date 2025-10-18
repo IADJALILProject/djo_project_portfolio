@@ -545,182 +545,113 @@ const PROJECTS = [
     id: 0,
     brand: "ClickHouse",
     image: "/projet.png",
-    title: "Battery Heatmap Lakehouse",
-    task: "Data Platform",
+    title: "BESS Analytics Warehouse",
+    task: "OLAP / Data Warehouse",
     pitch:
-      "Plateforme Databricks & ClickHouse pour la supervision et la prédiction des performances de batteries (BESS). Pipelines d’ingestion Azure, modélisation Bronze → Silver → Gold et dashboards Streamlit.",
+      "Entrepôt analytique ClickHouse pour la donnée BESS : ingestion Databricks/Kafka, star schema, vues matérialisées & projections, réglages MergeTree (partitionnement, ORDER BY, indexes de saut) pour requêtes OLAP rapides.",
     highlights: [
-      "Ingestion incrémentale depuis Azure Blob (PySpark + Airflow).",
-      "Modèle dbt en étoile (dim_bin, dim_axis, fact_charge).",
-      "Requêtes < 500 ms via ClickHouse MergeTree et MV."
+      "Star schema : fact_measurements + dim_pack/dim_cell/dim_time",
+      "AggregatingMergeTree + MV pour rollups minute/heure/jour",
+      "dbt (adapter ClickHouse) pour incrémental + tests"
     ],
     kpis: [
-      { label: "Latence p95", value: "< 500 ms", sub: "40M+ lignes" },
-      { label: "Gain dbt incrémental", value: "×3", sub: "vs full refresh" },
-      { label: "Taux de réussite", value: "> 99%", sub: "jobs Airflow" },
-      { label: "Visibilité", value: "Grafana + Power BI", sub: "monitoring" },
+      { label: "Latence p95", value: "< 500 ms", sub: "≈40M lignes (démo)" },
+      { label: "Fraîcheur", value: "< 5 min", sub: "pipeline incrémental" },
+      { label: "Succès jobs", value: "> 99 %", sub: "Airflow" }
     ],
     variant: "heatmap",
     tags: [
-      "ClickHouse","dbt","Airflow","Databricks","Azure","Kafka","Streamlit","Python","Grafana","Docker"
+      "ClickHouse","dbt","Airflow","Databricks","Kafka","Python","SQL","Azure Blob","Grafana","Streamlit"
     ],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }]
   },
   {
     id: 1,
-    brand: "dbt",
-    image: "/sales.png",
-    title: "Sales Analytics Warehouse",
-    task: "Data Modeling",
-    pitch:
-      "Entrepôt analytique modélisé en étoile pour le suivi des ventes, produits et clients, avec gestion des SCD et documentation automatisée via dbt.",
-    highlights: [
-      "Chaîne staging → marts avec tests automatiques.",
-      "Backfills contrôlés et lineage complet via Airflow."
-    ],
-    kpis: [
-      { label: "Build", value: "< 8 min", sub: "dataset démo" },
-      { label: "Tests dbt", value: "> 95%", sub: "succès" },
-      { label: "Freshness", value: "< 1 h", sub: "contrainte démo" },
-      { label: "Docs", value: "auto", sub: "dbt docs serve" },
-    ],
-    variant: "dbt",
-    tags: ["dbt", "Airflow", "Great Expectations", "PostgreSQL", "SQL"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }],
-  },
-  {
-    id: 2,
-    brand: "Talend",
-    image: "/ta.png",
-    title: "Finance Datamart Pipeline",
-    task: "ETL",
-    pitch:
-      "Chaîne d’intégration multi-sources automatisée sous Talend, alimentant un ODS et un datamart finance pour le reporting.",
-    highlights: [
-      "tMap, routines personnalisées et logs centralisés.",
-      "Orchestration Airflow et journalisation des incidents."
-    ],
-    kpis: [
-      { label: "Succès jobs", value: "> 99%", sub: "démo" },
-      { label: "Durée", value: "< 10 min", sub: "pipeline type" },
-      { label: "Envs", value: "dev/recette/prod", sub: "contexts" },
-      { label: "Audit", value: "complet", sub: "incidents" },
-    ],
-    variant: "talend",
-    tags: ["Talend", "Java", "PostgreSQL", "Airflow", "Terraform"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }],
-  },
-  {
-    id: 3,
     brand: "Spark",
     image: "/55.png",
     title: "Real-Time Spark Streaming",
     task: "Big Data",
     pitch:
-      "Pipeline PySpark batch et streaming via Kafka, avec stockage Delta Lake et optimisation Z-Order pour la performance analytique.",
+      "Pipelines PySpark batch/stream via Kafka, stockage Delta Lake et optimisations (MERGE/OPTIMIZE, Z-Order). Orchestration Airflow.",
     highlights: [
-      "Structured Streaming + Kafka (micro-batch < 2s).",
-      "Delta MERGE/OPTIMIZE + monitoring Airflow."
+      "Structured Streaming + Kafka (micro-batch < 2s)",
+      "Delta Lake : MERGE, OPTIMIZE, VACUUM",
+      "Backfills & dépendances orchestrés dans Airflow"
     ],
     kpis: [
       { label: "Latence", value: "< 2 s", sub: "micro-batch" },
       { label: "Throughput", value: "stable", sub: "stream" },
-      { label: "ZORDER", value: "activé", sub: "optimize" },
-      { label: "Ops", value: "Airflow", sub: "backfills" },
+      { label: "Succès", value: "> 99 %", sub: "DAGs" }
     ],
     variant: "spark",
-    tags: ["PySpark", "Kafka", "Delta Lake", "Airflow", "Python"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }],
+    tags: ["PySpark","Delta Lake","Kafka","Airflow","Python","SQL"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }]
+  },
+  {
+    id: 2,
+    brand: "dbt",
+    image: "/sales.png",
+    title: "Sales Analytics Warehouse",
+    task: "Data Modeling",
+    pitch:
+      "Modélisation en étoile (staging → marts) pour ventes/produits/clients, gestion des SCD, tests et documentation automatiques dbt. Orchestration Airflow.",
+    highlights: [
+      "SCD & incrémental contrôlé (macros dbt-utils)",
+      "Tests (unicité, relations, fraîcheur) + dbt docs",
+      "Lineage & backfills orchestrés"
+    ],
+    kpis: [
+      { label: "Build", value: "< 8 min", sub: "dataset démo" },
+      { label: "Tests", value: "> 95 %", sub: "succès" },
+      { label: "Freshness", value: "< 1 h", sub: "contrainte démo" }
+    ],
+    variant: "dbt",
+    tags: ["dbt","Airflow","PostgreSQL","SQL","Great Expectations"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }]
+  },
+  {
+    id: 3,
+    brand: "Prefect",
+    image: "/Sa.png",
+    title: "Banking Datamart Pipelines",
+    task: "Data Pipeline",
+    pitch:
+      "Pipelines bancaires orchestrés avec Prefect : ingestion multi-sources (API/CSV/SQL), nettoyage/standardisation, chargement Datamart (facts & dims). Monitoring via Prefect Orion.",
+    highlights: [
+      "Flows Prefect : retries, dépendances, planification",
+      "Transformations Python/SQL, chargement Datamart"
+    ],
+    kpis: [
+      { label: "Freshness", value: "< 1 h", sub: "données bancaires (démo)" },
+      { label: "Succès", value: "> 99 %", sub: "runs Prefect" },
+      { label: "CI", value: "Docker", sub: "exécution reproductible" }
+    ],
+    variant: "prefect",
+    tags: ["Prefect","Python","SQL","PostgreSQL","Docker"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/prefect-banking-datamart" }]
   },
   {
     id: 4,
-    brand: "Azure Databricks",
-    image: "/Sa.png",
-    title: "Cloud Lakehouse Monitoring",
-    task: "Cloud Platform",
+    brand: "Talend",
+    image: "/ta.png",
+    title: "Finance Datamart Pipeline",
+    task: "ETL",
     pitch:
-      "Pipeline bronze/silver/gold sur Azure Databricks, avec supervision de la fraîcheur et de la latence des données via Grafana.",
+      "ETL Talend vers ODS/Datamart finance : intégration multi-sources, planification, logs et supervision. Optimisation SQL pour le reporting.",
     highlights: [
-      "Ingestion ADLS + dbt + Airflow orchestration.",
-      "Alerting automatisé sur freshness & latence (Grafana)."
+      "Jobs Talend (tMap, routines) + contexts env",
+      "Orchestration Airflow & journalisation incidents"
     ],
     kpis: [
-      { label: "Freshness", value: "< 1 h", sub: "démo" },
-      { label: "Success", value: "> 99%", sub: "tasks" },
-      { label: "Monitoring", value: "Grafana", sub: "latence/volumétrie" },
-      { label: "IaC", value: "Terraform", sub: "infra cloud" },
+      { label: "Succès jobs", value: "> 99 %", sub: "démo" },
+      { label: "Durée", value: "< 10 min", sub: "pipeline type" }
     ],
-    variant: "cloud",
-    tags: ["Databricks", "Azure", "dbt", "Airflow", "Grafana"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Data_Engineering_BI" }],
-  },
-  {
-    id: 5,
-    brand: "Keras",
-    image: "/comuter-vision.jpg",
-    title: "ML Packaging & Model Serving",
-    task: "AI/MLOps",
-    pitch:
-      "Packaging et déploiement de modèles NLP et Computer Vision. Pipeline CI/CD avec tests Pytest et conteneurisation Docker.",
-    highlights: [
-      "NLP TF-IDF et CNN CIFAR-10.",
-      "Pipeline pytest + Docker CLI/GUI."
-    ],
-    kpis: [
-      { label: "Accuracy", value: "démo", sub: "NLP/CNN" },
-      { label: "Tests", value: "pytest", sub: "OK" },
-      { label: "Docker", value: "OK", sub: "build" },
-      { label: "Serving", value: "CLI/GUI", sub: "ready" },
-    ],
-    variant: "keras",
-    tags: ["Python", "Docker", "Keras", "sklearn"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/ai-labs-text-and-image" }],
-  },
-  {
-    id: 6,
-    brand: "n8n",
-    image: "/Chatbot.png",
-    title: "Data Automation Workflow",
-    task: "Automation",
-    pitch:
-      "Automatisation d’ingestion et enrichissement de données via workflows n8n et connecteurs Kafka/PostgreSQL.",
-    highlights: [
-      "Workflows n8n (Kafka, API, objets).",
-      "PostgreSQL + gestion des erreurs et logs."
-    ],
-    kpis: [
-      { label: "Jobs/jour", value: "démo", sub: "scénarios" },
-      { label: "Retry", value: "backoff", sub: "géré" },
-      { label: "Integrations", value: "API/Kafka", sub: "OK" },
-      { label: "Store", value: "PostgreSQL", sub: "OK" },
-    ],
-    variant: "n8n",
-    tags: ["n8n", "Kafka", "PostgreSQL", "Docker", "Python"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Agent_n8n" }],
-  },
-  {
-    id: 7,
-    brand: "Flask",
-    image: "/fraude_bancaire_carte_interactive.png",
-    title: "Fraud Detection API",
-    task: "Data/ML",
-    pitch:
-      "API Flask pour la détection de fraude en temps réel avec visualisation interactive. Déploiement conteneurisé et métriques exposées.",
-    highlights: [
-      "EDA et feature engineering sur transactions bancaires.",
-      "CI/CD Docker + instrumentation API REST."
-    ],
-    kpis: [
-      { label: "AUC", value: "démo", sub: "notebook" },
-      { label: "Predict", value: "ms", sub: "API" },
-      { label: "Docker", value: "OK", sub: "compose" },
-      { label: "CI/CD", value: "ready", sub: "pipeline" },
-    ],
-    variant: "fraud",
-    tags: ["Python", "Flask", "Docker", "SQL", "BI"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/detection_fraude_bancaire" }],
-  },
+    variant: "talend",
+    tags: ["Talend","PostgreSQL","SQL Server","Airflow","SQL"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }]
+  }
 ];
+
 
 
 /* Filtres visibles dans le carrousel horizontal */
