@@ -541,151 +541,199 @@ function ProjectCard({ p, onOpen }) {
    Données — Projets (images/logos mis à jour)
    ───────────────────────────────────────────────────────────── */
 const PROJECTS = [
+  // ─────────────────────────────────────────────────────────
+  // 0) Plateforme IoT Smart City (projet phare)
+  // ─────────────────────────────────────────────────────────
   {
     id: 0,
-    brand: "ClickHouse",
-    image: "/projet.png",
-    title: "BESS Analytics Warehouse (ClickHouse)",
-    task: "OLAP / Data Warehouse",
+    brand: "IoT",
+    image: "/iot-smartcity.png",
+    title: "Plateforme IoT Smart City (météo, trafic, pollution)",
+    task: "Data Platform",
+    context:
+      "Construction d’une plate-forme locale de données pour un cas d’usage urbain : intégration, historisation et mise en visibilité de capteurs météo/traﬁc/pollution.",
     pitch:
-      "Conception d’un entrepôt analytique ClickHouse dédié aux données BESS : ingestion Databricks/Kafka, modélisation en étoile et optimisation MergeTree (partitionnement, ORDER BY, index de saut), appuyées par des vues matérialisées et des projections, afin de garantir des requêtes OLAP stables en sous-seconde.",
+      "Architecture conteneurisée orchestrée par Makefile + Docker, pipelines d’ingestion Python, traitements batch/stream PySpark, stockage analytique DuckDB, modélisation dbt, supervision Grafana et traçabilité complète via OpenLineage/Marquez. Manifests Kubernetes fournis (minikube) pour exécution alternative.",
     highlights: [
-      "Schéma en étoile : fact_measurements et dimensions pack/cell/time.",
-      "MergeTree / AggregatingMergeTree : PARTITION BY toDate(ts), ORDER BY (pack_id, ts).",
-      "Vues matérialisées et projections pour agrégations minute/heure/jour.",
-      "Index de saut, stratégies TTL (tiers chauds/froids) et codecs de compression.",
-      "dbt (adaptateur ClickHouse) pour incrémental et tests automatisés."
+      "Ingestion fiable (météo/traﬁc/pollution) + contrôles de qualité",
+      "Jobs PySpark (batch + streaming) orchestrés par Airflow",
+      "Modèle analytique dbt (staging → marts) sur DuckDB",
+      "Observabilité : Grafana (provisioning as-code), Marquez/OpenLineage",
+      "Deux modes d’exécution : Docker Compose et Kubernetes (minikube)"
     ],
     kpis: [
-      { label: "Latence p95", value: "< 500 ms", sub: "≈ 40 M de lignes (démonstration)" },
-      { label: "Fraîcheur", value: "< 5 min", sub: "pipeline incrémental" },
-      { label: "Succès jobs", value: "> 99 %", sub: "ordonnancement Airflow" }
+      { label: "Fraîcheur", value: "≤ 15 min", sub: "données de démonstration" },
+      { label: "Stabilité DAGs", value: "> 99 %", sub: "retries + alerting" },
+      { label: "Traçabilité", value: "100 % jobs", sub: "lineage Marquez" }
     ],
+    impact:
+      "Réduction nette du temps de mise à disposition des séries temporelles et meilleure lisibilité bout-à-bout des flux grâce au lignage automatisé.",
+    variant: "iot",
+    tags: [
+      "Python","Airflow","PySpark","dbt","DuckDB","Grafana","OpenLineage","Marquez","Docker","Kubernetes","Minikube","CI"
+    ],
+    link: [
+      { name: "GitHub", url: "https://github.com/TON-ORG/iot-smartcity-data-platform" }
+    ]
+  },
+
+  // ─────────────────────────────────────────────────────────
+  // 1) BESS Analytics (ClickHouse)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 1,
+    brand: "ClickHouse",
+    image: "/projet.png",
+    title: "Entrepôt analytique BESS (ClickHouse)",
+    task: "OLAP / Entrepôt de données",
+    context:
+      "Analyse haute fréquence de mesures batteries (BESS) avec exigences de latence serrées et d’agrégations multi-horizons.",
+    pitch:
+      "Entrepôt ClickHouse en étoile, ingestion Databricks/Kafka, agrégations accélérées par vues matérialisées et projections. Réglages MergeTree (partitionnement, ORDER BY, indexes de saut) pour des requêtes OLAP à faible latence.",
+    highlights: [
+      "Schéma en étoile : fact_measurements + dimensions pack/cell/time",
+      "AggregatingMergeTree + vues matérialisées (minute/heure/jour)",
+      "dbt (adapter ClickHouse) : incrémental, tests, documentation",
+      "Paramétrage stockage : partitionnement + indexes de saut"
+    ],
+    kpis: [
+      { label: "Latence p95", value: "< 500 ms", sub: "≈ 40 M de lignes (démo)" },
+      { label: "Fraîcheur", value: "< 5 min", sub: "pipeline incrémental" },
+      { label: "Succès jobs", value: "> 99 %", sub: "orchestration Airflow" }
+    ],
+    impact:
+      "Analyse interactive de volumes conséquents et réduction du coût de calcul via agrégations pré-computées ciblées.",
     variant: "heatmap",
     tags: [
       "ClickHouse","dbt","Airflow","Databricks","Kafka","Python","SQL","Azure Blob","Grafana","Streamlit"
     ],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }]
   },
-{
-  id: 5,
-  brand: "IoT",
-  image: "/iot-smartcity.png",
-  title: "IoT SmartCity Data Platform",
-  task: "Plateforme de données de bout en bout",
-  pitch:
-    "Conception d’une plateforme analytique intégrée pour la ville intelligente, dédiée à l’ingestion, la transformation et la valorisation de données hétérogènes — météorologie, trafic routier et pollution atmosphérique. Le dispositif s’appuie sur des collectes Python et des traitements Spark (batch & streaming), une modélisation en étoile orchestrée par dbt sur DuckDB, ainsi qu’un pilotage opérationnel via Airflow, complété par le traçage OpenLineage/Marquez et une observation en temps réel dans Grafana. Le déploiement est industrialisé en Docker Compose (mode développeur) et Kubernetes/Minikube (mode opérateur).",
-  highlights: [
-    "Ingestion fiable des flux météo, trafic et pollution (APIs publiques), normalisation et contrôle qualité",
-    "Transformations analytiques avec Spark (batch/stream) et consolidation bronze → silver",
-    "Modélisation en étoile sous dbt (staging → marts) sur DuckDB pour des requêtes OLAP rapides",
-    "Orchestration et dépendances gérées par Airflow ; lignage exhaustif vers Marquez (OpenLineage)",
-    "Tableaux de bord Grafana pré-provisionnés (datasource DuckDB) pour un suivi en temps réel",
-    "Double mode d’exécution : Docker Compose pour le développement, Kubernetes/Minikube pour l’exploitation"
-  ],
-  kpis: [
-    { label: "Fraîcheur bronze→silver", value: "< 15 min", sub: "données météo/traffic/pollution" },
-    { label: "Taux de succès DAGs", value: "> 99 %", sub: "orchestration Airflow" },
-    { label: "Latence tableaux de bord", value: "< 300 ms", sub: "requêtes DuckDB" },
-    { label: "Couverture de lignage", value: "100 %", sub: "DAGs instrumentés OpenLineage" }
-  ],
-  variant: "iot",
-  tags: [
-    "Python","Spark","Airflow","dbt","DuckDB","Grafana",
-    "OpenLineage","Marquez","Docker","Kubernetes","Minikube","SQL","CI/CD"
-  ],
-  link: [
-    { name: "GitHub", url: "#" }
-  ]
-}
 
-,
+  // ─────────────────────────────────────────────────────────
+  // 2) Streaming temps réel Spark
+  // ─────────────────────────────────────────────────────────
   {
     id: 2,
-    brand: "dbt",
-    image: "/sales.png",
-    title: "Sales Analytics Warehouse",
-    task: "Data Modeling",
-    pitch:
-      "Conception d’un entrepôt analytique ventes/produits/clients modélisé en étoile (staging → marts), avec SCD, tests et documentation automatisés sous dbt ; orchestration Airflow.",
-    highlights: [
-      "Dimensions à évolution lente (SCD) et incrémental maîtrisé (macros dbt-utils).",
-      "Tests de fraîcheur, d’unicité et de relations ; documentation dbt docs.",
-      "Lineage et backfills pilotés par Airflow."
-    ],
-    kpis: [
-      { label: "Build", value: "< 8 min", sub: "jeu de données de démonstration" },
-      { label: "Tests", value: "> 95 %", sub: "taux de réussite" },
-      { label: "Fraîcheur", value: "< 1 h", sub: "contrainte démo" }
-    ],
-    variant: "dbt",
-    tags: ["dbt","Airflow","PostgreSQL","SQL","Great Expectations"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }]
-  },
-  {
-    id: 3,
-    brand: "Prefect",
-    image: "/Sa.png",
-    title: "Banking Datamart Pipelines",
-    task: "Data Pipeline",
-    pitch:
-      "Chaîne de traitement bancaire orchestrée avec Prefect : ingestion multi-sources (API/CSV/SQL), normalisation/qualité puis alimentation d’un Datamart (faits et dimensions) ; suivi opérationnel via Prefect Orion et Kubernetes , Tableau de bord Business Intelligence sous Power BI",
-    highlights: [
-      "Flows Prefect avec reprises sur erreur, dépendances et planification.",
-      "Transformations Python/SQL et chargement vers le Datamart."
-    ],
-    kpis: [
-      { label: "Fraîcheur", value: "< 1 h", sub: "données bancaires (démonstration)" },
-      { label: "Succès", value: "> 99 %", sub: "exécutions Prefect" },
-      { label: "CI", value: "Docker", sub: "exécutions reproductibles" }
-    ],
-    variant: "prefect",
-    tags: ["Power BI", "Kubernetes","Prefect","Python","SQL","PostgreSQL","Docker"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/prefect-banking-datamart" }]
-  },
-  {
-    id: 4,
-    brand: "Talend",
-    image: "/ta.png",
-    title: "Finance Datamart Pipeline",
-    task: "ETL",
-    pitch:
-      "ETL Talend vers ODS et Datamart Finance : intégrations multi-sources industrialisées, planification, journalisation et supervision ; optimisation SQL pour le reporting.",
-    highlights: [
-      "Jobs Talend (tMap, routines) et gestion des environnements via contexts.",
-      "Orchestration Airflow et journal des incidents consolidé."
-    ],
-    kpis: [
-      { label: "Succès jobs", value: "> 99 %", sub: "exécution de démonstration" },
-      { label: "Durée", value: "< 10 min", sub: "pipeline type" }
-    ],
-    variant: "talend",
-    tags: ["Talend","PostgreSQL","SQL Server","Airflow","SQL"],
-    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }]
-  },
-   {
-    id: 5,
     brand: "Spark",
     image: "/55.png",
-    title: "Real-Time Spark Streaming",
+    title: "Streaming temps réel Spark",
     task: "Big Data",
+    context:
+      "Traitement continu d’événements via Kafka avec garanties de fraîcheur et de qualité, et reprise contrôlée.",
     pitch:
-      "Mise en œuvre de pipelines PySpark batch et streaming alimentés par Kafka, persistés en Delta Lake et optimisés (MERGE/OPTIMIZE, Z-Order) ; orchestration sous Airflow.",
+      "Pipelines PySpark batch et streaming (Structured Streaming) avec Kafka, stockage Delta Lake, optimisations MERGE/OPTIMIZE et Z-Order. Dépendances, backfills et reprises orchestrés dans Airflow.",
     highlights: [
-      "Structured Streaming avec Kafka (micro-lots < 2 s).",
-      "Delta Lake : MERGE, OPTIMIZE, VACUUM et gestion de versions.",
-      "Backfills, dépendances et SLA orchestrés sous Airflow."
+      "Micro-lots < 2 s (Kafka + Structured Streaming)",
+      "Delta Lake : MERGE, OPTIMIZE, VACUUM, Z-Order",
+      "Backfills et dépendances fiabilisés par Airflow",
+      "Observabilité des runs et métadonnées d’exécution"
     ],
     kpis: [
-      { label: "Latence", value: "< 2 s", sub: "micro-lot" },
-      { label: "Débit", value: "stable", sub: "flux continu" },
-      { label: "Succès", value: "> 99 %", sub: "exécutions DAG" }
+      { label: "Latence", value: "< 2 s", sub: "chemin critique streaming" },
+      { label: "Débit", value: "stable", sub: "fenêtre glissante" },
+      { label: "Taux de succès", value: "> 99 %", sub: "DAGs de production" }
     ],
+    impact:
+      "Diminution du temps-to-insight et continuité de service grâce aux mécanismes de reprise et d’optimisation des IO.",
     variant: "spark",
     tags: ["PySpark","Delta Lake","Kafka","Airflow","Python","SQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/mini_spark_project" }]
   },
+
+  // ─────────────────────────────────────────────────────────
+  // 3) Entrepôt Ventes (dbt)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 3,
+    brand: "dbt",
+    image: "/sales.png",
+    title: "Entrepôt analytique des ventes (dbt)",
+    task: "Modélisation de données",
+    context:
+      "Consolidation ventes/produits/clients pour reporting et analyses récurrentes avec contraintes de qualité.",
+    pitch:
+      "Chaîne dbt complète (staging → marts) avec SCD, incrémental et tests (unicité, relations, fraîcheur). Documentation et lignage automatiques ; orchestration et backfills via Airflow.",
+    highlights: [
+      "SCD + incrémental (macros dbt-utils)",
+      "Tests dbt systématiques + dbt docs",
+      "Marts métiers optimisés pour BI",
+      "Backfills contrôlés + dépendances explicites"
+    ],
+    kpis: [
+      { label: "Build", value: "< 8 min", sub: "jeu de démonstration" },
+      { label: "Tests OK", value: "> 95 %", sub: "sur l’ensemble des modèles" },
+      { label: "Fraîcheur", value: "< 1 h", sub: "contrainte opérationnelle" }
+    ],
+    impact:
+      "Confiance accrue dans les indicateurs et cycle de publication BI accéléré grâce à des contrôles qualité codifiés.",
+    variant: "dbt",
+    tags: ["dbt","Airflow","PostgreSQL","SQL","Great Expectations"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }]
+  },
+
+  // ─────────────────────────────────────────────────────────
+  // 4) Datamart bancaire (Prefect)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 4,
+    brand: "Prefect",
+    image: "/Sa.png",
+    title: "Pipelines datamart bancaire (Prefect)",
+    task: "Pipelines de données",
+    context:
+      "Alimentation d’un datamart bancaire depuis sources hétérogènes (API/CSV/SQL) avec exigence de traçabilité.",
+    pitch:
+      "Flows Prefect avec retries, dépendances et planification ; normalisation et enrichissement Python/SQL ; chargement d’un datamart (facts & dimensions). Supervision via Prefect Orion, packaging Docker pour la portabilité.",
+    highlights: [
+      "Orchestration Prefect : planification, reprises, dépendances",
+      "Transformations Python/SQL et contrôles d’intégrité",
+      "Surveillance en temps réel (Orion) + logs détaillés",
+      "Exécution conteneurisée reproductible"
+    ],
+    kpis: [
+      { label: "Fraîcheur", value: "< 1 h", sub: "jeux bancaires (démo)" },
+      { label: "Taux de succès", value: "> 99 %", sub: "runs supervisés" },
+      { label: "Portabilité", value: "Docker", sub: "environnements alignés" }
+    ],
+    impact:
+      "Fiabilisation de l’alimentation et réduction des interventions manuelles grâce à une orchestration explicite et observable.",
+    variant: "prefect",
+    tags: ["Prefect","Python","SQL","PostgreSQL","Docker"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/prefect-banking-datamart" }]
+  },
+
+  // ─────────────────────────────────────────────────────────
+  // 5) Pipeline Finance (Talend)
+  // ─────────────────────────────────────────────────────────
+  {
+    id: 5,
+    brand: "Talend",
+    image: "/ta.png",
+    title: "Pipeline ETL Finance (Talend)",
+    task: "ETL",
+    context:
+      "Intégration multi-sources vers ODS/Datamart finance pour restitution et conformité des reportings.",
+    pitch:
+      "Chaîne ETL Talend (tMap, routines) avec contexts par environnement, ordonnancée par Airflow. Standardisation des données, contrôles d’exhaustivité et optimisation SQL pour des rapports réactifs.",
+    highlights: [
+      "Contexts Talend (DEV/TEST/PROD) et journalisation soignée",
+      "Orchestration Airflow + notifications d’incident",
+      "Optimisations SQL au chargement et pour la BI",
+      "Contrôles d’intégrité et de complétude à l’ingestion"
+    ],
+    kpis: [
+      { label: "Succès jobs", value: "> 99 %", sub: "workflows de référence" },
+      { label: "Durée pipeline", value: "< 10 min", sub: "scénario type" }
+    ],
+    impact:
+      "Réduction des délais de production des états financiers et amélioration de la qualité perçue par les équipes métier.",
+    variant: "talend",
+    tags: ["Talend","PostgreSQL","SQL Server","Airflow","SQL"],
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }]
+  }
 ];
+
 
 
 
