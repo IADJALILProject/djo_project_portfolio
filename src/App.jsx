@@ -576,7 +576,7 @@ const PROJECTS = [
   pitch:
     "Conception d’une plateforme analytique intégrée pour la ville intelligente, dédiée à l’ingestion, la transformation et la valorisation de données hétérogènes — météorologie, trafic routier et pollution atmosphérique. Le dispositif s’appuie sur des collectes Python et des traitements Spark (batch & streaming), une modélisation en étoile orchestrée par dbt sur DuckDB, ainsi qu’un pilotage opérationnel via Airflow, complété par le traçage OpenLineage/Marquez et une observation en temps réel dans Grafana. Le déploiement est industrialisé en Docker Compose (mode développeur) et Kubernetes/Minikube (mode opérateur).",
   highlights: [
-    "Ingestion fiable des flux météo, trafic et pollution (APIs & fichiers), normalisation et contrôle qualité",
+    "Ingestion fiable des flux météo, trafic et pollution (APIs publiques), normalisation et contrôle qualité",
     "Transformations analytiques avec Spark (batch/stream) et consolidation bronze → silver",
     "Modélisation en étoile sous dbt (staging → marts) sur DuckDB pour des requêtes OLAP rapides",
     "Orchestration et dépendances gérées par Airflow ; lignage exhaustif vers Marquez (OpenLineage)",
