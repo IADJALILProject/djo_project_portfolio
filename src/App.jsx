@@ -31,7 +31,7 @@ const DATA = {
 };
 
 /* Sections (sans Expériences) */
-const SECTION_ORDER = ["projects", "skills", "responsibilities", "education", "contact"];
+const SECTION_ORDER = ["projects", "skills",  "education", "contact"];
 
 /* ─────────────────────────────────────────────────────────────
    Styles
@@ -169,7 +169,6 @@ function Header({ activeId }) {
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <a href="#projects" className={linkCls("projects")}>Projets</a>
             <a href="#skills" className={linkCls("skills")}>Compétences</a>
-            <a href="#responsibilities" className={linkCls("responsibilities")}>Missions & Réalisations</a>
             <a href="#education" className={linkCls("education")}>Formation</a>
             <a href="#contact" className={linkCls("contact")}>Contact</a>
             <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
@@ -908,138 +907,6 @@ const SKILLS = [
 ];
 
 /* ─────────────────────────────────────────────────────────────
-   Responsibilities
-   ───────────────────────────────────────────────────────────── */
-
-const RESPONSIBILITIES = [
-  {
-    title: "Architecture & Modélisation",
-    items: [
-      "Cadrage archi (MDS/Lakehouse, batch/stream).",
-      "Étoile (Kimball), Data Vault, 3NF→Star.",
-      "Contrats de données (JSONSchema/dbt).",
-      "Partitionnement/cluster (ORDER BY, Z-Order).",
-    ],
-  },
-  {
-    title: "Ingestion & Connectivité",
-    items: [
-      "Connecteurs API/JDBC, S3/ADLS, webhooks.",
-      "Batch & temps réel (Kafka), CDC/incrémental.",
-      "Idempotence, retries, backoff, secrets.",
-      "Normalisation & chiffrement à l'entrée.",
-    ],
-  },
-  {
-    title: "Transformations (dbt/Spark)",
-    items: [
-      "Staging/cleansing, tests & docs dbt.",
-      "Snapshots SCD, incrémental.",
-      "SQL optimisé, Delta MERGE/OPTIMIZE.",
-      "Marts & métriques réutilisables.",
-    ],
-  },
-  {
-    title: "Orchestration & Scheduling",
-    items: [
-      "DAGs Airflow (sensors, SLAs, pools).",
-      "Déploiement k8s/CronJobs.",
-      "Calendriers & backfills contrôlés.",
-      "Hooks/Operators custom.",
-    ],
-  },
-  {
-    title: "Qualité & Gouvernance",
-    items: [
-      "Great Expectations (suites/checkpoints).",
-      "Lineage (OpenLineage/DataHub).",
-      "SLAs/SLOs, glossaire & stewardship.",
-      "Définitions KPI.",
-    ],
-  },
-  {
-    title: "Observabilité & Monitoring",
-    items: [
-      "Prometheus metrics, Grafana dashboards.",
-      "Logs structurés, traceids.",
-      "Alerting (lag/échecs/qualité).",
-      "Runbooks & auto-remédiation de base.",
-    ],
-  },
-  {
-    title: "Performance & Coût",
-    items: [
-      "Benchmarks p95/p99.",
-      "ClickHouse : MV, TTL, pruning.",
-      "Sizing clusters, cache.",
-      "Optimisation stockage/compute.",
-    ],
-  },
-  {
-    title: "Sécurité & Conformité",
-    items: [
-      "RBAC/roles & secrets (Vault/KeyVault).",
-      "Chiffrement at-rest/in-transit, masquage PII.",
-      "RGPD/retention, purges, anonymisation.",
-      "Journaux d'audit & revues d'accès.",
-    ],
-  },
-  {
-    title: "DevOps & CI/CD",
-    items: [
-      "Images Docker multi-stages, SBOM.",
-      "CI GitHub Actions (lint/tests/dbt build).",
-      "IaC Terraform (réseaux/DB/monitoring).",
-      "Versioning, releases & canary.",
-    ],
-  },
-  {
-    title: "Cloud & Infra",
-    items: [
-      "Azure (ADLS/DBX), AWS (S3).",
-      "Kubernetes, ingress & autoscaling.",
-      "Stockage objet & quotas.",
-      "FinOps (tags/monitoring/coûts).",
-    ],
-  },
-  {
-    title: "Data Products & Serving",
-    items: [
-      "APIs Flask/Express (/predict,/metrics).",
-      "Apps Streamlit & BI.",
-      "Caching, pagination, versionnement.",
-      "SLAs & contrats de conso.",
-    ],
-  },
-  {
-    title: "Support, Run & Docs",
-    items: [
-      "Astreinte légère, post-mortems.",
-      "Playbooks, READMEs, dbt docs/lineage.",
-      "Formations internes & mentoring.",
-      "Backlog & priorisation.",
-    ],
-  },
-];
-
-function Responsibilities() {
-  return (
-    <Section id="responsibilities" title="Missions & Réalisations" icon={<Briefcase className="h-6 w-6" />}>
-      <div className="grid md:grid-cols-2 gap-6">
-        {RESPONSIBILITIES.map((r, i) => (
-          <Card key={i}>
-            <div className="font-medium mb-2">{r.title}</div>
-            <ul className="list-disc pl-5 text-sm space-y-1">
-              {r.items.map((it, idx) => (<li key={idx}>{it}</li>))}
-            </ul>
-          </Card>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
    Formation (Académique à gauche / Certifications à droite)
    ───────────────────────────────────────────────────────────── */
 
@@ -1195,7 +1062,6 @@ export default function Portfolio() {
         </div>
       </Section>
 
-      <Responsibilities />
       <Education />
       <Contact />
 
