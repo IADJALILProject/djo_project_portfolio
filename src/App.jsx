@@ -26,7 +26,7 @@ const DATA = {
   phone: "tel:+33611279153",
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
-  cvUrl: "/re_cv.pdf",
+  cvUrl: "/info_exp_cv.pdf",
   avatar: "/avatar.jpg",
 };
 
@@ -547,7 +547,7 @@ const PROJECTS = [
     id: 0,
     brand: "IoT",
     image: "/iot-smartcity.png",
-    title: "Plateforme data IoT — météo, trafic, pollution",
+    title: "Pipeline pour capteurs urbains",
     task: "Data Platform",
     context:
       "Plateforme locale pour capteurs urbains : ingestion, historisation et supervision (météo, trafic, pollution).",
@@ -579,7 +579,7 @@ const PROJECTS = [
     id: 1,
     brand: "ClickHouse",
     image: "/projet.png",
-    title: "Entrepôt analytique BESS (température, SOC, courant)",
+    title: "Pipeline OLAP pour capteurs batteries",
     task: "OLAP / Entrepôt de données",
     context:
       "Analyse haute fréquence des mesures batteries (température, SOC, courant) avec latence stricte et agrégations multi-horizons.",
@@ -610,7 +610,7 @@ const PROJECTS = [
     id: 3,
     brand: "dbt",
     image: "/sales.png",
-    title: "DataWarehouse Retail",
+    title: "Pipeline d’entrepôt de ventes",
     task: "Modélisation de données",
     context:
       "Consolidation ventes/produits/clients pour reporting récurrent avec contraintes de qualité.",
@@ -639,17 +639,18 @@ const PROJECTS = [
     id: 4,
     brand: "Prefect",
     image: "/Sa.png",
-    title: "Datamart bancaire",
+    title: "Pipeline de datamart bancaire",
     task: "Pipelines de données",
     context:
       "Alimentation d’un datamart bancaire depuis sources hétérogènes (API/CSV/SQL) avec exigence de traçabilité.",
     pitch:
-      "Flows Prefect avec retries, dépendances et planification ; normalisation/enrichissement Python/SQL ; chargement du datamart (faits & dimensions). Supervision via Prefect Orion ; packaging Docker pour la portabilité.",
+      "Flows Prefect avec retries, dépendances et planification ; normalisation/enrichissement Python/SQL ; chargement du datamart (faits & dimensions). Supervision via Prefect ; packaging Docker pour la portabilité ; tableau de bord power bi.",
     highlights: [
       "Orchestration Prefect : planification, reprises, dépendances",
       "Transformations Python/SQL et contrôles d’intégrité",
       "Surveillance en temps réel (Orion) + logs détaillés",
-      "Exécution conteneurisée reproductible"
+      "Exécution conteneurisée reproductible",
+      "Tableau de bord Power BI pour la restitution"
     ],
     kpis: [
       { label: "Fraîcheur", value: "< 1 h", sub: "jeu bancaire (démo)" },
@@ -659,7 +660,7 @@ const PROJECTS = [
     impact:
       "Alimentation fiabilisée et moins d’interventions manuelles grâce à une orchestration explicite et observable.",
     variant: "prefect",
-    tags: ["Prefect","Python","SQL","PostgreSQL","Docker"],
+    tags: ["Prefect","Python","SQL","PostgreSQL","Docker","Power BI", "PostgreSQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/prefect-banking-datamart" }]
   },
 
@@ -668,7 +669,7 @@ const PROJECTS = [
     id: 5,
     brand: "Talend",
     image: "/ta.png",
-    title: "ODS-Datamart-DataWarehouse Talend",
+    title: "Pipeline ETL Talend DI",
     task: "ETL",
     context:
       "Intégration multi-sources vers ODS/Datamart finance pour restitution et conformité des reportings.",
