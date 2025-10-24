@@ -571,7 +571,7 @@ const PROJECTS = [
     tags: [
       "Python","Airflow","PySpark","dbt","DuckDB","Grafana","OpenLineage","Marquez","Docker","Kubernetes"
     ],
-    link: [{ name: "GitHub", url: "https://github.com/TON-ORG/iot-smartcity-data-platform" }]
+    link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/iot-smartcity-data-platform" }]
   },
 
   // 1) BESS Analytics (ClickHouse)
