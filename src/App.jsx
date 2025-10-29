@@ -538,128 +538,164 @@ function ProjectCard({ p, onOpen }) {
 }
 
 
+
+
 /* ─────────────────────────────────────────────────────────────
-   PROJECTS — Data Engineer Friendly (Professional Version)
+   PROJECTS — Data Engineer Portfolio (English version)
    ───────────────────────────────────────────────────────────── */
 const PROJECTS = [
-  // 0) IoT Smart City Platform
+  // 0) IoT Smart City Data Platform
   {
     id: 0,
     brand: "IoT",
     image: "/iot-smartcity.png",
-    title: "IoT Smart City Data Platform",
-    role: "Data Platform Engineer",
-    mission: "Design & orchestration of a local data lakehouse for IoT sensor analytics (weather, traffic, pollution).",
-    architecture:
-      "Containerized architecture (Docker Compose) including Python ingestion, batch/stream processing in PySpark, dbt transformations on DuckDB, and observability via Grafana + Marquez (OpenLineage).",
-    responsibilities: [
-      "Implemented ingestion pipelines with data quality validation",
-      "Built modular Airflow DAGs (batch + streaming) for orchestration",
-      "Designed dbt data models (Bronze → Silver → Gold)",
-      "Integrated Grafana dashboards and data lineage tracking via Marquez",
-      "Optional deployment under Kubernetes (minikube)"
+    title: "IoT Smart City – Data Lakehouse & Monitoring",
+    task: "Data Platform",
+    context:
+      "Local data platform for urban IoT sensors (weather, traffic, pollution) handling data ingestion, storage, and monitoring.",
+    pitch:
+      "Containerized architecture (Docker Compose) combining Python ingestion, PySpark batch & streaming processing, dbt modeling on DuckDB, Grafana observability, and OpenLineage (Marquez) for lineage tracking. Deployable on Kubernetes (Minikube).",
+    highlights: [
+      "Multi-sensor ingestion with data validation and schema evolution",
+      "Airflow orchestration for batch & streaming pipelines",
+      "dbt modeling (staging → marts) using DuckDB backend",
+      "Observability-as-code (Grafana) and lineage via OpenLineage/Marquez",
+      "Portable setup deployable locally or on Kubernetes"
     ],
-    stack: [
-      "Python","Airflow","PySpark","dbt","DuckDB","Grafana","Marquez","OpenLineage","Docker","Kubernetes"
+    kpis: [
+      { label: "Freshness", value: "≤ 15 min", sub: "demo streams" },
+      { label: "Success rate", value: "> 99 %", sub: "retries + alerting" },
+      { label: "Lineage coverage", value: "100 %", sub: "tracked jobs (Marquez)" }
     ],
     impact:
-      "Reduced latency of sensor availability to <15 min with full lineage visibility and reproducible pipelines.",
+      "Reduced time-to-insight and full end-to-end transparency through automated lineage and observability.",
+    variant: "iot",
+    tags: [
+      "Python", "Airflow", "PySpark", "dbt", "DuckDB",
+      "Grafana", "OpenLineage", "Marquez", "Docker", "Kubernetes"
+    ],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/iot-smartcity-data-platform" }]
   },
 
-  // 1) BESS Analytics Platform (ClickHouse)
+  // 1) BESS Analytics – ClickHouse
   {
     id: 1,
     brand: "ClickHouse",
     image: "/projet.png",
-    title: "Battery Analytics OLAP Platform",
-    role: "Data Engineer / OLAP Modeling",
-    mission: "Build a high-performance analytical warehouse for industrial battery telemetry (BESS).",
-    architecture:
-      "Star schema in ClickHouse with ingestion from Databricks + Kafka, incremental transformations via dbt, and pre-aggregations using materialized views (minute/hour/day).",
-    responsibilities: [
-      "Modeled star schema (fact_measurements + dimensions pack/cell/time)",
-      "Optimized ClickHouse MergeTree engines (partitioning, ORDER BY, indexes)",
-      "Developed dbt models with incremental strategy and tests",
-      "Created Airflow DAGs for ingestion and aggregation refresh",
-      "Deployed analytical dashboards via Grafana / Streamlit"
+    title: "Battery Analytics – ClickHouse OLAP Warehouse",
+    task: "OLAP / Data Warehouse",
+    context:
+      "High-frequency analytics on industrial battery telemetry (temperature, current, SOC) with low-latency aggregation at multiple granularities.",
+    pitch:
+      "Star-schema modeling in ClickHouse; ingestion via Databricks & Kafka; pre-aggregations using materialized views and projections. Optimized MergeTree configuration (partitioning, ORDER BY, skip indexes) ensures sub-second OLAP performance.",
+    highlights: [
+      "Star schema: fact_measurements + dimensions pack/cell/time",
+      "AggregatingMergeTree with minute/hour/day materialized views",
+      "dbt (ClickHouse adapter): incremental builds, tests, and docs",
+      "Storage tuning: partitioning, skip indexes, TTL optimization"
     ],
-    stack: [
-      "ClickHouse","dbt","Airflow","Databricks","Kafka","Python","SQL","Azure Blob","Grafana","Streamlit"
+    kpis: [
+      { label: "Latency p95", value: "< 500 ms", sub: "≈ 40 M rows (demo)" },
+      { label: "Freshness", value: "< 5 min", sub: "incremental pipeline" },
+      { label: "Success rate", value: "> 99 %", sub: "Airflow orchestration" }
     ],
     impact:
-      "Enabled OLAP queries <500 ms on >40M records with 99 % pipeline reliability and 5 min freshness.",
+      "Enables interactive OLAP exploration on large datasets and reduces compute cost through pre-aggregated metrics.",
+    variant: "heatmap",
+    tags: [
+      "ClickHouse", "dbt", "Airflow", "Databricks", "Kafka",
+      "Python", "SQL", "Azure Blob", "Grafana", "Streamlit"
+    ],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/heatmap_migration" }]
   },
 
-  // 2) Retail Sales Warehouse (dbt)
+  // 2) Retail Analytics Warehouse – dbt
   {
     id: 2,
     brand: "dbt",
     image: "/sales.png",
-    title: "Retail Analytics Warehouse",
-    role: "Analytics Engineer / dbt Developer",
-    mission: "Build a robust ELT workflow for sales, product, and customer analytics using dbt + Airflow.",
-    architecture:
-      "End-to-end dbt workflow (staging → marts) with SCD type 2, incremental loads, automated tests and documentation, orchestrated via Airflow.",
-    responsibilities: [
-      "Developed modular dbt models and macros (SCD, incremental)",
-      "Configured dbt tests for uniqueness, relationships, freshness",
-      "Automated runs & backfills via Airflow DAGs",
-      "Generated dbt docs for lineage and model transparency"
+    title: "Retail Analytics Warehouse – dbt & Airflow",
+    task: "Data Modeling & BI",
+    context:
+      "Consolidation of sales, product, and customer data for recurring BI reporting with enforced data quality.",
+    pitch:
+      "End-to-end dbt workflow (staging → marts) featuring SCD Type 2, incremental models, and automated tests (uniqueness, relationships, freshness). Includes documentation, lineage, and Airflow-based backfills.",
+    highlights: [
+      "Historical data management (SCD Type 2) and incremental builds",
+      "Comprehensive dbt tests (uniqueness, relationships, freshness)",
+      "Automated documentation and lineage generation",
+      "Controlled backfills and dependency management"
     ],
-    stack: ["dbt","Airflow","PostgreSQL","SQL","Great Expectations"],
+    kpis: [
+      { label: "Build time", value: "< 8 min", sub: "demo dataset" },
+      { label: "Tests passed", value: "> 95 %", sub: "all models validated" },
+      { label: "Freshness", value: "< 1 h", sub: "operational SLA" }
+    ],
     impact:
-      "Achieved 95 %+ data test coverage and reduced BI refresh cycle from 1 h → 10 min.",
+      "Improved trust in metrics and accelerated BI delivery through code-driven data quality and governance.",
+    variant: "dbt",
+    tags: ["dbt", "Airflow", "PostgreSQL", "SQL", "Great Expectations"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/dbt_sales" }]
   },
 
-  // 3) Banking Datamart (Prefect)
+  // 3) Banking Datamart – Prefect
   {
     id: 3,
     brand: "Prefect",
     image: "/Sa.png",
-    title: "Banking Datamart Orchestration",
-    role: "Data Engineer / Pipeline Automation",
-    mission: "Integrate multi-source banking data (API, CSV, SQL) into a unified datamart with lineage and observability.",
-    architecture:
-      "Prefect Flows with retries, dependency graph, scheduling, and Docker packaging. Transformations via Python/SQL, and reporting with Power BI.",
-    responsibilities: [
-      "Built Prefect Flows with dependency management and alerts",
-      "Performed normalization & enrichment in Python/SQL",
-      "Implemented observability via Prefect Orion + structured logging",
-      "Packaged workflows in Docker for reproducibility",
-      "Published final dashboards in Power BI"
+    title: "Banking Datamart – Prefect Orchestration",
+    task: "Data Pipelines",
+    context:
+      "Building a banking datamart from heterogeneous data sources (APIs, CSV, SQL) with strong reliability and lineage requirements.",
+    pitch:
+      "Prefect flows with scheduling, dependencies, and retries. Data normalization and enrichment in Python/SQL, loading of fact and dimension tables. Real-time monitoring via Prefect Orion, containerized deployment, and Power BI reporting.",
+    highlights: [
+      "Prefect orchestration: scheduling, retries, dependencies",
+      "Python/SQL transformations with integrity checks",
+      "Real-time monitoring (Orion) and centralized logging",
+      "Portable Docker execution environment",
+      "Power BI dashboard for business reporting"
     ],
-    stack: ["Prefect","Python","SQL","PostgreSQL","Docker","Power BI"],
+    kpis: [
+      { label: "Freshness", value: "< 1 h", sub: "demo banking dataset" },
+      { label: "Success rate", value: "> 99 %", sub: "supervised flows" },
+      { label: "Portability", value: "100 %", sub: "Docker-based reproducibility" }
+    ],
     impact:
-      "Reduced manual interventions by 80 % and ensured 99 % success rate on automated runs.",
+      "Reduced manual intervention and improved reliability through declarative and observable orchestration.",
+    variant: "prefect",
+    tags: ["Prefect", "Python", "SQL", "PostgreSQL", "Docker", "Power BI"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/prefect-banking-datamart" }]
   },
 
-  // 4) Financial ETL (Talend)
+  // 4) Finance ETL – Talend
   {
     id: 4,
     brand: "Talend",
     image: "/ta.png",
-    title: "Financial Data Integration — Talend & Airflow",
-    role: "Data Engineer / ETL Developer",
-    mission: "Consolidate finance data from multiple sources into an ODS and Datamart for regulatory reporting.",
-    architecture:
-      "ETL chain built in Talend (tMap, routines) with environment contexts and orchestration via Airflow. End-to-end data quality checks and SQL optimization for faster BI loads.",
-    responsibilities: [
-      "Designed Talend jobs (DEV/TEST/PROD) with logging and parameters",
-      "Integrated Airflow for scheduling and incident notifications",
-      "Applied SQL optimizations at ingestion and BI layer",
-      "Implemented completeness and integrity checks"
+    title: "Finance ETL – Talend Data Integration",
+    task: "ETL / Data Integration",
+    context:
+      "Multi-source integration into an ODS and Finance Datamart for reporting and regulatory compliance.",
+    pitch:
+      "ETL pipeline built with Talend (tMap, routines) and environment-specific contexts, orchestrated via Airflow. Standardization, completeness checks, and SQL optimizations ensure fast and reliable BI reporting.",
+    highlights: [
+      "Environment-based contexts (DEV/TEST/PROD) with logging",
+      "Airflow orchestration and incident notifications",
+      "SQL optimizations for ingestion and BI performance",
+      "Integrity and completeness validation at ingestion"
     ],
-    stack: ["Talend","PostgreSQL","SQL Server","Airflow","SQL"],
+    kpis: [
+      { label: "Job success", value: "> 99 %", sub: "reference workflows" },
+      { label: "Pipeline duration", value: "< 10 min", sub: "typical run" }
+    ],
     impact:
-      "Improved data delivery times by 40 % and enhanced reporting reliability across finance teams.",
+      "Reduced processing times and improved data quality perceived by business teams.",
+    variant: "talend",
+    tags: ["Talend", "PostgreSQL", "SQL Server", "Airflow", "SQL"],
     link: [{ name: "GitHub", url: "https://github.com/IADJALILProject/Projet_Talend" }]
   }
 ];
-
 
 
 /* Filtres visibles dans le carrousel horizontal */
