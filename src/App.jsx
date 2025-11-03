@@ -711,7 +711,34 @@ const PROJECTS = [
   "link": [
     { "name": "GitHub", "url": "https://github.com/IADJALILProject/Projet_Talend" }
   ]
+},
+{
+  "id": 5,
+  "brand": "n8n",
+  "image": "/Chatbot.png",
+  "title": "Automatisation d’Agents IA – n8n Workflow & DataOps",
+  "task": "Workflow Automation / Data Pipeline",
+  "context": "Déploiement d’un système d’agents intelligents automatisés via n8n pour orchestrer l’ingestion, le traitement et la supervision de workflows basés IA/Python, en environnement conteneurisé.",
+  "pitch": "Architecture n8n pilotée en Python pour automatiser des agents IA, intégration de pipelines Docker-Compose, automatisation e2e via Makefile, mise en monitoring continu et traçabilité DataOps complète.",
+  "highlights": [
+    "Déploiement d’agents IA orchestrés via n8n et workflows Python/Shell pour gérer des tâches automatisées (ingestion, enrichissement, déclenchement)",
+    "Utilisation de Docker-Compose pour conteneuriser les services, simplifier les déploiements et garantir la portabilité",
+    "Automatisation complète via Makefile (build, test, e2e) et scripts Shell pour lancer, surveiller et tester les workflows",
+    "Supervision des workflows et alertes en cas d’échec via n8n logs + scripts de monitoring léger"
+  ],
+  "kpis": [
+    { "label": "Automatisation des agents", "value": "100 %", "sub": "via n8n workflows" },
+    { "label": "Portabilité", "value": "100 %", "sub": "Docker-Compose" },
+    { "label": "Tests e2e réussis", "value": "> 95 %", "sub": "Makefile / scripts Shell" }
+  ],
+  "impact": "Ce projet démontre la capacité à automatiser des processus IA et de données via un système d’agents orchestrés, conteneurisés et monitorés, renforçant la fiabilité et la reproductibilité des workflows DataOps.",
+  "variant": "n8n",
+  "tags": ["n8n", "Python", "Docker-Compose", "Makefile", "Shell", "Workflow Automation", "DataOps", "IA", "Agents automatisés"],
+  "link": [
+    { "name": "GitHub", "url": "https://github.com/IADJALILProject/Agent_n8n" }
+  ]
 }
+
 
 
 ]
