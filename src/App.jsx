@@ -20,10 +20,10 @@ import {
 
 const DATA = {
   name: "Djalil Salah-Bey",
-  title: "Data Engineer & Aanlytics Engineer — Databricks (Azure/GCP) ",
+  title: "Data & Analytics Engineer ",
   location: "Marseille · Paris · Lille",
   email: "mailto:salahbeydjalil@gmail.com",
-  phone: "tel:+33611279153",
+  phone: "tel:+33 0611279153",
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
   cvUrl: "/Cv_Data_Engineer_CDI.pdf",
