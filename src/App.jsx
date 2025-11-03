@@ -585,7 +585,7 @@ const PROJECTS = [
 {
   "id": 1,
   "brand": "ClickHouse",
-  "image": "/bess-analytics.png",
+  "image": "/projet.png",
   "title": "BESS Analytics Engine – ClickHouse & Databricks Lakehouse",
   "task": "Analyse Industrielle / Data Platform",
   "context": "Plateforme analytique cloud dédiée aux données issues de systèmes de batteries industrielles (BESS), permettant la collecte, l’analyse et la supervision multi-clients en temps quasi réel.",
