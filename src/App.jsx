@@ -545,59 +545,82 @@ function ProjectCard({ p, onOpen }) {
    ───────────────────────────────────────────────────────────── */
 const PROJECTS = [
 
-  {
-    "id": 0,
-    "brand": "IoT",
-    "image": "/iot-smartcity.png",
-    "title": "IoT DataOps Platform – Sensors & Observability",
-    "task": "Data Platform",
-    "context": "End-to-end platform for urban IoT sensors (weather, traffic, pollution) built entirely in Python to handle ingestion, processing and monitoring at scale.",
-    "pitch": "Python-first containerized architecture with Airflow DAGs, PySpark batch & streaming jobs, dbt modelling (DuckDB backend) and Grafana dashboards for real-time observability. Full lineage tracked via OpenLineage (Marquez).",
-    "highlights": [
-      "Python ingestion and schema evolution for multi-sensor streams",
-      "Airflow orchestration for batch & streaming pipelines with retries and alerts",
-      "dbt modelling (staging → marts) using DuckDB backend for quick iterations",
-      "Grafana monitoring and full lineage with OpenLineage / Marquez"
-    ],
-    "kpis": [
-      { "label": "Freshness", "value": "≤ 15 min", "sub": "demo streams" },
-      { "label": "Success rate", "value": "> 99 %", "sub": "retries + alerts" },
-      { "label": "Lineage coverage", "value": "100 %", "sub": "tracked jobs" }
-    ],
-    "impact": "Full automation and transparency across the entire IoT data lifecycle.",
-    "variant": "iot",
-    "tags": ["Python", "PySpark", "Airflow", "dbt", "DuckDB", "Grafana", "OpenLineage", "Marquez", "Docker", "Kubernetes"],
-    "link": [{ "name": "GitHub", "url": "https://github.com/IADJALILProject/iot-smartcity-data-platform" }]
-  },
+{
+  "id": 0,
+  "brand": "IoT",
+  "image": "/iot-smartcity.png",
+  "title": "Plateforme IoT DataOps – Capteurs & Observabilité",
+  "task": "Plateforme de Données",
+  "context": "Plateforme complète de données IoT urbaines (météo, pollution, trafic) développée entièrement en Python pour automatiser l’ingestion batch et streaming, le traitement, la supervision et le déploiement des flux de capteurs et d’APIs publiques à grande échelle.",
+  "pitch": "Architecture conteneurisée orientée DataOps, combinant Airflow pour l’orchestration, dbt pour la modélisation analytique (backend DuckDB) et Grafana pour l’observabilité en temps réel. L’ensemble intègre CI/CD, tests automatisés, alertes e-mail, traçabilité complète et déploiement Docker/Kubernetes.",
+  "highlights": [
+    "Ingestion batch et streaming des données issues de capteurs urbains et d’APIs publiques OpenWeatherMap (météo), OpenAQ (qualité de l’air) et TomTom Traffic (trafic), via des DAGs Airflow avec gestion des dépendances, reprise automatique et alertes e-mail en cas d’anomalie",
+    "Stockage et historisation dans un Lakehouse local (DuckDB + Delta format) structuré en zones Bronze / Silver / Gold, avec partitionnement et indexation pour optimiser les performances de lecture et de calcul",
+    "Modélisation analytique sous dbt (staging → marts) incluant versionnement, documentation dynamique et tests de qualité (fraîcheur, unicité, cohérence)",
+    "Orchestration des traitements batch et streaming sous Airflow avec gestion des SLA, planification incrémentale et supervision centralisée des logs",
+    "Chaîne CI/CD complète via GitHub Actions exécutant les tests unitaires Python (pytest), les tests dbt et les validations de bout en bout avant déploiement",
+    "Automatisation des builds et des déploiements via un Makefile centralisant les commandes (build, test, déploiement) et intégration e2e.ci",
+    "Conteneurisation et déploiement sous Docker et Kubernetes (Minikube) assurant portabilité, isolation et scalabilité des composants",
+    "Supervision et observabilité via Grafana et OpenLineage (Marquez) pour le suivi de la fraîcheur des données, du taux de réussite des pipelines et de la traçabilité complète des traitements",
+    "Valorisation des données dans des tableaux de bord Grafana temps réel pour le suivi des indicateurs environnementaux et l’aide à la décision"
+  ],
+  "kpis": [
+    { "label": "Fraîcheur des données", "value": "≤ 15 min", "sub": "flux capteurs + APIs publiques" },
+    { "label": "Fiabilité des pipelines", "value": "> 99 %", "sub": "reprises automatiques + alertes" },
+    { "label": "Couverture du lineage", "value": "100 %", "sub": "via OpenLineage / Marquez" },
+    { "label": "Automatisation CI/CD", "value": "100 %", "sub": "GitHub Actions + Makefile" }
+  ],
+  "impact": "Livraison d’une plateforme Lakehouse IoT entièrement automatisée, combinant ingestion batch et streaming, transformation, orchestration, CI/CD, tests, supervision et déploiement conteneurisé. Le projet démontre une maîtrise complète des pratiques DataOps et de la fiabilisation des pipelines en environnement proche production.",
+  "variant": "iot",
+  "tags": [
+    "Python", "PySpark", "Airflow", "dbt", "DuckDB", "Delta format",
+    "Grafana", "OpenLineage", "Marquez", "Docker", "Kubernetes",
+    "GitHub Actions", "Makefile", "DataOps", "OpenWeatherMap", "OpenAQ", "TomTom Traffic"
+  ],
+  "link": [
+    { "name": "GitHub", "url": "https://github.com/IADJALILProject/iot-smartcity-data-platform" }
+  ]
+}
+,
 {
   "id": 1,
   "brand": "ClickHouse",
-  "image": "/projet.png",
+  "image": "/bess-analytics.png",
   "title": "BESS Analytics Engine – ClickHouse & Databricks Lakehouse",
-  "task": "OLAP / Industrial Analytics",
-  "context": "Analytical platform for industrial battery telemetry (temperature, current, SOC) enabling real-time insights into performance and degradation patterns across multiple sites and clients.",
-  "pitch": "Hybrid Lakehouse + OLAP architecture combining Databricks for ETL and ClickHouse for ultra-fast analytics. Airflow orchestrates incremental ingestion and data validation, while pre-aggregations and projections optimize sub-second query performance for visualization dashboards.",
+  "task": "Analyse Industrielle / Data Platform",
+  "context": "Plateforme analytique cloud dédiée aux données issues de systèmes de batteries industrielles (BESS), permettant la collecte, l’analyse et la supervision multi-clients en temps quasi réel.",
+  "pitch": "Architecture Lakehouse unifiée sur Azure Databricks et ClickHouse, combinant ingestion orchestrée par Airflow, traitements PySpark incrémentaux, stockage Delta Lake, et visualisation Grafana. L’ensemble est industrialisé avec CI/CD Azure DevOps, tests PySpark, observabilité Prometheus et intégration MLOps pour la prédiction du RUL.",
   "highlights": [
-    "Data modelling in star schema (fact_measurements + dimensions pack/cell/time)",
-    "Incremental ingestion via Airflow DAGs from Delta Lake to ClickHouse",
-    "AggregatingMergeTree and materialized views for minute/hour/day metrics",
-    "Optimized partitioning and projections for sub-500 ms heatmap queries",
-    "Grafana dashboards and API endpoints for live BESS monitoring"
+    "Ingestion batch automatisée depuis les SFTP clients (mesures BESS) orchestrée par Airflow déployé sur AKS, avec gestion des dépendances, logs, alertes et reprise automatique",
+    "Framework d’ingestion modulaire Python + Airflow, piloté par des métadonnées stockées dans MongoDB et InfluxDB, facilitant l’onboarding rapide de nouveaux clients",
+    "Traitements PySpark sous Azure Databricks pour l’intégration incrémentale, le calcul des indicateurs de performance et la mise à jour des jeux de données Delta Lake",
+    "Modèle hiérarchique multi-niveaux (client → site → rack → module → cellule) stocké dans PostgreSQL pour la restitution analytique des indicateurs batteries",
+    "Intégration ClickHouse pour la couche OLAP, avec schéma en étoile, vues matérialisées et projections optimisées pour des requêtes de type heatmap < 500 ms",
+    "Calcul automatisé des KPI opérationnels (température, courant, déséquilibre, performance) et génération d’alertes métier via InfluxDB et Grafana en temps quasi réel",
+    "Collaboration avec les Data Scientists pour la mise à disposition des features et la mise en production des modèles prédictifs RUL (Remaining Useful Life) sur Databricks",
+    "Supervision technique via Grafana, Prometheus et Azure Monitor pour le suivi de la disponibilité, de la latence et du taux de réussite des workflows Airflow et Databricks",
+    "Optimisation Databricks (Delta Lake, Z-Ordering, partitionnement, autoscaling) garantissant performance et réduction des coûts de traitement",
+    "Chaîne CI/CD complète sous Azure DevOps intégrant tests unitaires PySpark, validations métier et génération automatique de documentation pour chaque pipeline"
   ],
   "kpis": [
-    { "label": "Latency (p95)", "value": "< 500 ms", "sub": "≈ 40 M rows (demo dataset)" },
-    { "label": "Freshness", "value": "< 5 min", "sub": "incremental ETL loads" },
-    { "label": "Query cost", "value": "-70 %", "sub": "vs. legacy PostgreSQL setup" }
+    { "label": "Latence analytique (p95)", "value": "< 500 ms", "sub": "40M lignes testées" },
+    { "label": "Fraîcheur des données", "value": "< 5 min", "sub": "ingestion incrémentale" },
+    { "label": "Taux de succès des pipelines", "value": "> 99 %", "sub": "avec reprises automatiques" },
+    { "label": "Automatisation CI/CD", "value": "100 %", "sub": "Azure DevOps + tests PySpark" }
   ],
-  "impact": "Demonstrates an enterprise-grade OLAP engine for industrial IoT data. Achieved massive performance improvements and cost efficiency while ensuring complete data lineage and reproducibility.",
-  "overview": "This project replicates the analytical layer used in PowerUp Technology. It shows how ClickHouse can serve as a high-performance analytical backend integrated with Databricks pipelines. It covers ingestion, modelling, orchestration and visualization of IoT sensor data.",
-  "architecture": "Data ingestion handled by Airflow jobs pulling from Delta Lake (Databricks) into ClickHouse. OLAP schema designed under Kimball principles (facts & dimensions). AggregatingMergeTree tables with materialized views power multi-granularity KPIs. Grafana used for heatmaps and temporal exploration.",
-  "benchmarks": "Average query latency < 500 ms, refresh interval < 5 minutes, Airflow DAG success rate > 99 %. System stress-tested at 40M rows with linear scalability.",
-  "demo": "Includes demo Grafana dashboards, heatmap APIs and a synthetic data generator to simulate IoT workloads.",
-  "variant": "heatmap",
-  "tags": ["ClickHouse", "Airflow", "Databricks", "Python", "SQL", "Azure Blob", "Grafana", "Streamlit"],
-  "link": [{ "name": "GitHub", "url": "https://github.com/IADJALILProject/heatmap_migration" }]
-},
+  "impact": "Mise en production d’une plateforme Lakehouse analytique multi-client entièrement industrialisée, combinant ingestion, transformation, modélisation OLAP et MLOps. Ce projet démontre la capacité à concevoir une architecture de données scalable, fiable et supervisée pour des usages prédictifs et opérationnels dans l’industrie énergétique.",
+  "variant": "bess",
+  "tags": [
+    "Python", "PySpark", "SQL", "Airflow", "AKS", "Azure Databricks",
+    "Delta Lake", "ClickHouse", "PostgreSQL", "MongoDB", "InfluxDB",
+    "Grafana", "Prometheus", "Azure Monitor", "Azure DevOps",
+    "Docker", "Git", "MLOps", "CI/CD", "DataOps"
+  ],
+  "link": [
+    { "name": "GitHub", "url": "https://github.com/IADJALILProject/heatmap_migration" }
+  ]
+}
+,
 
 
 {
@@ -605,90 +628,91 @@ const PROJECTS = [
   "brand": "dbt",
   "image": "/sales.png",
   "title": "Retail Data Lakehouse – dbt & Airflow Orchestration",
-  "task": "Data Modelling / BI Automation",
-  "context": "Unified retail analytics platform centralizing sales, customer and product data to deliver trusted business metrics and automated governance.",
-  "pitch": "End-to-end dbt workflow (staging → marts) with incremental models, SCD Type 2 versioning and full test coverage. Airflow orchestrates daily refresh, dependency handling and CI/CD data validation. The project demonstrates modern DataOps practices for BI and governance.",
+  "task": "Modélisation de Données / Automatisation BI",
+  "context": "Plateforme analytique unifiée pour les données commerciales (ventes, clients, produits), conçue pour fiabiliser les indicateurs métiers et automatiser la gouvernance de la donnée.",
+  "pitch": "Workflow complet dbt (staging → marts) avec modèles incrémentaux, gestion des versions SCD Type 2 et couverture totale des tests. Airflow orchestre les mises à jour quotidiennes, la gestion des dépendances et la validation CI/CD des pipelines. Le projet illustre les meilleures pratiques DataOps appliquées à la BI moderne.",
   "highlights": [
-    "Kimball modelling and incremental dbt builds (SCD Type 2)",
-    "Automated data quality tests (freshness, relationships, uniqueness)",
-    "Airflow DAGs for continuous integration and deployment",
-    "Automated documentation and lineage via dbt Docs and exposures",
-    "Great Expectations suite integrated for extended data validation"
+    "Modélisation Kimball et builds dbt incrémentaux avec gestion SCD Type 2",
+    "Tests de qualité automatisés (fraîcheur, unicité, intégrité référentielle)",
+    "Orchestration quotidienne des traitements via Airflow avec gestion des dépendances",
+    "Documentation et lineage automatiques générés via dbt Docs et exposures",
+    "Intégration de Great Expectations pour le contrôle avancé de la qualité des données",
+    "Chaîne CI/CD analytique avec exécution automatique des tests et publication de la documentation"
   ],
   "kpis": [
-    { "label": "Build time", "value": "< 8 min", "sub": "demo dataset" },
-    { "label": "Tests passed", "value": "> 95 %", "sub": "across 25 models" },
-    { "label": "Freshness", "value": "< 1 h", "sub": "daily SLA compliance" }
+    { "label": "Temps de build", "value": "< 8 min", "sub": "jeu de données de démonstration" },
+    { "label": "Taux de tests réussis", "value": "> 95 %", "sub": "sur 25 modèles" },
+    { "label": "Fraîcheur des données", "value": "< 1 h", "sub": "SLA quotidien respecté" }
   ],
-  "impact": "Improved reliability and traceability of BI datasets through fully automated modelling, testing and deployment pipelines.",
-  "overview": "This project demonstrates how dbt can serve as the backbone of a Lakehouse transformation layer, ensuring data reliability, auditability and documentation at scale.",
-  "architecture": "Data is ingested into a raw layer, transformed into staging/intermediate/marts layers by dbt. Airflow schedules jobs, validates results, and publishes documentation. Tests (schema, freshness, integrity) run before each deployment.",
-  "benchmarks": "Pipeline runtime < 10 min end-to-end, > 95% test success, full lineage generation through dbt Docs.",
-  "demo": "Demo includes dbt Docs site, Airflow UI and Great Expectations reports integrated in CI/CD logs.",
+  "impact": "Amélioration de la fiabilité et de la traçabilité des datasets BI grâce à une modélisation automatisée, testée et documentée de bout en bout. Le projet démontre la mise en œuvre complète d’un cycle DataOps pour la BI d’entreprise.",
   "variant": "dbt",
-  "tags": ["dbt", "Airflow", "PostgreSQL", "SQL", "Great Expectations"],
-  "link": [{ "name": "GitHub", "url": "https://github.com/IADJALILProject/dbt_sales" }]
+  "tags": ["dbt", "Airflow", "PostgreSQL", "SQL", "Great Expectations", "DataOps", "CI/CD"],
+  "link": [
+    { "name": "GitHub", "url": "https://github.com/IADJALILProject/dbt_sales" }
+  ]
 }
-,
 
+,
 {
   "id": 3,
   "brand": "Prefect",
   "image": "/Sa.png",
-  "title": "Banking Data Pipeline – Prefect Orchestration & Data Quality",
-  "task": "Data Pipeline Engineering",
-  "context": "Reliable orchestration layer for banking datasets combining transactional APIs, CSV exports and SQL sources, ensuring consistency and auditability.",
-  "pitch": "Python-first orchestration with Prefect. Handles extraction, normalization and enrichment with built-in retries, caching and lineage tracking. Real-time observability provided through Prefect Orion UI.",
+  "title": "Pipeline Bancaire – Orchestration Prefect & Qualité de Données",
+  "task": "Ingénierie de Pipelines de Données",
+  "context": "Conception d’une couche d’orchestration fiable pour les données bancaires issues d’APIs transactionnelles, d’exports CSV et de bases SQL, garantissant la cohérence, la conformité et la traçabilité complète.",
+  "pitch": "Orchestration Python-first avec Prefect, gérant l’extraction, la normalisation et l’enrichissement des données avec reprise automatique, cache, alertes et suivi du lineage. L’interface Orion fournit une observabilité en temps réel et un monitoring des flux.",
   "highlights": [
-    "Prefect scheduling and dependency graph orchestration",
-    "Data validation and enrichment via Python + SQL transformations",
-    "Dynamic retries, alerts and flow monitoring through Orion",
-    "Dockerized deployment and Power BI connection for visualization"
+    "Planification et orchestration des flux sous Prefect avec graphe de dépendances dynamique",
+    "Validation et enrichissement des données via transformations Python et SQL",
+    "Reprises automatiques, alertes et suivi des exécutions via Prefect Orion UI",
+    "Déploiement conteneurisé sous Docker pour une reproductibilité totale",
+    "Intégration avec Power BI pour la restitution analytique et le reporting financier",
+    "Automatisation des tests et supervision du taux de réussite dans les logs Prefect"
   ],
   "kpis": [
-    { "label": "Freshness", "value": "< 1 h", "sub": "across all flows" },
-    { "label": "Success rate", "value": "> 99 %", "sub": "with automated retries" },
-    { "label": "Portability", "value": "100 %", "sub": "Docker reproducible setup" }
+    { "label": "Fraîcheur des données", "value": "< 1 h", "sub": "tous flux confondus" },
+    { "label": "Taux de réussite des flux", "value": "> 99 %", "sub": "grâce aux reprises automatiques" },
+    { "label": "Portabilité", "value": "100 %", "sub": "via déploiement Docker" }
   ],
-  "impact": "Showcases how declarative orchestration improves data reliability and developer productivity while maintaining end-to-end transparency.",
-  "overview": "A full Prefect data pipeline demonstrating orchestration, validation and monitoring for multi-source ingestion. Emphasizes DataOps best practices with modular, testable flows.",
-  "architecture": "Flows defined in Prefect handle API extraction, SQL normalization, and write to PostgreSQL. Observability and lineage handled by Orion and logging. Integration with Power BI for downstream analysis.",
-  "benchmarks": "Average end-to-end latency < 45 min, > 99% task success rate. Container startup < 5s.",
-  "demo": "Includes Prefect Orion UI screenshots, monitoring dashboard, and Power BI template connected to the data mart.",
+  "impact": "Ce projet illustre comment une orchestration déclarative améliore la fiabilité, la transparence et la productivité dans la gestion de pipelines multi-sources dans le domaine bancaire.",
   "variant": "prefect",
-  "tags": ["Prefect", "Python", "SQL", "PostgreSQL", "Docker", "Power BI"],
-  "link": [{ "name": "GitHub", "url": "https://github.com/IADJALILProject/prefect-banking-datamart" }]
+  "tags": ["Prefect", "Python", "SQL", "PostgreSQL", "Docker", "Power BI", "DataOps"],
+  "link": [
+    { "name": "GitHub", "url": "https://github.com/IADJALILProject/prefect-banking-datamart" }
+  ]
 }
+
 ,
 
 {
   "id": 4,
   "brand": "Talend",
   "image": "/ta.png",
-  "title": "Finance Data Pipeline – Talend Modernization with Airflow",
-  "task": "ETL Modernization / Data Integration",
-  "context": "Migration of a legacy financial ETL system to a modern orchestrated architecture combining Talend and Airflow, improving reliability, scalability and maintainability.",
-  "pitch": "Re-engineered Talend workflows (tMap, routines) integrated with Airflow orchestration. Introduced CI/CD-ready parameterized contexts (DEV/TEST/PROD), runtime logging and completeness validation for each dataset.",
+  "title": "Pipeline Financier – Modernisation Talend & Airflow",
+  "task": "Modernisation ETL / Intégration de Données",
+  "context": "Refonte d’un système ETL financier legacy vers une architecture moderne orchestrée sous Airflow, pour améliorer la fiabilité, la scalabilité et la maintenance.",
+  "pitch": "Reconstruction des workflows Talend (tMap, routines) et intégration sous Airflow pour automatiser les exécutions et la supervision. Mise en place d’environnements paramétrables (DEV/TEST/PROD), de logs centralisés et de validations de complétude pour chaque dataset.",
   "highlights": [
-    "Context-driven Talend jobs (parameterization + multi-env management)",
-    "Airflow orchestration with dependency control and incident notifications",
-    "SQL optimization for ingestion and reporting performance",
-    "End-to-end data quality validation (integrity, completeness)"
+    "Refonte des jobs Talend avec gestion des contextes multi-environnements et paramétrage dynamique",
+    "Orchestration Airflow avec contrôle des dépendances et notifications d’incidents",
+    "Optimisation SQL pour accélérer les chargements et les rapports",
+    "Validation de la qualité des données (intégrité, complétude, cohérence)",
+    "Centralisation des logs et supervision des exécutions via Airflow et dashboards",
+    "Réduction du temps de maintenance et élimination des redémarrages manuels"
   ],
   "kpis": [
-    { "label": "Job success rate", "value": "> 99 %", "sub": "reference workflows" },
-    { "label": "Average runtime", "value": "< 10 min", "sub": "per pipeline" },
-    { "label": "Error detection", "value": "100 %", "sub": "automated alerts" }
+    { "label": "Taux de succès des jobs", "value": "> 99 %", "sub": "workflows de référence" },
+    { "label": "Durée moyenne d’exécution", "value": "< 10 min", "sub": "par pipeline" },
+    { "label": "Détection d’erreurs", "value": "100 %", "sub": "via alertes automatiques" }
   ],
-  "impact": "Successfully modernized an ETL stack, reducing maintenance effort and increasing operational visibility through orchestration and monitoring.",
-  "overview": "This project shows how to evolve a legacy ETL (Talend) towards a modern orchestrated pipeline under Airflow, with full observability and reproducibility.",
-  "architecture": "Talend handles extraction and transformation logic; Airflow coordinates executions and monitors SLAs. SQL Server / PostgreSQL act as data sources. Logs and alerts are centralized for governance.",
-  "benchmarks": "Average job duration < 10 min; > 99% success rate; zero manual restart needed after Airflow orchestration.",
-  "demo": "Demo repository contains example Talend jobs (.zip), Airflow DAGs and screenshots of orchestration UI.",
+  "impact": "Modernisation réussie d’un ETL financier legacy en architecture orchestrée et monitorée. Le projet démontre la migration vers une approche DataOps plus fiable, automatisée et documentée.",
   "variant": "talend",
-  "tags": ["Talend", "PostgreSQL", "SQL Server", "Airflow", "SQL"],
-  "link": [{ "name": "GitHub", "url": "https://github.com/IADJALILProject/Projet_Talend" }]
+  "tags": ["Talend", "PostgreSQL", "SQL Server", "Airflow", "SQL", "DataOps"],
+  "link": [
+    { "name": "GitHub", "url": "https://github.com/IADJALILProject/Projet_Talend" }
+  ]
 }
+
 
 ]
 ;
