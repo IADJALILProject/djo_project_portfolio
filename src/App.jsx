@@ -26,7 +26,7 @@ const DATA = {
   phone: "tel:+33 0611279153",
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
-  cvUrl: "/DataOps_DataEngineer.pdf",
+  cvUrl: "/CDI_Data_Djalil.pdf",
   avatar: "/avatar.jpg",
 };
 
