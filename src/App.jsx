@@ -743,7 +743,7 @@ const PROJECTS = [
   "id": 6,
   "brand": "PostgreSQL",
   "image": "/admin.jpg",
-  "title": "PostgreSQL Admin – Automatisation Ansible & Sécurisation RLS",
+  "title": "PostgreSQL Admin – Automatisation Ansible & Python",
   "task": "Administration Base de Données / Sécurité / Maintenance",
   "context": "Projet complet d’administration PostgreSQL pour un environnement institutionnel, incluant la création de schémas, le chargement de données, la sécurisation, l’automatisation et la maintenance. Le tout réalisé avec une architecture SQL propre et des scripts Ansible exécutés en local pour reproduire la configuration de production.",
   "pitch": "Mise en place d'une base PostgreSQL structurée, sécurisée et automatisée : création de schémas métiers, contraintes, RLS, rôles, privilèges, seed des données, scripts de maintenance et déploiement Ansible end-to-end. Le projet illustre la maîtrise de l’administration PostgreSQL moderne et de l’automatisation DevOps légère.",
@@ -765,9 +765,9 @@ const PROJECTS = [
   "impact": "Ce projet démontre la capacité à administrer, sécuriser, structurer et automatiser une base PostgreSQL professionnelle avec des scripts SQL propres et un déploiement Ansible reproductible. Il combine gouvernance, performance et automatisation dans un environnement proche production.",
   "variant": "postgres",
   "tags": [
-    "PostgreSQL", "SQL", "Ansible", "RLS", "Security", 
+    "PostgreSQL", "SQL", "Ansible",  "Security", 
     "Indexing", "Constraints", "Roles & Privileges",
-    "VACUUM", "Monitoring", "DevOps", "Automation"
+    "Python", "Monitoring", "Automation"
   ],
   "link": [
     { "name": "GitHub", "url": "https://github.com/IADJALILProject/db-admin-ville-marseille" }
