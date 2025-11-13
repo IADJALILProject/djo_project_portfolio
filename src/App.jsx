@@ -24,13 +24,11 @@ const DATA = {
   location: "Marseille · Paris · Lille",
   email: "mailto:salahbeydjalil@gmail.com",
   phone: "tel:+33 0611279153",
-  github: "https://github.com/IADJALILProject",
-  linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
   avatar: "/avatar.jpg",
 };
 
 /* Sections (sans Expériences) */
-const SECTION_ORDER = ["projects", "skills",  "education", "contact"];
+const SECTION_ORDER = ["projects", "skills",  "education"];
 
 /* ─────────────────────────────────────────────────────────────
    Styles
@@ -169,11 +167,6 @@ function Header({ activeId }) {
             <a href="#projects" className={linkCls("projects")}>Projets</a>
             <a href="#skills" className={linkCls("skills")}>Compétences</a>
             <a href="#education" className={linkCls("education")}>Formation</a>
-            <a href="#contact" className={linkCls("contact")}>Contact</a>
-            <a href={DATA.cvUrl} download className={BTN_SM} aria-label="Télécharger le CV">
-              <Download className="h-4 w-4" /> CV
-            </a>
-            {/* Bouton Thème supprimé */}
           </nav>
         </div>
       </header>
@@ -183,48 +176,11 @@ function Header({ activeId }) {
 
 function Hero() {
   return (
-    <div className="relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zinc-50 to-transparent dark:from-zinc-950" />
-      <section className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="grid md:grid-cols-2 gap-8 items-center"
-        >
-          <div>
-            <div className="text-xs md:text-sm inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-4">
-              <Rocket className="h-4 w-4" /> Disponible pour CDI / Mission
-            </div>
-            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1] [text-wrap:balance]">
-              {DATA.title}
-            </h1>
+    <p className="mt-6 text-sm md:text-base text-zinc-600 dark:text-zinc-300 max-w-xl">
+      Ingénieur data diplômé RNCP niveau 7 en ingénierie des données et expert IA, motivé pour construire des pipelines de bout en bout,
+      industrialiser la donnée et livrer des plateformes fiables au service des équipes métier, produit et R&amp;D.
+    </p>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#contact" className={BTN}>
-                <Mail className="h-4 w-4" /> Me contacter
-              </a>
-              <a href={DATA.cvUrl} download className={BTN} aria-label="Télécharger le CV">
-                <Download className="h-4 w-4" /> Télécharger le CV
-              </a>
-              <a href={DATA.github} target="_blank" rel="noreferrer" className={BTN} aria-label="Ouvrir GitHub">
-                <Github className="h-4 w-4" /> GitHub
-              </a>
-              <a href={DATA.linkedin} target="_blank" rel="noreferrer" className={BTN} aria-label="Ouvrir LinkedIn">
-                <Linkedin className="h-4 w-4" /> LinkedIn
-              </a>
-            </div>
-
-            <div className="mt-6 flex flex-wrap">
-              {["dbt","Airflow","ClickHouse","Python","SQL","Docker","Azure","Grafana"].map((b) => (<Badge key={b}>{b}</Badge>))}
-            </div>
-          </div>
-          <div className="flex md:justify-end">
-            <Avatar src={DATA.avatar} name={DATA.name} />
-          </div>
-        </motion.div>
-      </section>
-    </div>
   );
 }
 
@@ -987,43 +943,6 @@ const SKILLS = [
    Contact
    ───────────────────────────────────────────────────────────── */
 
-function Contact() {
-  return (
-    <Section id="contact" title="Contact" icon={<Mail className="h-6 w-6" />}>
-      <Card>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <div className="font-medium mb-1">Travaillons ensemble</div>
-            <p className="text-sm text-zinc-600 dark:text-zinc-300">
-              {DATA.location} — disponible pour postes CDI / missions.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 flex-wrap">
-            <a href={DATA.email} className={BTN}>
-              <Mail className="h-4 w-4" /> Email
-            </a>
-            <a href={DATA.phone} className={BTN}>
-              <Phone className="h-4 w-4" /> +33 6 11 27 91 53
-            </a>
-            <a href={DATA.github} target="_blank" rel="noreferrer" className={BTN}>
-              <Github className="h-4 w-4" /> GitHub
-            </a>
-            <a href={DATA.linkedin} target="_blank" rel="noreferrer" className={BTN}>
-              <Linkedin className="h-4 w-4" /> LinkedIn
-            </a>
-            <a href={DATA.cvUrl} download className={BTN}>
-              <Download className="h-4 w-4" /> Télécharger le CV
-            </a>
-          </div>
-        </div>
-      </Card>
-      <div className="mt-6 text-xs opacity-60">
-        © {new Date().getFullYear()} {DATA.name}. Portfolio construit avec React & Tailwind.
-      </div>
-    </Section>
-  );
-}
-
 /* ─────────────────────────────────────────────────────────────
    Scrollspy + navigation (flèches / PageUp-Down)
    ───────────────────────────────────────────────────────────── */
@@ -1119,8 +1038,6 @@ export default function Portfolio() {
       </Section>
 
       <Education />
-      <Contact />
-
       {/* Contrôles de navigation gauche/droite */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 hidden md:flex gap-3">
         <button className={BTN_SM} onClick={() => pager.go(-1)}>
@@ -1130,11 +1047,6 @@ export default function Portfolio() {
           Suivant <ArrowRight className="h-4 w-4" />
         </button>
       </div>
-
-      {/* Bouton contact flottant (mobile) */}
-      <a href="#contact" className="md:hidden fixed bottom-4 right-4 z-40 rounded-full shadow-lg px-4 py-2 bg-black text-white">
-        Contact
-      </a>
     </div>
   );
 }
