@@ -176,15 +176,52 @@ function Header({ activeId }) {
 
 function Hero() {
   return (
-                                  <p className="mt-6 text-sm md:text-base text-zinc-600 dark:text-zinc-300 max-w-xl">
-                                  Ingénieur Data diplômé RNCP niveau 7, spécialisé dans la conception de pipelines de données, la structuration du stockage des données,
-                                  la fiabilisation des traitements end-to-end et l’exploitation quotidienne de plateformes analytiques en production.
-                                   Habitué à industrialiser les flux de données end-to-end avec une forte exigence de qualité, supervision et robustesse.
-                                  </p>
+    <div className="relative overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zinc-50 to-transparent dark:from-zinc-950" />
 
+      <section className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="grid md:grid-cols-2 gap-8 items-center"
+        >
 
+          {/* COLONNE GAUCHE */}
+          <div>
+            <div className="text-xs md:text-sm inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-4">
+              <Rocket className="h-4 w-4" /> Disponible pour CDI / Mission
+            </div>
+
+            <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">
+              {DATA.title}
+            </h1>
+
+            <p className="mt-6 text-sm md:text-base text-zinc-600 dark:text-zinc-300 max-w-xl">
+              Ingénieur Data diplômé RNCP niveau 7, spécialisé dans la conception de pipelines d'ingestion et de transformations ETL/ELT,
+              la structuration des plateformes de stockage de données, la fiabilisation et la supervision des traitements et 
+              l’exploitation et l'administration de plateformes analytiques en production. Habitué à industrialiser les flux 
+              end-to-end avec une forte exigence de qualité, modularité, supervision et robustesse.
+            </p>
+
+            <div className="mt-6 flex flex-wrap">
+              {["dbt", "Airflow", "ClickHouse", "Python", "SQL", "Docker", "Azure", "Grafana"].map((b) => (
+                <Badge key={b}>{b}</Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* COLONNE DROITE : AVATAR */}
+          <div className="flex md:justify-end">
+            <Avatar src={DATA.avatar} name={DATA.name} />
+          </div>
+
+        </motion.div>
+      </section>
+    </div>
   );
 }
+
 
 /* ─────────────────────────────────────────────────────────────
    Projects — poster & theme
