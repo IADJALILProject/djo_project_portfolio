@@ -176,10 +176,12 @@ function Header({ activeId }) {
 
 function Hero() {
   return (
-    <p className="mt-6 text-sm md:text-base text-zinc-600 dark:text-zinc-300 max-w-xl">
-      Ingénieur data diplômé RNCP niveau 7 en ingénierie des données et expert IA, motivé pour construire des pipelines de bout en bout,
-      industrialiser la donnée et livrer des plateformes fiables au service des équipes métier, produit et R&amp;D.
-    </p>
+                                  <p className="mt-6 text-sm md:text-base text-zinc-600 dark:text-zinc-300 max-w-xl">
+                                  Ingénieur Data diplômé RNCP niveau 7, spécialisé dans la conception de pipelines de données, la structuration du stockage des données,
+                                  la fiabilisation des traitements end-to-end et l’exploitation quotidienne de plateformes analytiques en production.
+                                   Habitué à industrialiser les flux de données end-to-end avec une forte exigence de qualité, supervision et robustesse.
+                                  </p>
+
 
   );
 }
