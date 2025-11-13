@@ -26,7 +26,7 @@ const DATA = {
   phone: "tel:+33 0611279153",
   github: "https://github.com/IADJALILProject",
   linkedin: "https://www.linkedin.com/in/djalil-salah-bey/",
-  cvUrl: "/Djalil_SBY_Engineer.pdf",
+  cvUrl: "/Djalill.pdf",
   avatar: "/avatar.jpg",
 };
 
@@ -737,10 +737,42 @@ const PROJECTS = [
   "link": [
     { "name": "GitHub", "url": "https://github.com/IADJALILProject/Agent_n8n" }
   ]
+},
+,
+{
+  "id": 6,
+  "brand": "PostgreSQL",
+  "image": "/admin.jpg",
+  "title": "PostgreSQL Admin – Automatisation Ansible & Sécurisation RLS",
+  "task": "Administration Base de Données / Sécurité / Maintenance",
+  "context": "Projet complet d’administration PostgreSQL pour un environnement institutionnel, incluant la création de schémas, le chargement de données, la sécurisation, l’automatisation et la maintenance. Le tout réalisé avec une architecture SQL propre et des scripts Ansible exécutés en local pour reproduire la configuration de production.",
+  "pitch": "Mise en place d'une base PostgreSQL structurée, sécurisée et automatisée : création de schémas métiers, contraintes, RLS, rôles, privilèges, seed des données, scripts de maintenance et déploiement Ansible end-to-end. Le projet illustre la maîtrise de l’administration PostgreSQL moderne et de l’automatisation DevOps légère.",
+  "highlights": [
+    "Structuration complète de la base : schémas référentiels, schémas métiers, tables citoyennes, vues, fonctions SQL",
+    "Jeux de données initiaux automatisés (seed) + rechargements CSV via scripts idempotents",
+    "Mise en place avancée de contraintes : clés primaires, clés étrangères, unicité, index et règles de validation",
+    "Sécurisation robuste par rôles & permissions : création de rôles applicatifs, droits granulaires et sécurité au niveau des lignes (RLS) pour les citoyens",
+    "Scripts Ansible pour déployer automatiquement le référentiel SQL, initialiser la base, exécuter les migrations et configurer les utilisateurs",
+    "Outils de maintenance : VACUUM, analyse des index, nettoyage des séquences, détection des requêtes longues",
+    "Suivi et audit SQL des requêtes lentes & performances, avec inspection régulière du plan d’exécution"
+  ],
+  "kpis": [
+    { "label": "Automatisation", "value": "100 %", "sub": "via Ansible Playbooks" },
+    { "label": "Sécurité", "value": "RLS + rôles", "sub": "protection par ligne pour les citoyens" },
+    { "label": "Qualité SQL", "value": "> 95 %", "sub": "tests manuels + validation des contraintes" },
+    { "label": "Maintenance", "value": "VACUUM + analyse", "sub": "job de monitoring SQL" }
+  ],
+  "impact": "Ce projet démontre la capacité à administrer, sécuriser, structurer et automatiser une base PostgreSQL professionnelle avec des scripts SQL propres et un déploiement Ansible reproductible. Il combine gouvernance, performance et automatisation dans un environnement proche production.",
+  "variant": "postgres",
+  "tags": [
+    "PostgreSQL", "SQL", "Ansible", "RLS", "Security", 
+    "Indexing", "Constraints", "Roles & Privileges",
+    "VACUUM", "Monitoring", "DevOps", "Automation"
+  ],
+  "link": [
+    { "name": "GitHub", "url": "https://github.com/IADJALILProject/db-admin-ville-marseille" }
+  ]
 }
-
-
-
 ]
 ;
 
