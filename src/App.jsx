@@ -198,14 +198,14 @@ function Hero() {
             </h1>
 
             <p className="mt-6 text-sm md:text-base text-zinc-600 dark:text-zinc-300 max-w-xl">
-              Ingénieur Data diplômé RNCP niveau 7, spécialisé dans la conception de pipelines d'ingestion et de transformations ETL/ELT,
-              la structuration des plateformes de stockage de données, la fiabilisation et la supervision des traitements et 
-              l’exploitation et l'administration de plateformes analytiques en production. Habitué à industrialiser les flux 
-              end-to-end avec une forte exigence de qualité, modularité, supervision et robustesse.
+              Ingénieur Data diplômé RNCP niveau 7, spécialisé dans la conception de pipelines d’ingestion et de transformation ETL/ELT, 
+              la structuration de plateformes de données, la fiabilisation et la supervision des traitements
+               ainsi que l’exploitation de plateformes analytiques en production. 
+               Habitué à industrialiser des flux end-to-end avec une forte exigence de qualité, de supervision et de robustesse.
             </p>
 
             <div className="mt-6 flex flex-wrap">
-              {["dbt", "Airflow", "ClickHouse", "Python", "SQL", "Docker", "Azure", "Grafana"].map((b) => (
+              {["Data Platforms", "Data Architectures", "Data Pipelines", "Data Processing","Data Modelling", "Logging and Monitoring", "Cloud", "CI/CD", "Data Partitioning"].map((b) => (
                 <Badge key={b}>{b}</Badge>
               ))}
             </div>
