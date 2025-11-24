@@ -20,7 +20,7 @@ import {
 
 const DATA = {
   name: "Djalil Salah-Bey",
-  title: "Data Platform Engineer ",
+  title: "Data Engineer ",
   location: "Marseille · Paris · Lille",
   email: "mailto:salahbeydjalil@gmail.com",
   phone: "tel:+33 0611279153",
@@ -199,9 +199,8 @@ function Hero() {
 
             <p className="mt-6 text-sm md:text-base text-zinc-600 dark:text-zinc-300 max-w-xl">
               Ingénieur Data spécialisé dans la conception de pipelines d’ingestion et de transformation ETL/ELT, 
-              la structuration de plateformes de données, la fiabilisation et la supervision des traitements
-               ainsi que l’exploitation de plateformes analytiques en production. 
-               Habitué à industrialiser des flux end-to-end avec une forte exigence de qualité, de supervision et de robustesse.
+              la structuration de stockage de données et la supervision des traitements de données.
+               Habitué à industrialiser des flux end-to-end dans des environnements cloud et on-premise.
             </p>
 
             <div className="mt-6 flex flex-wrap">
@@ -565,7 +564,7 @@ const PROJECTS = [
   "impact": "Ce projet démontre la capacité à administrer, sécuriser, structurer et automatiser une base PostgreSQL professionnelle avec des scripts SQL propres et un déploiement Ansible reproductible. Il combine gouvernance, performance et automatisation dans un environnement proche production.",
   "variant": "postgres",
   "tags": [
-    "PostgreSQL", "MySQL", "MSSQL","SQL", "Python", "Ansible", "Airflow", "Ghitub Actions"
+    "PostgreSQL", "SQL", "Python", "Ansible", "Airflow", "Docker","Ghitub Actions", "Grafana", "Prometheus"
   ],
   "link": [
     { "name": "GitHub", "url": "https://github.com/IADJALILProject/db-admin-ville-marseille" }
